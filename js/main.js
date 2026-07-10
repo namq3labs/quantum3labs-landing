@@ -346,6 +346,14 @@
   buildLabsCards();
   buildOtherProjects();
   initImageTrail();
+
+  // footer Work links open the project detail modal
+  document.querySelectorAll('[data-open-project]').forEach(link =>
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      openProjectModal(+link.dataset.openProject);
+    })
+  );
   document.querySelectorAll('.carousel').forEach(initCarousel);
 
   /* ─── live clock — Singapore HQ time (GMT+8) ───────────── */

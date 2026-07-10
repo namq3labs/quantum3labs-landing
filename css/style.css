@@ -775,6 +775,13 @@ canvas { display: block; }
   margin-bottom: 10px;
   letter-spacing: 0.08em;
 }
+.footer_col-title {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: clamp(20px, 1.8vw, 26px);
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
 .footer_link {
   font-size: 12px;
   text-transform: uppercase;
