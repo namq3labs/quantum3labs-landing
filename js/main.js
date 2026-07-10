@@ -39,7 +39,7 @@
     { title: '@Scaffold-eth',    tag: 'OPEN SOURCE', img: 'Scaffold ETH.png' },
     { title: '@WTFAcademy',      tag: 'OPEN SOURCE', img: 'WTFACADEMY.png' },
     { title: '@scaffold-stylus', tag: 'OPEN SOURCE', img: 'Scaffold Stylus.png' },
-    { title: '@solder',          tag: 'OPEN SOURCE' },                            // image TBD
+    { title: '@solder',          tag: 'OPEN SOURCE', img: 'Solder.png' },
     { title: '@pact-network',    tag: 'OPEN SOURCE', img: 'Pact network.png' },
     { title: '@arbuilder',       tag: 'OPEN SOURCE', img: 'Arbuilder.png' },
     { title: '@Openzeppelin',    tag: 'OPEN SOURCE', img: 'Openzeppelin.png' },
