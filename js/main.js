@@ -252,11 +252,62 @@
     });
   }
 
+  /* ─── image trail in the Careers section ───────────────── */
+
+  function initImageTrail() {
+    const section = document.getElementById('careers');
+    if (!section || !matchMedia('(pointer: fine)').matches) return;
+
+    const IMAGES = [
+      'Gallery.png', 'Gallery-1.png', 'Gallery-2.png', 'Gallery-3.png',
+      'Gallery-4.png', 'Gallery-5.png', 'Gallery-6.png',
+    ].map(f => encodeURI('public/Careers/' + f));
+    IMAGES.forEach(src => { const i = new Image(); i.src = src; });
+
+    const layer = document.createElement('div');
+    layer.className = 'trail-layer';
+    section.appendChild(layer);
+
+    const THRESHOLD = 110; // px of cursor travel between spawns
+    let lastX = -1e4, lastY = -1e4, idx = 0;
+
+    section.addEventListener('pointermove', e => {
+      const rect = section.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (Math.hypot(x - lastX, y - lastY) < THRESHOLD) return;
+      lastX = x; lastY = y;
+
+      const img = document.createElement('img');
+      img.className = 'trail-img';
+      img.src = IMAGES[idx++ % IMAGES.length];
+      img.draggable = false;
+      layer.appendChild(img);
+
+      const rot = (Math.random() - 0.5) * 16;
+      img.style.left = x + 'px';
+      img.style.top = y + 'px';
+      img.animate([
+        { transform: `translate(-50%, -50%) scale(0.55) rotate(${rot}deg)`, opacity: 0 },
+        { transform: `translate(-50%, -50%) scale(1) rotate(${rot}deg)`, opacity: 1 },
+      ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' });
+
+      setTimeout(() => {
+        img.animate([
+          { transform: `translate(-50%, -50%) scale(1) rotate(${rot}deg)`, opacity: 1 },
+          { transform: `translate(-50%, -30%) scale(0.9) rotate(${rot}deg)`, opacity: 0 },
+        ], { duration: 420, easing: 'ease-out', fill: 'forwards' })
+          .onfinish = () => img.remove();
+      }, 480);
+    });
+  }
+
   buildWorkCards();
   buildLabsCards();
   buildOtherProjects();
   initPixelHover();
   initScramble();
+  initImageTrail();
   document.querySelectorAll('.carousel').forEach(initCarousel);
 
   /* ─── live clock — Singapore HQ time (GMT+8) ───────────── */
