@@ -268,65 +268,6 @@
     });
   }
 
-  /* ─── pixel shimmer on card hover ──────────────────────── */
-
-  function initPixelHover() {
-    const COLORS = ['#4D58FF', '#8f96ff', '#c3c8ff', '#e9eaf5'];
-    const GAP = 10; // cell grid pitch in px
-
-    document.querySelectorAll('.card_media, .product_frame').forEach(frame => {
-      const canvas = document.createElement('canvas');
-      canvas.className = 'pixel-canvas';
-      frame.appendChild(canvas);
-      const ctx = canvas.getContext('2d');
-      let cells = [], raf = null, progress = 0, target = 0, last = 0;
-
-      function build() {
-        const w = canvas.width = frame.offsetWidth;
-        const h = canvas.height = frame.offsetHeight;
-        cells = [];
-        for (let y = 0; y < h; y += GAP) {
-          for (let x = 0; x < w; x += GAP) {
-            cells.push({
-              x, y,
-              delay: Math.random(),
-              phase: Math.random() * Math.PI * 2,
-              color: COLORS[(Math.random() * COLORS.length) | 0],
-              size: 3 + Math.random() * 6,
-            });
-          }
-        }
-      }
-
-      function loop(t) {
-        const dt = Math.min(0.05, (t - last) / 1000);
-        last = t;
-        progress = Math.max(0, Math.min(1, progress + (target ? 1 : -1) * dt * 2.4));
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (progress <= 0) { raf = null; return; }
-        for (const c of cells) {
-          const local = Math.max(0, Math.min(1, (progress - c.delay * 0.6) / 0.4));
-          if (!local) continue;
-          const twinkle = 0.65 + 0.35 * Math.sin(t * 0.006 + c.phase);
-          ctx.globalAlpha = local * twinkle;
-          ctx.fillStyle = c.color;
-          const s = c.size * local;
-          ctx.fillRect(c.x, c.y, s, s);
-        }
-        ctx.globalAlpha = 1;
-        raf = requestAnimationFrame(loop);
-      }
-
-      function ensureLoop() {
-        if (!raf) { last = performance.now(); raf = requestAnimationFrame(loop); }
-      }
-
-      const card = frame.closest('.card') || frame;
-      card.addEventListener('pointerenter', () => { build(); target = 1; ensureLoop(); });
-      card.addEventListener('pointerleave', () => { target = 0; ensureLoop(); });
-    });
-  }
-
   /* ─── image trail in the Careers section ───────────────── */
 
   function initImageTrail() {
@@ -382,7 +323,6 @@
   buildWorkCards();
   buildLabsCards();
   buildOtherProjects();
-  initPixelHover();
   initImageTrail();
   document.querySelectorAll('.carousel').forEach(initCarousel);
 
