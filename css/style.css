@@ -302,7 +302,7 @@ canvas { display: block; }
 .carousel_track {
   display: flex;
   gap: clamp(16px, 2vw, 28px);
-  padding: 30px var(--pad); /* vertical room for the hover tilt/lift */
+  padding: 0 var(--pad);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-padding-left: var(--pad);
@@ -317,7 +317,11 @@ canvas { display: block; }
   width: clamp(280px, 30vw, 420px);
   scroll-snap-align: start;
   user-select: none;
+  transition: opacity 0.6s var(--ease-expo);
 }
+/* dim the rest of the row while one card is hovered */
+.carousel_track:hover .card { opacity: 0.5; }
+.carousel_track .card:hover { opacity: 1; }
 .card_media {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -325,8 +329,8 @@ canvas { display: block; }
   background: var(--ph);
   transition: transform 0.6s var(--ease-expo);
 }
-/* hover: tilt 5deg right + lift, pixel shimmer overlay (see initPixelHover) */
-.card:hover .card_media { transform: rotate(5deg) translateY(-10px); }
+/* hover: card scales down 2%, siblings in the row dim to 0.5 */
+.card:hover .card_media { transform: scale(0.98); }
 /* image slot — swap the .ph fill for the real artwork */
 .card_media .ph { position: absolute; inset: 0; }
 .card_media::after {
@@ -356,7 +360,7 @@ canvas { display: block; }
   overflow: hidden;
   transition: transform 0.6s var(--ease-expo);
 }
-.card:hover .product_frame { transform: rotate(5deg) translateY(-10px); }
+.card:hover .product_frame { transform: scale(0.98); }
 .product_frame .ph { position: absolute; inset: 0; }
 .product_img {
   position: absolute; inset: 0;
