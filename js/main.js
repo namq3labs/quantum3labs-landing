@@ -24,23 +24,24 @@
   ];
 
   // handles verbatim from quantum3labs.com — "open-source contributions"
+  const OSS_DIR = 'public/open-source contributions/';
   const LABS = [
-    { title: '@Scaffold-Stark',  tag: 'OPEN SOURCE' },
-    { title: '@buidlguidl',      tag: 'OPEN SOURCE' },
-    { title: '@themarquis',      tag: 'OPEN SOURCE' },
-    { title: '@uniswap',         tag: 'OPEN SOURCE' },
-    { title: '@foundry',         tag: 'OPEN SOURCE' },
-    { title: '@polypay',         tag: 'OPEN SOURCE' },
-    { title: '@humanprotocol',   tag: 'OPEN SOURCE' },
-    { title: '@dojo',            tag: 'OPEN SOURCE' },
-    { title: '@Futaba Labs',     tag: 'OPEN SOURCE' },
-    { title: '@Scaffold-eth',    tag: 'OPEN SOURCE' },
-    { title: '@WTFAcademy',      tag: 'OPEN SOURCE' },
-    { title: '@scaffold-stylus', tag: 'OPEN SOURCE' },
-    { title: '@solder',          tag: 'OPEN SOURCE' },
-    { title: '@pact-network',    tag: 'OPEN SOURCE' },
-    { title: '@arbuilder',       tag: 'OPEN SOURCE' },
-    { title: '@Openzeppelin',    tag: 'OPEN SOURCE' },
+    { title: '@Scaffold-Stark',  tag: 'OPEN SOURCE', img: 'Scaffold-stark.png' },
+    { title: '@buidlguidl',      tag: 'OPEN SOURCE', img: 'BuidlGuidl.png' },
+    { title: '@themarquis',      tag: 'OPEN SOURCE', img: 'The marquis.png' },
+    { title: '@uniswap',         tag: 'OPEN SOURCE', img: 'Uniswap.png' },
+    { title: '@foundry',         tag: 'OPEN SOURCE', img: 'Foundry.png' },
+    { title: '@polypay',         tag: 'OPEN SOURCE', img: 'Polypay.png' },
+    { title: '@humanprotocol',   tag: 'OPEN SOURCE', img: 'Human protocol.png' },
+    { title: '@dojo',            tag: 'OPEN SOURCE', img: 'Dojo.png' },
+    { title: '@Futaba Labs',     tag: 'OPEN SOURCE', img: 'Futaba labs.png' },
+    { title: '@Scaffold-eth',    tag: 'OPEN SOURCE', img: 'Scaffold ETH.png' },
+    { title: '@WTFAcademy',      tag: 'OPEN SOURCE', img: 'WTFACADEMY.png' },
+    { title: '@scaffold-stylus', tag: 'OPEN SOURCE', img: 'Scaffold Stylus.png' },
+    { title: '@solder',          tag: 'OPEN SOURCE' },                            // image TBD
+    { title: '@pact-network',    tag: 'OPEN SOURCE', img: 'Pact network.png' },
+    { title: '@arbuilder',       tag: 'OPEN SOURCE', img: 'Arbuilder.png' },
+    { title: '@Openzeppelin',    tag: 'OPEN SOURCE', img: 'Openzeppelin.png' },
   ];
 
   /* ─── build carousels ──────────────────────────────────── */
@@ -70,10 +71,13 @@
       const card = document.createElement('a');
       card.href = '#footer';
       card.className = 'card';
+      const media = item.img
+        ? `<img class="product_img" src="${encodeURI(OSS_DIR + item.img)}" alt="${item.title}" loading="lazy" draggable="false" />`
+        : '<div class="ph"></div>';
       card.innerHTML = `
         <div class="product_frame">
           <span class="product_plus is-l">+</span>
-          <div class="ph"></div>
+          ${media}
           <span class="product_plus is-r">+</span>
         </div>
         <div class="product_meta">
