@@ -479,6 +479,9 @@ canvas { display: block; }
 /* project rows keep verbatim casing (e.g. scaffold-iCP) */
 .services_title.is-project { text-transform: none; }
 .other-projects { padding-top: 0; }
+/* compact rows for the other-projects list */
+.other-projects .services_row { padding: 14px 0; }
+.other-projects .services_title { font-size: clamp(17px, 1.5vw, 22px); }
 
 /* ─── careers ──────────────────────────────────────────────── */
 
