@@ -212,46 +212,6 @@
     });
   }
 
-  /* ─── scrambled-text on title hover (0.7s resolve) ─────── */
-
-  function initScramble() {
-    const CHARS = '!<>-_\\/[]{}=+*^?#';
-    const DURATION = 700;
-
-    function scramble(el) {
-      if (el.dataset.scrambling) return;
-      const original = el.dataset.original || (el.dataset.original = el.textContent);
-      el.dataset.scrambling = '1';
-      const start = performance.now();
-      (function tick(now) {
-        const p = Math.min(1, (now - start) / DURATION);
-        const solved = Math.floor(p * original.length);
-        let out = original.slice(0, solved);
-        for (let i = solved; i < original.length; i++) {
-          out += original[i] === ' ' ? ' ' : CHARS[(Math.random() * CHARS.length) | 0];
-        }
-        el.textContent = out;
-        if (p < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          el.textContent = original;
-          delete el.dataset.scrambling;
-        }
-      })(start);
-    }
-
-    [
-      ['.card', '.card_title'],
-      ['.services_row', '.services_title'],
-      ['.careers_row', '.careers_role'],
-    ].forEach(([rowSel, titleSel]) => {
-      document.querySelectorAll(rowSel).forEach(row => {
-        const title = row.querySelector(titleSel);
-        if (title) row.addEventListener('pointerenter', () => scramble(title));
-      });
-    });
-  }
-
   /* ─── image trail in the Careers section ───────────────── */
 
   function initImageTrail() {
@@ -268,14 +228,20 @@
     layer.className = 'trail-layer';
     section.appendChild(layer);
 
-    const THRESHOLD = 110; // px of cursor travel between spawns
+    const THRESHOLD = 70;   // px of cursor travel between spawns
+    const MAX_LIVE = 10;    // concurrent images cap
     let lastX = -1e4, lastY = -1e4, idx = 0;
 
     section.addEventListener('pointermove', e => {
       const rect = section.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      if (Math.hypot(x - lastX, y - lastY) < THRESHOLD) return;
+      const dx = x - lastX, dy = y - lastY;
+      if (Math.hypot(dx, dy) < THRESHOLD) return;
+
+      // drift direction follows cursor motion for continuity
+      const len = Math.hypot(dx, dy) || 1;
+      const driftX = (dx / len) * 46, driftY = (dy / len) * 46;
       lastX = x; lastY = y;
 
       const img = document.createElement('img');
@@ -283,22 +249,18 @@
       img.src = IMAGES[idx++ % IMAGES.length];
       img.draggable = false;
       layer.appendChild(img);
+      while (layer.children.length > MAX_LIVE) layer.firstChild.remove();
 
-      const rot = (Math.random() - 0.5) * 16;
+      const rot = (Math.random() - 0.5) * 12;
       img.style.left = x + 'px';
       img.style.top = y + 'px';
       img.animate([
-        { transform: `translate(-50%, -50%) scale(0.55) rotate(${rot}deg)`, opacity: 0 },
-        { transform: `translate(-50%, -50%) scale(1) rotate(${rot}deg)`, opacity: 1 },
-      ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' });
-
-      setTimeout(() => {
-        img.animate([
-          { transform: `translate(-50%, -50%) scale(1) rotate(${rot}deg)`, opacity: 1 },
-          { transform: `translate(-50%, -30%) scale(0.9) rotate(${rot}deg)`, opacity: 0 },
-        ], { duration: 420, easing: 'ease-out', fill: 'forwards' })
-          .onfinish = () => img.remove();
-      }, 480);
+        { transform: `translate(-50%, -50%) scale(0.8) rotate(${rot}deg)`, opacity: 0 },
+        { transform: `translate(-50%, -50%) scale(1) rotate(${rot}deg)`, opacity: 1, offset: 0.28 },
+        { transform: `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(1.02) rotate(${rot}deg)`, opacity: 1, offset: 0.55 },
+        { transform: `translate(calc(-50% + ${driftX * 1.8}px), calc(-50% + ${driftY * 1.8}px)) scale(0.94) rotate(${rot}deg)`, opacity: 0 },
+      ], { duration: 1300, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' })
+        .onfinish = () => img.remove();
     });
   }
 
@@ -306,7 +268,6 @@
   buildLabsCards();
   buildOtherProjects();
   initPixelHover();
-  initScramble();
   initImageTrail();
   document.querySelectorAll('.carousel').forEach(initCarousel);
 
