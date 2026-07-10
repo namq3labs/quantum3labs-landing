@@ -22,7 +22,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* native smooth scroll disabled — Lenis drives the scroll (js/main.js) */
 
 body {
   background: var(--paper);

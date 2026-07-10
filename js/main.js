@@ -6,6 +6,12 @@
 
 (function () {
 
+  /* ─── smooth scroll (Lenis) ────────────────────────────── */
+
+  const lenis = typeof Lenis !== 'undefined'
+    ? new Lenis({ autoRaf: true, anchors: true, lerp: 0.1 })
+    : null;
+
   /* ─── data (placeholder content — TBD) ─────────────────── */
 
   // featured projects — carousel + detail modal (copy is placeholder, TBD)
@@ -123,7 +129,7 @@
     modal = document.createElement('div');
     modal.className = 'pmodal';
     modal.innerHTML = `
-      <div class="pmodal_side">
+      <div class="pmodal_side" data-lenis-prevent>
         <p class="eyebrow"><span class="square"></span>FEATURED PROJECTS</p>
         <ul class="pmodal_list">
           ${WORK.map((p, i) => `
@@ -136,7 +142,7 @@
             </li>`).join('')}
         </ul>
       </div>
-      <div class="pmodal_main">
+      <div class="pmodal_main" data-lenis-prevent>
         <div class="pmodal_head">
           <h3 class="pmodal_title"></h3>
           <a class="text-link pmodal_visit" target="_blank" rel="noopener">VISIT SITE <span class="text-link_arrow">↳</span></a>
@@ -195,12 +201,14 @@
     selectProject(i);
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
   }
 
   function closeProjectModal() {
     if (!modal) return;
     modal.classList.remove('is-open');
     document.body.style.overflow = '';
+    if (lenis) lenis.start();
   }
 
   function buildLabsCards() {
