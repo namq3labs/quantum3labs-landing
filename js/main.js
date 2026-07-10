@@ -18,6 +18,7 @@
   const WORK = [
     {
       title: 'Stormbit', date: '2025', tag: 'DEFI',
+      logo: 'public/featured-project/Stormbit.png',
       blurb: 'Decentralized lending infrastructure.',
       statement: 'A LENDING PROTOCOL THAT TURNS IDLE LIQUIDITY INTO OPPORTUNITY FOR BUILDERS AND FUNDS.',
       dev: ['PROTOCOL DESIGN', 'SMART CONTRACTS', 'SECURITY AUDIT'],
@@ -28,6 +29,7 @@
     },
     {
       title: 'Qash', date: '2025', tag: 'FINTECH',
+      logo: 'public/featured-project/Qash.png',
       blurb: 'Payments that move at market speed.',
       statement: 'A PAYMENTS STACK THAT MAKES MOVING MONEY FEEL LIKE MOVING DATA.',
       dev: ['FULLSTACK BUILD', 'INFRASTRUCTURE', 'CMS SETUP'],
@@ -38,6 +40,7 @@
     },
     {
       title: 'Prism', date: '2025', tag: 'ANALYTICS',
+      logo: 'public/featured-project/Prism.png',
       blurb: 'Seeing on-chain data in full spectrum.',
       statement: 'AN ANALYTICS SURFACE THAT SPLITS RAW ON-CHAIN NOISE INTO SIGNALS TEAMS CAN ACT ON.',
       dev: ['DATA PIPELINE', 'API DESIGN', 'DASHBOARDS'],
@@ -48,6 +51,7 @@
     },
     {
       title: 'Polypay', date: '2025', tag: 'PAYMENTS',
+      logo: 'public/featured-project/Polypay.png',
       blurb: 'One checkout for every chain.',
       statement: 'A CHECKOUT LAYER THAT LETS ANY BUSINESS ACCEPT ANY ASSET ON ANY CHAIN.',
       dev: ['SDK & INTEGRATIONS', 'SMART CONTRACTS', 'INFRA'],
@@ -58,6 +62,7 @@
     },
     {
       title: 'Pact Network', date: '2025', tag: 'PROTOCOL',
+      logo: 'public/featured-project/Pact.png',
       blurb: 'Agreements that enforce themselves.',
       statement: 'A COORDINATION NETWORK WHERE COMMITMENTS ARE CODE AND TRUST IS THE DEFAULT.',
       dev: ['PROTOCOL DESIGN', 'NODE INFRASTRUCTURE', 'AUDITS'],
@@ -134,7 +139,9 @@
         <ul class="pmodal_list">
           ${WORK.map((p, i) => `
             <li class="pmodal_item" data-index="${i}">
-              <span class="pmodal_thumb ph"></span>
+              ${p.logo
+                ? `<img class="pmodal_thumb" src="${encodeURI(p.logo)}" alt="${p.title}" draggable="false" />`
+                : '<span class="pmodal_thumb ph"></span>'}
               <span class="pmodal_item-meta">
                 <span class="pmodal_item-title">${p.title}</span>
                 <span class="pmodal_item-blurb">${p.blurb}</span>

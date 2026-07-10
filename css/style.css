@@ -645,7 +645,7 @@ canvas { display: block; }
 .pmodal_list { list-style: none; margin-top: 22px; }
 .pmodal_item {
   display: grid;
-  grid-template-columns: 56px 1fr;
+  grid-template-columns: 48px 1fr;
   gap: 14px;
   align-items: center;
   padding: 14px 10px;
@@ -656,7 +656,13 @@ canvas { display: block; }
 .pmodal_item:last-child { border-bottom: 1px solid var(--hairline); }
 .pmodal_item:hover { background: rgba(77, 88, 255, 0.05); }
 .pmodal_item.is-active { background: rgba(77, 88, 255, 0.08); padding-left: 16px; }
-.pmodal_thumb { display: block; width: 56px; height: 44px; }
+.pmodal_thumb {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+}
 .pmodal_item-meta { display: flex; flex-direction: column; gap: 3px; }
 .pmodal_item-title { font-size: 13px; }
 .pmodal_item.is-active .pmodal_item-title { color: var(--brand); }
