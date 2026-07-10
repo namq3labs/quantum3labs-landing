@@ -510,9 +510,10 @@ canvas { display: block; }
 /* ─── partners (logo placeholders) ─────────────────────────── */
 
 .partners { padding-top: 0; }
+/* 24 slots — 3 rows × 8 columns */
 .partners_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(8, 1fr);
   gap: 1px;
   margin-top: 26px;
   border: 1px solid var(--hairline);
@@ -648,6 +649,7 @@ canvas { display: block; }
   .about_copy { justify-self: start; }
   .careers_right { justify-self: start; }
   .hiring_grid { grid-template-columns: 1fr; }
+  .partners_grid { grid-template-columns: repeat(4, 1fr); }
   .services_row { grid-template-columns: 44px 1fr 20px; }
   .services_desc { grid-column: 2; }
   .services_arrow { grid-row: 1; grid-column: 3; }
