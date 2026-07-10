@@ -2,16 +2,17 @@
 
 Landing page redesign for Quantum3labs, art-directed after the technical/HUD aesthetic
 of [noartmusic.com](https://www.noartmusic.com/) and recolored with the Quantum3labs
-brand color **`#4D58FF`**. All copy and imagery are placeholders — final content TBD.
+brand color **`#4D58FF`**. All copy is placeholder — final content TBD. Every image
+slot is a flat light-gray placeholder (`.ph`) waiting for real imagery.
 
 ## Stack
 
-Static site, no build step:
+Static site, no build step and no JS dependencies:
 
 - Plain HTML / CSS / vanilla JS
-- [GSAP + ScrollTrigger](https://gsap.com/) (CDN) for intro and scroll animations
-- Canvas 2D for the hero particle field, rotating globe, and generative placeholder art
-- Google Fonts: Archivo (display), Chivo Mono (UI), Permanent Marker (script logo)
+- Canvas 2D for the rotating globe
+- Fonts: Helvetica Neue / Inter Tight (display), Chivo Mono (UI — same as reference),
+  Nanum Pen Script (handwritten logo)
 
 ## Run locally
 
@@ -27,23 +28,31 @@ python3 -m http.server 8080
 
 ```
 index.html        page markup (all sections)
-css/style.css     design system + layout + effects
-js/main.js        preloader, hero canvas, carousels, GSAP reveals, live clock
+css/style.css     design system + layout + interaction transitions
+js/main.js        carousels, live clock, mobile menu
 js/globe.js       orthographic wireframe globe with pulsing brand markers
-js/art.js         deterministic generative placeholder art for cards
 ```
 
 ## Sections & effects
 
-| Section | Effects |
+Animation philosophy matches the reference site: **no load or scroll-triggered
+animations** — only interaction transitions, all on the `cubic-bezier(0.16, 1, 0.3, 1)`
+expo-out easing used by the reference.
+
+| Section | Behavior |
 | --- | --- |
-| Preloader | counter `[000]→[100]`, slide-up exit |
-| Hero | particle field + cursor-reactive brand glow, film grain, perspective grid, script logo with corner brackets, parallax on scroll |
-| About | masked headline line-reveals, justified mono paragraphs |
-| Work carousel | drag/snap scrolling, tick progress bar, prev/next, hover zoom |
+| Hero | full-bleed image slot, handwritten logo with corner brackets, mission text + NEXT UP card |
+| About | display headline + justified mono paragraphs |
+| Work carousel | drag/snap scrolling, tick progress bar, prev/next, hover zoom on image slot |
 | Globe | rotating wireframe globe (canvas), pulsing `#4D58FF` markers, live local time + rotating lat/lon readout |
-| Labs carousel | product-style cards with `+` corner marks |
+| Labs carousel | product-style cards with `+` marks |
 | Footer | framed grid with `[BRACKETED]` column heads |
 
-Global: fixed viewport HUD corner brackets (blend-mode difference), blinking square
+Global: fixed viewport HUD corner brackets (blend-mode difference), brand square
 markers, brand-blue text selection, mono uppercase type system.
+
+## Swapping in real imagery
+
+Replace any `<div class="ph"></div>` with an `<img>` (or set a `background-image`
+on the same element). Slots: `.hero_media`, `.hero_next-thumb`, `.card_media .ph`,
+`.product_frame .ph`.

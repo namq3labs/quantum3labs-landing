@@ -7,17 +7,11 @@
   <meta name="description" content="Quantum3labs is an independent software lab crafting products, protocols and experiences at unique intersections of design and engineering." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Chivo+Mono:wght@300;400;500&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Chivo+Mono:wght@300;400;500&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234D58FF'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='monospace'>Q3</text></svg>" />
 </head>
 <body>
-
-  <!-- ═══ preloader ═══ -->
-  <div class="preloader" id="preloader">
-    <div class="preloader_logo">Quantum3</div>
-    <div class="preloader_count" id="preloader-count">[000]</div>
-  </div>
 
   <!-- ═══ fixed viewport HUD frame ═══ -->
   <div class="hud" aria-hidden="true">
@@ -65,10 +59,9 @@
 
   <main>
 
-    <!-- ═══ HERO ═══ -->
+    <!-- ═══ HERO — full-bleed image slot (placeholder) ═══ -->
     <section class="hero" id="hero">
-      <canvas class="hero_canvas" id="hero-canvas"></canvas>
-      <div class="hero_grain" aria-hidden="true"></div>
+      <div class="hero_media ph" aria-hidden="true"></div>
 
       <div class="hero_logo-wrap">
         <span class="hero_bracket is-tl"></span>
@@ -80,7 +73,7 @@
 
       <div class="hero_bottom">
         <div class="hero_mission">
-          <p class="eyebrow is-light"><span class="square"></span>BROADEN YOUR BUILD</p>
+          <p class="eyebrow"><span class="square"></span>BROADEN YOUR BUILD</p>
           <p class="hero_mission-text">
             QUANTUM3LABS IS AN INDEPENDENT SOFTWARE LAB ENGINEERING
             PRODUCTS, PROTOCOLS AND UNCONVENTIONAL DIGITAL
@@ -89,30 +82,23 @@
         </div>
 
         <a href="#work" class="hero_next">
-          <div class="hero_next-thumb" data-art="7"></div>
+          <div class="hero_next-thumb ph"></div>
           <div class="hero_next-meta">
-            <p class="eyebrow is-light"><span class="square"></span>NEXT UP</p>
+            <p class="eyebrow"><span class="square"></span>NEXT UP</p>
             <p class="hero_next-title">Q3 GENESIS<br/>PLATFORM</p>
             <p class="hero_next-date">JULY 18, 2026</p>
           </div>
         </a>
       </div>
-
-      <div class="hero_scrollhint" aria-hidden="true">SCROLL ↓</div>
     </section>
 
     <!-- ═══ ABOUT ═══ -->
     <section class="section about" id="about">
       <div class="container">
-        <p class="eyebrow reveal"><span class="square"></span>ABOUT QUANTUM3LABS</p>
+        <p class="eyebrow"><span class="square"></span>ABOUT QUANTUM3LABS</p>
         <div class="about_grid">
-          <h2 class="about_headline headline">
-            <span class="line-mask"><span class="line">A LAB WHERE</span></span>
-            <span class="line-mask"><span class="line">CODE, DESIGN</span></span>
-            <span class="line-mask"><span class="line">AND PEOPLE</span></span>
-            <span class="line-mask"><span class="line">UNITE</span></span>
-          </h2>
-          <div class="about_copy reveal">
+          <h2 class="about_headline headline">A LAB WHERE CODE, DESIGN AND PEOPLE UNITE</h2>
+          <div class="about_copy">
             <p class="mono-block">
               QUANTUM3LABS IS AN INDEPENDENT SOFTWARE LAB THAT ENGINEERS
               PRODUCTS AND GROUNDBREAKING PROTOCOLS FOR UNIQUE PROBLEMS.
@@ -134,8 +120,8 @@
     <!-- ═══ WORK CAROUSEL ═══ -->
     <section class="section work" id="work">
       <div class="container work_head">
-        <p class="eyebrow reveal"><span class="square"></span>SELECTED WORK</p>
-        <a href="#footer" class="text-link reveal">EXPLORE ALL <span class="text-link_arrow">↳</span></a>
+        <p class="eyebrow"><span class="square"></span>SELECTED WORK</p>
+        <a href="#footer" class="text-link">EXPLORE ALL <span class="text-link_arrow">↳</span></a>
       </div>
 
       <div class="carousel" id="work-carousel">
@@ -155,17 +141,13 @@
     <section class="section globe" id="globe">
       <div class="container globe_grid">
         <div class="globe_left">
-          <h2 class="headline globe_headline">
-            <span class="line-mask"><span class="line">SHIPPING</span></span>
-            <span class="line-mask"><span class="line">AROUND THE</span></span>
-            <span class="line-mask"><span class="line">GLOBE</span></span>
-          </h2>
-          <div class="globe_filter reveal">
+          <h2 class="headline globe_headline">SHIPPING AROUND THE GLOBE</h2>
+          <div class="globe_filter">
             <button class="globe_filter-btn is-active" data-filter="all">ALL</button>
             <span>/</span>
             <button class="globe_filter-btn" data-filter="live">LIVE</button>
           </div>
-          <div class="globe_coords mono-block reveal">
+          <div class="globe_coords mono-block">
             <p><span class="dim">LAT:</span> <span id="globe-lat">3.1390&deg; N</span></p>
             <p><span class="dim">LON:</span> <span id="globe-lon">101.6869&deg; E</span></p>
           </div>
@@ -178,11 +160,11 @@
         </div>
 
         <div class="globe_right">
-          <div class="globe_time mono-block reveal">
+          <div class="globe_time mono-block">
             <p><span class="dim">LOCAL TIME:</span> <span id="local-time">00:00:00</span></p>
             <p><span class="dim">TIME ZONE:</span> <span id="time-zone">GMT+7 (UTC+7)</span></p>
           </div>
-          <p class="mono-block reveal">
+          <p class="mono-block">
             QUANTUM3LABS MOVES FROM PROBLEM TO PROBLEM, BRINGING ITS
             CRAFT TO UNIQUE TEAMS ACROSS THE WORLD. EACH ENGAGEMENT
             ADDS ITS OWN ENERGY, SHAPED BY LOCAL PARTNERS, NEW
@@ -196,8 +178,8 @@
     <!-- ═══ LABS / PRODUCTS CAROUSEL ═══ -->
     <section class="section labs" id="labs">
       <div class="container work_head">
-        <p class="eyebrow reveal"><span class="square"></span>QUANTUM3 LABS</p>
-        <a href="#footer" class="text-link reveal">EXPLORE ALL <span class="text-link_arrow">↳</span></a>
+        <p class="eyebrow"><span class="square"></span>QUANTUM3 LABS</p>
+        <a href="#footer" class="text-link">EXPLORE ALL <span class="text-link_arrow">↳</span></a>
       </div>
 
       <div class="carousel" id="labs-carousel">
@@ -264,9 +246,6 @@
 
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="js/art.js"></script>
   <script src="js/globe.js"></script>
   <script src="js/main.js"></script>
 </body>
