@@ -8,33 +8,39 @@
 
   /* ─── data (placeholder content — TBD) ─────────────────── */
 
+  // titles verbatim from quantum3labs.com — "other projects / 2025"
   const WORK = [
-    { title: 'BROVE',           date: '2025' },
-    { title: 'SOLDER',          date: '2025' },
-    { title: 'SCAFFOLD-STARK',  date: '2025' },
-    { title: 'SCAFFOLD-STYLUS', date: '2025' },
-    { title: 'SCAFFOLD-ICP',    date: '2025' },
-    { title: 'AZTEC Q3X',       date: '2025' },
-    { title: 'ICP Q3X',         date: '2025' },
-    { title: 'THE MARQUIS',     date: '2025' },
-    { title: 'ARBUILDER',       date: '2025' },
-    { title: 'ICP CODER',       date: '2025' },
-    { title: 'STACKS-BUILDER',  date: '2025' },
+    { title: 'Brove',           date: '2025' },
+    { title: 'Solder',          date: '2025' },
+    { title: 'Scaffold-Stark',  date: '2025' },
+    { title: 'Scaffold-Stylus', date: '2025' },
+    { title: 'scaffold-iCP',    date: '2025' },
+    { title: 'Aztec q3x',       date: '2025' },
+    { title: 'ICP q3x',         date: '2025' },
+    { title: 'The Marquis',     date: '2025' },
+    { title: 'Arbuilder',       date: '2025' },
+    { title: 'iCP coder',       date: '2025' },
+    { title: 'stacks-builder',  date: '2025' },
   ];
 
+  // handles verbatim from quantum3labs.com — "open-source contributions"
   const LABS = [
-    { title: 'SCAFFOLD-STARK',    tag: 'CONTRIBUTOR' },
-    { title: 'BUIDLGUIDL',        tag: 'CONTRIBUTOR' },
-    { title: 'UNISWAP',           tag: 'CONTRIBUTOR' },
-    { title: 'FOUNDRY',           tag: 'CONTRIBUTOR' },
-    { title: 'OPENZEPPELIN',      tag: 'CONTRIBUTOR' },
-    { title: 'DOJO',              tag: 'CONTRIBUTOR' },
-    { title: 'HUMAN PROTOCOL',    tag: 'CONTRIBUTOR' },
-    { title: 'THE MARQUIS GAMING',tag: 'CONTRIBUTOR' },
-    { title: 'SCAFFOLD-ETH',      tag: 'CONTRIBUTOR' },
-    { title: 'WTF ACADEMY',       tag: 'CONTRIBUTOR' },
-    { title: 'PACT NETWORK',      tag: 'CONTRIBUTOR' },
-    { title: 'POLYPAY',           tag: 'CONTRIBUTOR' },
+    { title: '@Scaffold-Stark',  tag: 'OPEN SOURCE' },
+    { title: '@buidlguidl',      tag: 'OPEN SOURCE' },
+    { title: '@themarquis',      tag: 'OPEN SOURCE' },
+    { title: '@uniswap',         tag: 'OPEN SOURCE' },
+    { title: '@foundry',         tag: 'OPEN SOURCE' },
+    { title: '@polypay',         tag: 'OPEN SOURCE' },
+    { title: '@humanprotocol',   tag: 'OPEN SOURCE' },
+    { title: '@dojo',            tag: 'OPEN SOURCE' },
+    { title: '@Futaba Labs',     tag: 'OPEN SOURCE' },
+    { title: '@Scaffold-eth',    tag: 'OPEN SOURCE' },
+    { title: '@WTFAcademy',      tag: 'OPEN SOURCE' },
+    { title: '@scaffold-stylus', tag: 'OPEN SOURCE' },
+    { title: '@solder',          tag: 'OPEN SOURCE' },
+    { title: '@pact-network',    tag: 'OPEN SOURCE' },
+    { title: '@arbuilder',       tag: 'OPEN SOURCE' },
+    { title: '@Openzeppelin',    tag: 'OPEN SOURCE' },
   ];
 
   /* ─── build carousels ──────────────────────────────────── */

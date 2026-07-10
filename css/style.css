@@ -341,7 +341,7 @@ canvas { display: block; }
   gap: 12px;
   margin-top: 12px;
   font-size: 12px;
-  text-transform: uppercase;
+  /* no uppercase — preserve verbatim project casing (e.g. scaffold-iCP) */
 }
 .card_index { color: var(--dim); }
 .card_title { transition: color 0.6s var(--ease-expo); }
@@ -370,7 +370,7 @@ canvas { display: block; }
 .product_plus.is-l { left: -20px; top: 50%; }
 .product_plus.is-r { right: -20px; top: 50%; }
 .card:hover .product_plus { color: var(--brand); }
-.product_meta { margin-top: 12px; font-size: 12px; text-transform: uppercase; }
+.product_meta { margin-top: 12px; font-size: 12px; }
 .product_tag { color: var(--dim); margin-top: 4px; display: block; }
 
 /* carousel nav */
@@ -507,6 +507,45 @@ canvas { display: block; }
 }
 .careers_row:hover .careers_arrow { color: var(--brand); transform: translate(2px, 2px); }
 
+/* ─── partners (logo placeholders) ─────────────────────────── */
+
+.partners { padding-top: 0; }
+.partners_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1px;
+  margin-top: 26px;
+  border: 1px solid var(--hairline);
+  background: var(--hairline);
+}
+.partners_logo {
+  aspect-ratio: 5 / 3;
+  background: var(--paper);
+  position: relative;
+  transition: background 0.6s var(--ease-expo);
+}
+/* logo image slot — replace with partner mark */
+.partners_logo::after {
+  content: '';
+  position: absolute;
+  inset: 30% 32%;
+  background: var(--ph);
+  transition: background 0.6s var(--ease-expo);
+}
+.partners_logo:hover::after { background: var(--ph-deep); }
+
+/* ─── hiring process ───────────────────────────────────────── */
+
+.hiring_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 48px);
+  margin-top: clamp(60px, 8vw, 110px);
+  padding-top: 34px;
+  border-top: 1px solid var(--hairline);
+}
+.hiring_step { display: flex; flex-direction: column; gap: 4px; }
+
 /* ─── manifesto strip ──────────────────────────────────────── */
 
 .manifesto { padding: 0 var(--pad); }
@@ -537,7 +576,8 @@ canvas { display: block; }
   margin: 0 var(--pad);
 }
 .cta_inner .hero_bracket { border-color: rgba(17,18,20,0.4); }
-.cta_headline { font-size: clamp(48px, 7vw, 110px); }
+.cta_headline { font-size: clamp(40px, 5.6vw, 88px); max-width: 18ch; }
+.cta_sub { max-width: 420px; text-align: center; color: var(--dim); }
 .cta_btn {
   display: inline-flex;
   align-items: center;
@@ -607,6 +647,7 @@ canvas { display: block; }
   .about_grid { grid-template-columns: 1fr; }
   .about_copy { justify-self: start; }
   .careers_right { justify-self: start; }
+  .hiring_grid { grid-template-columns: 1fr; }
   .services_row { grid-template-columns: 44px 1fr 20px; }
   .services_desc { grid-column: 2; }
   .services_arrow { grid-row: 1; grid-column: 3; }
