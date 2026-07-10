@@ -630,6 +630,103 @@ canvas { display: block; }
 .cta_btn:hover { background: var(--brand); border-color: var(--brand); color: #fff; }
 .cta_btn:hover .square { background: #fff; }
 
+/* ─── featured project modal ───────────────────────────────── */
+
+.pmodal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: var(--paper);
+  display: grid;
+  grid-template-columns: minmax(300px, 380px) 1fr;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-expo);
+}
+.pmodal.is-open { opacity: 1; pointer-events: auto; }
+
+.pmodal_side {
+  border-right: 1px solid var(--hairline);
+  padding: 90px 28px 28px;
+  overflow-y: auto;
+}
+.pmodal_list { list-style: none; margin-top: 22px; }
+.pmodal_item {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 10px;
+  border-top: 1px solid var(--hairline);
+  cursor: pointer;
+  transition: background 0.4s var(--ease-expo), padding-left 0.4s var(--ease-expo);
+}
+.pmodal_item:last-child { border-bottom: 1px solid var(--hairline); }
+.pmodal_item:hover { background: rgba(77, 88, 255, 0.05); }
+.pmodal_item.is-active { background: rgba(77, 88, 255, 0.08); padding-left: 16px; }
+.pmodal_thumb { display: block; width: 56px; height: 44px; }
+.pmodal_item-meta { display: flex; flex-direction: column; gap: 3px; }
+.pmodal_item-title { font-size: 13px; }
+.pmodal_item.is-active .pmodal_item-title { color: var(--brand); }
+.pmodal_item-blurb { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.04em; }
+
+.pmodal_main {
+  padding: 90px clamp(28px, 4vw, 64px) 48px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.5vw, 48px);
+}
+.pmodal_head {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.pmodal_title {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 44px);
+  letter-spacing: -0.02em;
+  margin-right: auto;
+}
+.pmodal_close {
+  font-size: 18px;
+  color: var(--dim);
+  padding: 6px 10px;
+  border: 1px solid var(--hairline);
+  transition: color 0.4s var(--ease-expo), border-color 0.4s var(--ease-expo);
+}
+.pmodal_close:hover { color: var(--brand); border-color: var(--brand); }
+.pmodal_statement {
+  font-size: clamp(26px, 3.2vw, 48px);
+  line-height: 1.08;
+  max-width: 22ch;
+}
+.pmodal_cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 320px));
+  gap: 32px;
+}
+.pmodal_tags { list-style: none; }
+.pmodal_tags li {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+  letter-spacing: 0.05em;
+  padding: 3px 0;
+}
+.pmodal_media {
+  min-height: 420px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .pmodal { grid-template-columns: 1fr; grid-template-rows: auto 1fr; overflow-y: auto; }
+  .pmodal_side { border-right: none; border-bottom: 1px solid var(--hairline); padding-top: 70px; }
+  .pmodal_main { padding-top: 28px; }
+  .pmodal_cols { grid-template-columns: 1fr; }
+}
+
 /* ─── footer ───────────────────────────────────────────────── */
 
 .footer { padding: 40px var(--pad) 60px; }

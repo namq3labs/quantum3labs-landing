@@ -8,13 +8,48 @@
 
   /* ─── data (placeholder content — TBD) ─────────────────── */
 
-  // featured projects — carousel
+  // featured projects — carousel + detail modal (copy is placeholder, TBD)
   const WORK = [
-    { title: 'Stormbit',     date: '2025' },
-    { title: 'Qash',         date: '2025' },
-    { title: 'Prism',        date: '2025' },
-    { title: 'Polypay',      date: '2025' },
-    { title: 'Pact Network', date: '2025' },
+    {
+      title: 'Stormbit', date: '2025', tag: 'DEFI',
+      blurb: 'Decentralized lending infrastructure.',
+      statement: 'A LENDING PROTOCOL THAT TURNS IDLE LIQUIDITY INTO OPPORTUNITY FOR BUILDERS AND FUNDS.',
+      dev: ['PROTOCOL DESIGN', 'SMART CONTRACTS', 'SECURITY AUDIT'],
+      design: ['PRODUCT DESIGN', 'WEB DESIGN', 'BRAND'],
+      url: 'https://github.com/quantum3labs',
+    },
+    {
+      title: 'Qash', date: '2025', tag: 'FINTECH',
+      blurb: 'Payments that move at market speed.',
+      statement: 'A PAYMENTS STACK THAT MAKES MOVING MONEY FEEL LIKE MOVING DATA.',
+      dev: ['FULLSTACK BUILD', 'INFRASTRUCTURE', 'CMS SETUP'],
+      design: ['CREATIVE DEVELOPMENT', 'WEBSITE DESIGN', 'MOTION'],
+      url: 'https://github.com/quantum3labs',
+    },
+    {
+      title: 'Prism', date: '2025', tag: 'ANALYTICS',
+      blurb: 'Seeing on-chain data in full spectrum.',
+      statement: 'AN ANALYTICS SURFACE THAT SPLITS RAW ON-CHAIN NOISE INTO SIGNALS TEAMS CAN ACT ON.',
+      dev: ['DATA PIPELINE', 'API DESIGN', 'DASHBOARDS'],
+      design: ['DATA VISUALIZATION', 'UI/UX', 'DESIGN SYSTEM'],
+      url: 'https://github.com/quantum3labs',
+    },
+    {
+      title: 'Polypay', date: '2025', tag: 'PAYMENTS',
+      blurb: 'One checkout for every chain.',
+      statement: 'A CHECKOUT LAYER THAT LETS ANY BUSINESS ACCEPT ANY ASSET ON ANY CHAIN.',
+      dev: ['SDK & INTEGRATIONS', 'SMART CONTRACTS', 'INFRA'],
+      design: ['PRODUCT DESIGN', 'BRAND', 'WEBSITE'],
+      url: 'https://github.com/quantum3labs',
+    },
+    {
+      title: 'Pact Network', date: '2025', tag: 'PROTOCOL',
+      blurb: 'Agreements that enforce themselves.',
+      statement: 'A COORDINATION NETWORK WHERE COMMITMENTS ARE CODE AND TRUST IS THE DEFAULT.',
+      dev: ['PROTOCOL DESIGN', 'NODE INFRASTRUCTURE', 'AUDITS'],
+      design: ['BRAND & IDENTITY', 'WEBSITE DESIGN', 'DOCS'],
+      url: 'https://github.com/quantum3labs',
+    },
   ];
 
   // other projects — list rows (titles verbatim from quantum3labs.com)
@@ -51,7 +86,7 @@
     const track = document.querySelector('#work-carousel [data-carousel-track]');
     WORK.forEach((item, i) => {
       const card = document.createElement('a');
-      card.href = '#footer';
+      card.href = '#';
       card.className = 'card';
       card.innerHTML = `
         <div class="card_media"><div class="ph"></div></div>
@@ -62,8 +97,88 @@
             <span class="card_date">${item.date}</span>
           </span>
         </div>`;
+      card.addEventListener('click', e => {
+        e.preventDefault();
+        openProjectModal(i);
+      });
       track.appendChild(card);
     });
+  }
+
+  /* ─── featured project detail modal ────────────────────── */
+
+  let modal = null;
+
+  function buildProjectModal() {
+    modal = document.createElement('div');
+    modal.className = 'pmodal';
+    modal.innerHTML = `
+      <div class="pmodal_side">
+        <p class="eyebrow"><span class="square"></span>FEATURED PROJECTS</p>
+        <ul class="pmodal_list">
+          ${WORK.map((p, i) => `
+            <li class="pmodal_item" data-index="${i}">
+              <span class="pmodal_thumb ph"></span>
+              <span class="pmodal_item-meta">
+                <span class="pmodal_item-title">${p.title}</span>
+                <span class="pmodal_item-blurb">${p.blurb}</span>
+              </span>
+            </li>`).join('')}
+        </ul>
+      </div>
+      <div class="pmodal_main">
+        <div class="pmodal_head">
+          <h3 class="pmodal_title"></h3>
+          <a class="text-link pmodal_visit" target="_blank" rel="noopener">VISIT SITE <span class="text-link_arrow">↳</span></a>
+          <button class="pmodal_close" aria-label="Close">✕</button>
+        </div>
+        <p class="pmodal_statement headline"></p>
+        <div class="pmodal_cols">
+          <div>
+            <p class="footer_col-head">[DEVELOPMENT]</p>
+            <ul class="pmodal_tags" data-list="dev"></ul>
+          </div>
+          <div>
+            <p class="footer_col-head">[BRANDING &amp; DESIGN]</p>
+            <ul class="pmodal_tags" data-list="design"></ul>
+          </div>
+        </div>
+        <div class="pmodal_media ph"></div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    modal.querySelector('.pmodal_close').addEventListener('click', closeProjectModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeProjectModal(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape') closeProjectModal(); });
+    modal.querySelectorAll('.pmodal_item').forEach(item =>
+      item.addEventListener('click', () => selectProject(+item.dataset.index))
+    );
+  }
+
+  function selectProject(i) {
+    const p = WORK[i];
+    modal.querySelectorAll('.pmodal_item').forEach((el, k) =>
+      el.classList.toggle('is-active', k === i)
+    );
+    modal.querySelector('.pmodal_title').textContent = p.title;
+    modal.querySelector('.pmodal_visit').href = p.url;
+    modal.querySelector('.pmodal_statement').textContent = p.statement;
+    modal.querySelector('[data-list="dev"]').innerHTML = p.dev.map(t => `<li>${t}</li>`).join('');
+    modal.querySelector('[data-list="design"]').innerHTML = p.design.map(t => `<li>${t}</li>`).join('');
+    modal.querySelector('.pmodal_main').scrollTop = 0;
+  }
+
+  function openProjectModal(i) {
+    if (!modal) buildProjectModal();
+    selectProject(i);
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProjectModal() {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
   }
 
   function buildLabsCards() {
