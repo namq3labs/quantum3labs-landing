@@ -138,17 +138,15 @@
   buildLabsCards();
   document.querySelectorAll('.carousel').forEach(initCarousel);
 
-  /* ─── live clock ───────────────────────────────────────── */
+  /* ─── live clock — Singapore HQ time (GMT+8) ───────────── */
 
   function tickClock() {
     const timeEl = document.getElementById('local-time');
-    const zoneEl = document.getElementById('time-zone');
     if (!timeEl) return;
-    const now = new Date();
-    timeEl.textContent = now.toTimeString().slice(0, 8);
-    const off = -now.getTimezoneOffset() / 60;
-    const sign = off >= 0 ? '+' : '-';
-    zoneEl.textContent = `GMT${sign}${Math.abs(off)} (UTC${sign}${Math.abs(off)})`;
+    timeEl.textContent = new Date().toLocaleTimeString('en-GB', {
+      timeZone: 'Asia/Singapore',
+      hour12: false,
+    });
   }
   tickClock();
   setInterval(tickClock, 1000);
