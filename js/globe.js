@@ -6,16 +6,12 @@
 (function () {
   const BRAND = '#4D58FF';
 
+  // Quantum3 Labs hubs — live: true marks the Singapore HQ
   const LOCATIONS = [
-    { name: 'KUALA LUMPUR', lat: 3.1390, lon: 101.6869, live: true },
-    { name: 'SINGAPORE',    lat: 1.3521, lon: 103.8198, live: true },
-    { name: 'HO CHI MINH',  lat: 10.8231, lon: 106.6297, live: true },
-    { name: 'TOKYO',        lat: 35.6762, lon: 139.6503, live: false },
-    { name: 'LISBON',       lat: 38.7223, lon: -9.1393,  live: false },
-    { name: 'AMSTERDAM',    lat: 52.3676, lon: 4.9041,   live: true },
-    { name: 'NEW YORK',     lat: 40.7128, lon: -74.0060, live: false },
-    { name: 'DUBAI',        lat: 25.2048, lon: 55.2708,  live: true },
-    { name: 'SYDNEY',       lat: -33.8688, lon: 151.2093, live: false },
+    { name: 'SINGAPORE',    lat: 1.2841,   lon: 103.8493, live: true },
+    { name: 'KUALA LUMPUR', lat: 3.1390,   lon: 101.6869, live: false },
+    { name: 'HO CHI MINH',  lat: 10.8231,  lon: 106.6297, live: false },
+    { name: 'LIMA',         lat: -12.0464, lon: -77.0428, live: false },
   ];
 
   const canvas = document.getElementById('globe-canvas');

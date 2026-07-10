@@ -9,22 +9,32 @@
   /* ─── data (placeholder content — TBD) ─────────────────── */
 
   const WORK = [
-    { title: 'Q3 GENESIS PLATFORM',      date: 'JULY 18, 2026' },
-    { title: 'ORBIT PAYMENTS PROTOCOL',  date: 'JULY 25, 2026' },
-    { title: 'NIGHTSHIFT ANALYTICS',     date: 'AUGUST 02, 2026' },
-    { title: 'HELIOS TRADING ENGINE',    date: 'AUGUST 15, 2026' },
-    { title: 'PAPERTRAIL COMPLIANCE',    date: 'SEPTEMBER 04, 2026' },
-    { title: 'ATLAS IDENTITY LAYER',     date: 'SEPTEMBER 21, 2026' },
-    { title: 'SIGNAL RESEARCH DESK',     date: 'OCTOBER 09, 2026' },
+    { title: 'BROVE',           date: '2025' },
+    { title: 'SOLDER',          date: '2025' },
+    { title: 'SCAFFOLD-STARK',  date: '2025' },
+    { title: 'SCAFFOLD-STYLUS', date: '2025' },
+    { title: 'SCAFFOLD-ICP',    date: '2025' },
+    { title: 'AZTEC Q3X',       date: '2025' },
+    { title: 'ICP Q3X',         date: '2025' },
+    { title: 'THE MARQUIS',     date: '2025' },
+    { title: 'ARBUILDER',       date: '2025' },
+    { title: 'ICP CODER',       date: '2025' },
+    { title: 'STACKS-BUILDER',  date: '2025' },
   ];
 
   const LABS = [
-    { title: 'Q3 STARTER KIT',        tag: 'OPEN SOURCE' },
-    { title: 'CIPHER NOTEBOOK',       tag: 'RESEARCH' },
-    { title: 'MESHVIEW EXPLORER',     tag: 'TOOLING' },
-    { title: 'PULSE MONITOR 2026',    tag: 'INFRA' },
-    { title: 'GLYPH DESIGN TOKENS',   tag: 'DESIGN' },
-    { title: 'RELAY CLI 2025',        tag: 'TOOLING' },
+    { title: 'SCAFFOLD-STARK',    tag: 'CONTRIBUTOR' },
+    { title: 'BUIDLGUIDL',        tag: 'CONTRIBUTOR' },
+    { title: 'UNISWAP',           tag: 'CONTRIBUTOR' },
+    { title: 'FOUNDRY',           tag: 'CONTRIBUTOR' },
+    { title: 'OPENZEPPELIN',      tag: 'CONTRIBUTOR' },
+    { title: 'DOJO',              tag: 'CONTRIBUTOR' },
+    { title: 'HUMAN PROTOCOL',    tag: 'CONTRIBUTOR' },
+    { title: 'THE MARQUIS GAMING',tag: 'CONTRIBUTOR' },
+    { title: 'SCAFFOLD-ETH',      tag: 'CONTRIBUTOR' },
+    { title: 'WTF ACADEMY',       tag: 'CONTRIBUTOR' },
+    { title: 'PACT NETWORK',      tag: 'CONTRIBUTOR' },
+    { title: 'POLYPAY',           tag: 'CONTRIBUTOR' },
   ];
 
   /* ─── build carousels ──────────────────────────────────── */

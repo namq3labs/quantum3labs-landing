@@ -437,6 +437,122 @@ canvas { display: block; }
 .globe_time p { font-size: 12px; }
 #local-time { color: var(--ink); }
 
+/* ─── services (list rows) ─────────────────────────────────── */
+
+.services { padding-top: 0; }
+.services_list { list-style: none; margin-top: 8px; }
+.services_row {
+  display: grid;
+  grid-template-columns: 60px 1fr 1.2fr 40px;
+  align-items: center;
+  gap: 24px;
+  padding: 26px 0;
+  border-top: 1px solid var(--hairline);
+  transition: padding-left 0.6s var(--ease-expo);
+}
+.services_row:last-child { border-bottom: 1px solid var(--hairline); }
+.services_row:hover { padding-left: 14px; }
+.services_index { font-size: 12px; color: var(--dim); }
+.services_title {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: clamp(24px, 2.6vw, 40px);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transition: color 0.6s var(--ease-expo);
+}
+.services_row:hover .services_title { color: var(--brand); }
+.services_desc { font-size: 12px; color: var(--dim); max-width: 480px; }
+.services_arrow {
+  font-family: var(--mono);
+  color: var(--dim);
+  justify-self: end;
+  transition: color 0.6s var(--ease-expo), transform 0.6s var(--ease-expo);
+}
+.services_row:hover .services_arrow { color: var(--brand); transform: translate(2px, 2px); }
+
+/* ─── careers ──────────────────────────────────────────────── */
+
+.careers_right {
+  max-width: 430px;
+  justify-self: end;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-top: 8px;
+}
+.careers_list { list-style: none; }
+.careers_row {
+  display: grid;
+  grid-template-columns: 44px 1fr 20px;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline);
+  font-size: 13px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: padding-left 0.6s var(--ease-expo);
+}
+.careers_row:last-child { border-bottom: 1px solid var(--hairline); }
+.careers_row:hover { padding-left: 10px; }
+.careers_index { font-size: 12px; color: var(--dim); }
+.careers_role { transition: color 0.6s var(--ease-expo); }
+.careers_row:hover .careers_role { color: var(--brand); }
+.careers_arrow {
+  color: var(--dim);
+  justify-self: end;
+  transition: color 0.6s var(--ease-expo), transform 0.6s var(--ease-expo);
+}
+.careers_row:hover .careers_arrow { color: var(--brand); transform: translate(2px, 2px); }
+
+/* ─── manifesto strip ──────────────────────────────────────── */
+
+.manifesto { padding: 0 var(--pad); }
+.manifesto_row {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 60px);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  padding: 20px 0;
+  flex-wrap: wrap;
+}
+.manifesto_row .container { padding: 0; }
+.manifesto_title { flex: 1; text-align: left; }
+.manifesto_meta { font-size: 12px; }
+
+/* ─── CTA ──────────────────────────────────────────────────── */
+
+.cta_inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 36px;
+  padding-top: clamp(40px, 6vw, 80px);
+  padding-bottom: clamp(40px, 6vw, 80px);
+  margin: 0 var(--pad);
+}
+.cta_inner .hero_bracket { border-color: rgba(17,18,20,0.4); }
+.cta_headline { font-size: clamp(48px, 7vw, 110px); }
+.cta_btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  padding: 16px 34px;
+  transition: background 0.6s var(--ease-expo), color 0.6s var(--ease-expo), border-color 0.6s var(--ease-expo);
+}
+.cta_btn:hover { background: var(--brand); border-color: var(--brand); color: #fff; }
+.cta_btn:hover .square { background: #fff; }
+
 /* ─── footer ───────────────────────────────────────────────── */
 
 .footer { padding: 40px var(--pad) 60px; }
@@ -490,6 +606,10 @@ canvas { display: block; }
   .nav_burger { display: flex; }
   .about_grid { grid-template-columns: 1fr; }
   .about_copy { justify-self: start; }
+  .careers_right { justify-self: start; }
+  .services_row { grid-template-columns: 44px 1fr 20px; }
+  .services_desc { grid-column: 2; }
+  .services_arrow { grid-row: 1; grid-column: 3; }
   .globe_grid { grid-template-columns: 1fr; }
   .globe_right { max-width: none; }
   .footer_frame { grid-template-columns: 1fr; }
