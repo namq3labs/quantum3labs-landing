@@ -8,19 +8,20 @@
 
   /* ─── data (placeholder content — TBD) ─────────────────── */
 
-  // titles verbatim from quantum3labs.com — "other projects / 2025"
+  // featured projects — carousel
   const WORK = [
-    { title: 'Brove',           date: '2025' },
-    { title: 'Solder',          date: '2025' },
-    { title: 'Scaffold-Stark',  date: '2025' },
-    { title: 'Scaffold-Stylus', date: '2025' },
-    { title: 'scaffold-iCP',    date: '2025' },
-    { title: 'Aztec q3x',       date: '2025' },
-    { title: 'ICP q3x',         date: '2025' },
-    { title: 'The Marquis',     date: '2025' },
-    { title: 'Arbuilder',       date: '2025' },
-    { title: 'iCP coder',       date: '2025' },
-    { title: 'stacks-builder',  date: '2025' },
+    { title: 'Stormbit',     date: '2025' },
+    { title: 'Qash',         date: '2025' },
+    { title: 'Prism',        date: '2025' },
+    { title: 'Polypay',      date: '2025' },
+    { title: 'Pact Network', date: '2025' },
+  ];
+
+  // other projects — list rows (titles verbatim from quantum3labs.com)
+  const OTHER_PROJECTS = [
+    'Brove', 'Solder', 'Scaffold-Stark', 'Scaffold-Stylus', 'scaffold-iCP',
+    'Aztec q3x', 'ICP q3x', 'The Marquis', 'Arbuilder', 'iCP coder',
+    'stacks-builder',
   ];
 
   // handles verbatim from quantum3labs.com — "open-source contributions"
@@ -138,8 +139,23 @@
     track.addEventListener('click', e => { if (moved) e.preventDefault(); }, true);
   }
 
+  function buildOtherProjects() {
+    const list = document.getElementById('other-projects-list');
+    OTHER_PROJECTS.forEach((title, i) => {
+      const row = document.createElement('li');
+      row.className = 'services_row';
+      row.innerHTML = `
+        <span class="services_index">[${String(i + 1).padStart(2, '0')}]</span>
+        <h3 class="services_title is-project">${title}</h3>
+        <p class="services_desc mono-block">2025</p>
+        <span class="services_arrow">↳</span>`;
+      list.appendChild(row);
+    });
+  }
+
   buildWorkCards();
   buildLabsCards();
+  buildOtherProjects();
   document.querySelectorAll('.carousel').forEach(initCarousel);
 
   /* ─── live clock — Singapore HQ time (GMT+8) ───────────── */

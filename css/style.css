@@ -478,6 +478,9 @@ canvas { display: block; }
   transition: color 0.6s var(--ease-expo), transform 0.6s var(--ease-expo);
 }
 .services_row:hover .services_arrow { color: var(--brand); transform: translate(2px, 2px); }
+/* project rows keep verbatim casing (e.g. scaffold-iCP) */
+.services_title.is-project { text-transform: none; }
+.other-projects { padding-top: 0; }
 
 /* ─── careers ──────────────────────────────────────────────── */
 
