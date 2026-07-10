@@ -711,6 +711,27 @@ canvas { display: block; }
   min-height: 420px;
   flex-shrink: 0;
 }
+.pmodal_story {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.5vw, 48px);
+  max-width: 640px;
+}
+.pmodal_block { display: flex; flex-direction: column; gap: 14px; }
+.pmodal_block-title {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: clamp(20px, 2vw, 28px);
+  letter-spacing: -0.02em;
+}
+.pmodal_block-text {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--dim);
+  text-align: justify;
+  letter-spacing: 0.03em;
+}
 
 @media (max-width: 900px) {
   .pmodal { grid-template-columns: 1fr; grid-template-rows: auto 1fr; overflow-y: auto; }

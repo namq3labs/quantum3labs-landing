@@ -17,6 +17,8 @@
       dev: ['PROTOCOL DESIGN', 'SMART CONTRACTS', 'SECURITY AUDIT'],
       design: ['PRODUCT DESIGN', 'WEB DESIGN', 'BRAND'],
       url: 'https://github.com/quantum3labs',
+      challenge: 'Lending on-chain still feels like a spreadsheet with extra steps. Liquidity sits idle in isolated pools, terms are rigid, and both borrowers and funds struggle to find each other at the right moment. Stormbit needed rails flexible enough for real credit relationships without giving up the guarantees of the chain.',
+      solution: 'We designed and audited a lending protocol built around flexible agreement terms, with smart contracts that let funds define their own strategies while keeping every position transparent. On top of it we shipped a product surface that reads like a trading desk, not a wallet — clear risk, clear yield, one click to act.',
     },
     {
       title: 'Qash', date: '2025', tag: 'FINTECH',
@@ -25,6 +27,8 @@
       dev: ['FULLSTACK BUILD', 'INFRASTRUCTURE', 'CMS SETUP'],
       design: ['CREATIVE DEVELOPMENT', 'WEBSITE DESIGN', 'MOTION'],
       url: 'https://github.com/quantum3labs',
+      challenge: 'Moving money across borders still takes days while the market moves in milliseconds. Qash set out to make payments feel instant for businesses that operate across currencies and rails, without drowning teams in compliance overhead or clunky banking portals.',
+      solution: 'Q3labs built the full stack — from settlement infrastructure to the customer-facing product — around one idea: a payment should feel like sending a message. Real-time rails, automated compliance checks, and an interface with the calm precision of a well-run terminal.',
     },
     {
       title: 'Prism', date: '2025', tag: 'ANALYTICS',
@@ -33,6 +37,8 @@
       dev: ['DATA PIPELINE', 'API DESIGN', 'DASHBOARDS'],
       design: ['DATA VISUALIZATION', 'UI/UX', 'DESIGN SYSTEM'],
       url: 'https://github.com/quantum3labs',
+      challenge: 'On-chain data is abundant and almost unreadable. Teams either build their own fragile indexing pipelines or squint at generic explorers that answer none of their real questions. Prism needed to turn that raw noise into something an analyst can act on before the moment passes.',
+      solution: 'We engineered a data pipeline that indexes, enriches and serves chain activity in near real time, then designed a visualization layer where every chart is a question answered: flows, positions, anomalies. A design system keeps the whole surface coherent as new datasets come online.',
     },
     {
       title: 'Polypay', date: '2025', tag: 'PAYMENTS',
@@ -41,6 +47,8 @@
       dev: ['SDK & INTEGRATIONS', 'SMART CONTRACTS', 'INFRA'],
       design: ['PRODUCT DESIGN', 'BRAND', 'WEBSITE'],
       url: 'https://github.com/quantum3labs',
+      challenge: 'Every chain has its own wallets, tokens and quirks — and every business that wants to accept crypto inherits all of them at once. Checkout flows fragment, conversion drops, and integrating one more network means one more quarter of engineering.',
+      solution: 'Polypay collapses that complexity into a single checkout layer: one SDK, any asset, any chain. Q3labs delivered the contracts, the integrations and a checkout experience tuned like a payments product should be — fast, forgettable in the best way, and on-brand for every merchant.',
     },
     {
       title: 'Pact Network', date: '2025', tag: 'PROTOCOL',
@@ -49,6 +57,8 @@
       dev: ['PROTOCOL DESIGN', 'NODE INFRASTRUCTURE', 'AUDITS'],
       design: ['BRAND & IDENTITY', 'WEBSITE DESIGN', 'DOCS'],
       url: 'https://github.com/quantum3labs',
+      challenge: 'Coordination between organizations still runs on PDFs and promises. Agreements are slow to draft, hard to verify and expensive to enforce — especially across borders. Pact Network needed a way to make commitments as reliable as the code that executes them.',
+      solution: 'We designed the protocol where agreements live as verifiable on-chain pacts, ran the node infrastructure to keep the network honest, and shaped a brand and documentation system that makes a deeply technical idea legible to the organizations it serves.',
     },
   ];
 
@@ -144,6 +154,16 @@
           </div>
         </div>
         <div class="pmodal_media ph"></div>
+        <div class="pmodal_story">
+          <div class="pmodal_block">
+            <h4 class="pmodal_block-title">Challenge</h4>
+            <p class="pmodal_block-text" data-text="challenge"></p>
+          </div>
+          <div class="pmodal_block">
+            <h4 class="pmodal_block-title">Q3labs Solutions</h4>
+            <p class="pmodal_block-text" data-text="solution"></p>
+          </div>
+        </div>
       </div>`;
     document.body.appendChild(modal);
 
@@ -165,6 +185,8 @@
     modal.querySelector('.pmodal_statement').textContent = p.statement;
     modal.querySelector('[data-list="dev"]').innerHTML = p.dev.map(t => `<li>${t}</li>`).join('');
     modal.querySelector('[data-list="design"]').innerHTML = p.design.map(t => `<li>${t}</li>`).join('');
+    modal.querySelector('[data-text="challenge"]').textContent = p.challenge;
+    modal.querySelector('[data-text="solution"]').textContent = p.solution;
     modal.querySelector('.pmodal_main').scrollTop = 0;
   }
 
