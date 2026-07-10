@@ -212,10 +212,51 @@
     });
   }
 
+  /* ─── scrambled-text on title hover (0.7s resolve) ─────── */
+
+  function initScramble() {
+    const CHARS = '!<>-_\\/[]{}=+*^?#';
+    const DURATION = 700;
+
+    function scramble(el) {
+      if (el.dataset.scrambling) return;
+      const original = el.dataset.original || (el.dataset.original = el.textContent);
+      el.dataset.scrambling = '1';
+      const start = performance.now();
+      (function tick(now) {
+        const p = Math.min(1, (now - start) / DURATION);
+        const solved = Math.floor(p * original.length);
+        let out = original.slice(0, solved);
+        for (let i = solved; i < original.length; i++) {
+          out += original[i] === ' ' ? ' ' : CHARS[(Math.random() * CHARS.length) | 0];
+        }
+        el.textContent = out;
+        if (p < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = original;
+          delete el.dataset.scrambling;
+        }
+      })(start);
+    }
+
+    [
+      ['.card', '.card_title'],
+      ['.services_row', '.services_title'],
+      ['.careers_row', '.careers_role'],
+    ].forEach(([rowSel, titleSel]) => {
+      document.querySelectorAll(rowSel).forEach(row => {
+        const title = row.querySelector(titleSel);
+        if (title) row.addEventListener('pointerenter', () => scramble(title));
+      });
+    });
+  }
+
   buildWorkCards();
   buildLabsCards();
   buildOtherProjects();
   initPixelHover();
+  initScramble();
   document.querySelectorAll('.carousel').forEach(initCarousel);
 
   /* ─── live clock — Singapore HQ time (GMT+8) ───────────── */
