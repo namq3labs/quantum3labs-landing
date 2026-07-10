@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Broaden your build | Quantum3labs</title>
+  <meta name="description" content="Quantum3labs is an independent software lab crafting products, protocols and experiences at unique intersections of design and engineering." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Chivo+Mono:wght@300;400;500&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234D58FF'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='monospace'>Q3</text></svg>" />
+</head>
+<body>
+
+  <!-- ═══ preloader ═══ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader_logo">Quantum3</div>
+    <div class="preloader_count" id="preloader-count">[000]</div>
+  </div>
+
+  <!-- ═══ fixed viewport HUD frame ═══ -->
+  <div class="hud" aria-hidden="true">
+    <span class="hud_corner is-tl"></span>
+    <span class="hud_corner is-tr"></span>
+    <span class="hud_corner is-bl"></span>
+    <span class="hud_corner is-br"></span>
+    <span class="hud_tick is-left"></span>
+    <span class="hud_tick is-right"></span>
+  </div>
+
+  <!-- ═══ nav ═══ -->
+  <header class="nav">
+    <a href="#" class="nav_logo" aria-label="Quantum3labs home">Quantum3</a>
+    <nav class="nav_menu">
+      <div class="nav_group">
+        <a href="#work" class="nav_link"><span class="nav_square"></span>WORK&nbsp;[12]</a>
+        <a href="#services" class="nav_link"><span class="nav_square"></span>SERVICES</a>
+      </div>
+      <div class="nav_group">
+        <a href="#labs" class="nav_link"><span class="nav_square"></span>LABS</a>
+        <a href="#globe" class="nav_link"><span class="nav_square"></span>GLOBAL</a>
+      </div>
+      <div class="nav_group">
+        <a href="#about" class="nav_link"><span class="nav_square"></span>ABOUT</a>
+        <a href="#footer" class="nav_link"><span class="nav_square"></span>CAREERS</a>
+      </div>
+      <div class="nav_group">
+        <a href="#footer" class="nav_link is-accent"><span class="nav_square"></span>CONTACT</a>
+      </div>
+    </nav>
+    <button class="nav_burger" id="nav-burger" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ═══ mobile menu ═══ -->
+  <div class="menu-overlay" id="menu-overlay">
+    <a href="#work" class="menu-overlay_link">WORK</a>
+    <a href="#services" class="menu-overlay_link">SERVICES</a>
+    <a href="#labs" class="menu-overlay_link">LABS</a>
+    <a href="#about" class="menu-overlay_link">ABOUT</a>
+    <a href="#footer" class="menu-overlay_link">CONTACT</a>
+  </div>
+
+  <main>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="hero">
+      <canvas class="hero_canvas" id="hero-canvas"></canvas>
+      <div class="hero_grain" aria-hidden="true"></div>
+
+      <div class="hero_logo-wrap">
+        <span class="hero_bracket is-tl"></span>
+        <span class="hero_bracket is-tr"></span>
+        <span class="hero_bracket is-bl"></span>
+        <span class="hero_bracket is-br"></span>
+        <h1 class="hero_logo">Quantum3</h1>
+      </div>
+
+      <div class="hero_bottom">
+        <div class="hero_mission">
+          <p class="eyebrow is-light"><span class="square"></span>BROADEN YOUR BUILD</p>
+          <p class="hero_mission-text">
+            QUANTUM3LABS IS AN INDEPENDENT SOFTWARE LAB ENGINEERING
+            PRODUCTS, PROTOCOLS AND UNCONVENTIONAL DIGITAL
+            EXPERIENCES FOR TEAMS AROUND THE WORLD.
+          </p>
+        </div>
+
+        <a href="#work" class="hero_next">
+          <div class="hero_next-thumb" data-art="7"></div>
+          <div class="hero_next-meta">
+            <p class="eyebrow is-light"><span class="square"></span>NEXT UP</p>
+            <p class="hero_next-title">Q3 GENESIS<br/>PLATFORM</p>
+            <p class="hero_next-date">JULY 18, 2026</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="hero_scrollhint" aria-hidden="true">SCROLL ↓</div>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="section about" id="about">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="square"></span>ABOUT QUANTUM3LABS</p>
+        <div class="about_grid">
+          <h2 class="about_headline headline">
+            <span class="line-mask"><span class="line">A LAB WHERE</span></span>
+            <span class="line-mask"><span class="line">CODE, DESIGN</span></span>
+            <span class="line-mask"><span class="line">AND PEOPLE</span></span>
+            <span class="line-mask"><span class="line">UNITE</span></span>
+          </h2>
+          <div class="about_copy reveal">
+            <p class="mono-block">
+              QUANTUM3LABS IS AN INDEPENDENT SOFTWARE LAB THAT ENGINEERS
+              PRODUCTS AND GROUNDBREAKING PROTOCOLS FOR UNIQUE PROBLEMS.
+              THE GOAL IS NOT JUST TO SHIP SOFTWARE, BUT TO BROADEN THE
+              AMBITIONS OF OUR PARTNERS.
+            </p>
+            <p class="mono-block">
+              TECHNICALLY AND CREATIVELY. WE WANT TO GIVE YOU SOMETHING
+              TO TALK ABOUT WITH YOUR TEAM. OR WITH A STRANGER. ALL OUR
+              PROJECTS ARE SUPPORTED BY A SENIOR CREW. ONE THAT WE
+              DON'T STAFF FROM A BENCH.
+            </p>
+            <a href="#footer" class="text-link">MORE ABOUT US <span class="text-link_arrow">↳</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WORK CAROUSEL ═══ -->
+    <section class="section work" id="work">
+      <div class="container work_head">
+        <p class="eyebrow reveal"><span class="square"></span>SELECTED WORK</p>
+        <a href="#footer" class="text-link reveal">EXPLORE ALL <span class="text-link_arrow">↳</span></a>
+      </div>
+
+      <div class="carousel" id="work-carousel">
+        <div class="carousel_track" data-carousel-track>
+          <!-- cards injected by js/main.js -->
+        </div>
+      </div>
+
+      <div class="carousel_nav">
+        <button class="carousel_btn" data-carousel-prev aria-label="Previous">&#8249;&nbsp;PREV</button>
+        <div class="carousel_ticks" data-carousel-ticks></div>
+        <button class="carousel_btn" data-carousel-next aria-label="Next">NEXT&nbsp;&#8250;</button>
+      </div>
+    </section>
+
+    <!-- ═══ GLOBE ═══ -->
+    <section class="section globe" id="globe">
+      <div class="container globe_grid">
+        <div class="globe_left">
+          <h2 class="headline globe_headline">
+            <span class="line-mask"><span class="line">SHIPPING</span></span>
+            <span class="line-mask"><span class="line">AROUND THE</span></span>
+            <span class="line-mask"><span class="line">GLOBE</span></span>
+          </h2>
+          <div class="globe_filter reveal">
+            <button class="globe_filter-btn is-active" data-filter="all">ALL</button>
+            <span>/</span>
+            <button class="globe_filter-btn" data-filter="live">LIVE</button>
+          </div>
+          <div class="globe_coords mono-block reveal">
+            <p><span class="dim">LAT:</span> <span id="globe-lat">3.1390&deg; N</span></p>
+            <p><span class="dim">LON:</span> <span id="globe-lon">101.6869&deg; E</span></p>
+          </div>
+        </div>
+
+        <div class="globe_center">
+          <span class="hero_bracket is-tr"></span>
+          <span class="hero_bracket is-bl"></span>
+          <canvas id="globe-canvas" width="900" height="900"></canvas>
+        </div>
+
+        <div class="globe_right">
+          <div class="globe_time mono-block reveal">
+            <p><span class="dim">LOCAL TIME:</span> <span id="local-time">00:00:00</span></p>
+            <p><span class="dim">TIME ZONE:</span> <span id="time-zone">GMT+7 (UTC+7)</span></p>
+          </div>
+          <p class="mono-block reveal">
+            QUANTUM3LABS MOVES FROM PROBLEM TO PROBLEM, BRINGING ITS
+            CRAFT TO UNIQUE TEAMS ACROSS THE WORLD. EACH ENGAGEMENT
+            ADDS ITS OWN ENERGY, SHAPED BY LOCAL PARTNERS, NEW
+            INDUSTRIES AND UNEXPECTED CONSTRAINTS. DIFFERENT
+            TIMEZONES, SAME MINDSET.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ LABS / PRODUCTS CAROUSEL ═══ -->
+    <section class="section labs" id="labs">
+      <div class="container work_head">
+        <p class="eyebrow reveal"><span class="square"></span>QUANTUM3 LABS</p>
+        <a href="#footer" class="text-link reveal">EXPLORE ALL <span class="text-link_arrow">↳</span></a>
+      </div>
+
+      <div class="carousel" id="labs-carousel">
+        <div class="carousel_track is-products" data-carousel-track>
+          <!-- cards injected by js/main.js -->
+        </div>
+      </div>
+
+      <div class="carousel_nav">
+        <button class="carousel_btn" data-carousel-prev aria-label="Previous">&#8249;&nbsp;PREV</button>
+        <div class="carousel_ticks" data-carousel-ticks></div>
+        <button class="carousel_btn" data-carousel-next aria-label="Next">NEXT&nbsp;&#8250;</button>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer" id="footer">
+      <div class="footer_frame">
+        <div class="footer_brand">
+          <p class="footer_logo">Quantum3</p>
+          <p class="mono-block dim">QUANTUM3LABS &copy; 2026<br/>WEB CREDITS</p>
+        </div>
+        <div class="footer_cols">
+          <div class="footer_col">
+            <p class="footer_col-head">[EXPERIENCE]</p>
+            <a href="#work" class="footer_link">WORK</a>
+            <a href="#services" class="footer_link">SERVICES</a>
+            <a href="#labs" class="footer_link">LABS</a>
+            <a href="#globe" class="footer_link">GLOBAL</a>
+          </div>
+          <div class="footer_col">
+            <p class="footer_col-head">[COMPANY]</p>
+            <a href="#about" class="footer_link">ABOUT</a>
+            <a href="#" class="footer_link">CONTACT</a>
+            <a href="#" class="footer_link">JOBS</a>
+            <a href="#" class="footer_link">PRESS</a>
+          </div>
+          <div class="footer_col">
+            <p class="footer_col-head">[SUPPORT]</p>
+            <a href="#" class="footer_link">DOCUMENTATION</a>
+            <a href="#" class="footer_link">TERMS &amp; CONDITIONS</a>
+            <a href="#" class="footer_link">PRIVACY POLICY</a>
+          </div>
+          <div class="footer_col">
+            <p class="footer_col-head">[CONTACT]</p>
+            <a href="mailto:info@quantum3labs.com" class="footer_link is-ext">INFO@QUANTUM3LABS.COM</a>
+            <a href="mailto:support@quantum3labs.com" class="footer_link is-ext">SUPPORT@QUANTUM3LABS.COM</a>
+            <a href="mailto:work@quantum3labs.com" class="footer_link is-ext">WORK@QUANTUM3LABS.COM</a>
+          </div>
+          <div class="footer_col">
+            <p class="footer_col-head">[FOLLOW]</p>
+            <a href="#" class="footer_link is-ext">X / TWITTER</a>
+            <a href="#" class="footer_link is-ext">LINKEDIN</a>
+            <a href="#" class="footer_link is-ext">GITHUB</a>
+            <a href="#" class="footer_link is-ext">TELEGRAM</a>
+          </div>
+          <div class="footer_col">
+            <p class="footer_col-head">[COMMUNITY]</p>
+            <a href="#" class="footer_link is-ext">JOIN THE LAB</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/globe.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
