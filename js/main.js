@@ -326,6 +326,8 @@
     let lastX = -1e4, lastY = -1e4, idx = 0;
 
     section.addEventListener('pointermove', e => {
+      // no trail over the roles column (it has its own interactions)
+      if (e.target.closest('.careers_right')) return;
       const rect = section.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
