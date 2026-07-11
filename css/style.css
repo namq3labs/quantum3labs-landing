@@ -283,6 +283,40 @@ canvas { display: block; }
   height: 100%;
   object-fit: cover;
 }
+.weare_content {
+  position: relative;
+  z-index: 10;
+  max-width: 1831px;
+  margin: 0 auto;
+  padding: 96px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.weare_intro,
+.weare_side p {
+  font-family: var(--mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #EFF4FF;
+  opacity: 0.9;
+  line-height: 1.7;
+  text-shadow: 0 1px 12px rgba(1, 8, 40, 0.55);
+}
+.weare_intro { max-width: 400px; }
+.weare_side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 360px;
+  margin-top: 120px;
+}
+@media (max-width: 900px) {
+  .weare_side { margin-top: 0; }
+}
+
 /* ─── QUOTE — scroll-to-reveal ─────────────────────────────── */
 
 .quote { padding: clamp(120px, 16vw, 220px) 0; }
