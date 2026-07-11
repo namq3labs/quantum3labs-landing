@@ -359,10 +359,40 @@
     });
   }
 
+  /* ─── quote: scroll-to-reveal words ────────────────────── */
+
+  function initQuoteReveal() {
+    const block = document.querySelector('[data-quote-reveal]');
+    if (!block) return;
+
+    // wrap every word in a span
+    block.querySelectorAll('p').forEach(p => {
+      p.innerHTML = p.textContent.trim().split(/\s+/)
+        .map(w => `<span class="word">${w}</span>`)
+        .join(' ');
+    });
+    const words = [...block.querySelectorAll('.word')];
+
+    function update() {
+      const r = block.getBoundingClientRect();
+      const vh = innerHeight;
+      // progress 0 → 1 while the block travels from 85% to 35% of the viewport
+      const progress = Math.max(0, Math.min(1,
+        (vh * 0.85 - r.top) / (r.height + vh * 0.5)
+      ));
+      const lit = Math.floor(progress * words.length);
+      words.forEach((w, i) => w.classList.toggle('is-on', i < lit));
+    }
+    addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update, { passive: true });
+    update();
+  }
+
   buildWorkCards();
   buildLabsCards();
   buildOtherProjects();
   initImageTrail();
+  initQuoteReveal();
 
   // footer Work links open the project detail modal
   document.querySelectorAll('[data-open-project]').forEach(link =>

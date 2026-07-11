@@ -283,61 +283,29 @@ canvas { display: block; }
   height: 100%;
   object-fit: cover;
 }
-.weare_content {
-  position: relative;
-  z-index: 10;
-  max-width: 1831px;
+/* ─── QUOTE — scroll-to-reveal ─────────────────────────────── */
+
+.quote { padding: clamp(120px, 16vw, 220px) 0; }
+.quote .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(36px, 5vw, 64px);
+}
+.quote_text {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 64px 16px;
-}
-@media (min-width: 640px) { .weare_content { padding: 80px 24px; } }
-@media (min-width: 768px) { .weare_content { padding: 96px 32px; } }
-
-/* row 1 — heading + intro */
-.weare_row1 {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 32px;
-  margin-bottom: 48px;
-}
-@media (min-width: 640px)  { .weare_row1 { margin-bottom: 64px; } }
-@media (min-width: 768px)  { .weare_row1 { margin-bottom: 80px; } }
-@media (min-width: 1024px) { .weare_row1 { flex-direction: row; gap: 48px; } }
-
-.weare_intro {
-  font-family: var(--mono);
-  font-size: 13px;
+  text-align: center;
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: clamp(26px, 3.4vw, 52px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: #EFF4FF;
-  max-width: 400px;
-  line-height: 1.7;
 }
-
-/* row 2 — ghost text columns */
-.weare_row2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.weare_ghost {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 335px;
-}
-.weare_ghost.is-desktop { display: none; }
-@media (min-width: 1024px) { .weare_ghost.is-desktop { display: flex; } }
-.weare_ghost p {
-  font-family: var(--mono);
-  font-size: 13px;
-  text-transform: uppercase;
-  color: #EFF4FF;
-  opacity: 0.85;
-  line-height: 1.7;
-  text-shadow: 0 1px 12px rgba(1, 8, 40, 0.55);
-}
+.quote_text p + p { margin-top: clamp(28px, 3vw, 48px); }
+.quote_text .word { opacity: 0.12; transition: opacity 0.25s linear; }
+.quote_text .word.is-on { opacity: 1; }
 
 /* ─── sections ─────────────────────────────────────────────── */
 
