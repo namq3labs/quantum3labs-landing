@@ -274,6 +274,7 @@ canvas { display: block; }
   overflow: hidden;
   min-height: 100vh;
   background: #010828; /* shows while the video loads / if it fails */
+  margin-bottom: 60px;
 }
 .weare_bg {
   position: absolute;
