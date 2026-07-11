@@ -359,15 +359,6 @@
     });
   }
 
-  // We-are video: fall back to a gray placeholder if the source is dead
-  const weareVideo = document.querySelector('.weare_video');
-  if (weareVideo) {
-    const fallback = () => weareVideo.closest('.weare_video-wrap').classList.add('is-fallback');
-    weareVideo.addEventListener('error', fallback, true);
-    weareVideo.querySelector('source')?.addEventListener('error', fallback);
-    setTimeout(() => { if (weareVideo.readyState === 0) fallback(); }, 6000);
-  }
-
   buildWorkCards();
   buildLabsCards();
   buildOtherProjects();
