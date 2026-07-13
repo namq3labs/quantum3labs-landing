@@ -456,6 +456,49 @@ canvas { display: block; }
 .product_meta { margin-top: 12px; font-size: 12px; }
 .product_tag { color: var(--dim); margin-top: 4px; display: block; }
 
+/* ─── open-source: pinned horizontal scroll ────────────────── */
+
+.labs-pin { position: relative; }
+.labs-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(24px, 3vw, 40px);
+  overflow: hidden;
+}
+.labs-viewport { overflow: hidden; width: 100%; }
+.labs-viewport .carousel_track {
+  display: flex;
+  gap: clamp(16px, 2vw, 28px);
+  padding: 0 var(--pad);
+  width: max-content;
+}
+.labs-viewport .card { flex: 0 0 auto; }
+.labs-progress {
+  margin: 0 var(--pad);
+  height: 1px;
+  background: var(--hairline);
+  position: relative;
+}
+.labs-progress_bar {
+  position: absolute;
+  left: 0; top: 0;
+  height: 1px;
+  width: 0;
+  background: var(--brand);
+}
+
+/* mobile / no-pin fallback: native horizontal scroll */
+@media (max-width: 1023px) {
+  .labs-sticky { position: static; height: auto; padding: clamp(90px, 12vw, 140px) 0; }
+  .labs-viewport { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .labs-viewport::-webkit-scrollbar { display: none; }
+  .labs-viewport .carousel_track { will-change: auto; }
+}
+
 /* carousel nav */
 .carousel_nav {
   display: flex;

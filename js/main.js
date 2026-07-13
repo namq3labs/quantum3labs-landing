@@ -392,11 +392,55 @@
     update();
   }
 
+  /* ─── open-source: pin + horizontal scroll ─────────────── */
+
+  function initLabsPin() {
+    const section = document.querySelector('[data-labs-pin]');
+    if (!section) return;
+    const sticky = section.querySelector('.labs-sticky');
+    const viewport = section.querySelector('.labs-viewport');
+    const track = section.querySelector('[data-labs-track]');
+    const bar = section.querySelector('[data-labs-progress]');
+    const desktop = matchMedia('(min-width: 1024px)');
+
+    let distance = 0;
+
+    function measure() {
+      if (!desktop.matches) {
+        section.style.height = '';
+        track.style.transform = '';
+        distance = 0;
+        return;
+      }
+      // extra 10% of viewport as lead-in/out breathing room
+      distance = Math.max(0, track.scrollWidth - viewport.clientWidth);
+      section.style.height = (innerHeight + distance) + 'px';
+      render();
+    }
+
+    function render() {
+      if (!desktop.matches || distance === 0) return;
+      const rect = section.getBoundingClientRect();
+      const scrollable = section.offsetHeight - innerHeight;
+      const p = Math.max(0, Math.min(1, -rect.top / scrollable));
+      track.style.transform = `translate3d(${-p * distance}px, 0, 0)`;
+      if (bar) bar.style.width = (p * 100) + '%';
+    }
+
+    addEventListener('scroll', render, { passive: true });
+    addEventListener('resize', measure);
+    desktop.addEventListener('change', measure);
+    // recompute once images/layout settle
+    requestAnimationFrame(measure);
+    addEventListener('load', measure);
+  }
+
   buildWorkCards();
   buildLabsCards();
   buildOtherProjects();
   initImageTrail();
   initQuoteReveal();
+  initLabsPin();
 
   // footer Work links open the project detail modal
   document.querySelectorAll('[data-open-project]').forEach(link =>

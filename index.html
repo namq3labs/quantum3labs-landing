@@ -244,23 +244,21 @@
       </div>
     </section>
 
-    <!-- ═══ OPEN-SOURCE CONTRIBUTIONS ═══ -->
-    <section class="section labs" id="open-source">
-      <div class="container work_head">
-        <p class="eyebrow"><span class="square"></span>OPEN-SOURCE CONTRIBUTIONS</p>
-        <a href="https://github.com/quantum3labs" target="_blank" rel="noopener" class="text-link">EXPLORE ALL <span class="text-link_arrow">↳</span></a>
-      </div>
-
-      <div class="carousel" id="labs-carousel">
-        <div class="carousel_track is-products" data-carousel-track>
-          <!-- cards injected by js/main.js -->
+    <!-- ═══ OPEN-SOURCE CONTRIBUTIONS — pinned horizontal scroll ═══ -->
+    <section class="labs-pin" id="open-source" data-labs-pin>
+      <div class="labs-sticky">
+        <div class="container work_head">
+          <p class="eyebrow"><span class="square"></span>OPEN-SOURCE CONTRIBUTIONS</p>
+          <a href="https://github.com/quantum3labs" target="_blank" rel="noopener" class="text-link">EXPLORE ALL <span class="text-link_arrow">↳</span></a>
         </div>
-      </div>
 
-      <div class="carousel_nav">
-        <button class="carousel_btn" data-carousel-prev aria-label="Previous">&#8249;&nbsp;PREV</button>
-        <div class="carousel_ticks" data-carousel-ticks></div>
-        <button class="carousel_btn" data-carousel-next aria-label="Next">NEXT&nbsp;&#8250;</button>
+        <div class="labs-viewport" id="labs-carousel">
+          <div class="carousel_track is-products" data-carousel-track data-labs-track>
+            <!-- cards injected by js/main.js -->
+          </div>
+        </div>
+
+        <div class="labs-progress"><span class="labs-progress_bar" data-labs-progress></span></div>
       </div>
     </section>
 
