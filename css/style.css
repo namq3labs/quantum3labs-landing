@@ -477,19 +477,6 @@ canvas { display: block; }
   width: max-content;
 }
 .labs-viewport .card { flex: 0 0 auto; }
-.labs-progress {
-  margin: 0 var(--pad);
-  height: 1px;
-  background: var(--hairline);
-  position: relative;
-}
-.labs-progress_bar {
-  position: absolute;
-  left: 0; top: 0;
-  height: 1px;
-  width: 0;
-  background: var(--brand);
-}
 
 /* mobile / no-pin fallback: native horizontal scroll */
 @media (max-width: 1023px) {

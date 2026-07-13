@@ -400,7 +400,6 @@
     const sticky = section.querySelector('.labs-sticky');
     const viewport = section.querySelector('.labs-viewport');
     const track = section.querySelector('[data-labs-track]');
-    const bar = section.querySelector('[data-labs-progress]');
     const desktop = matchMedia('(min-width: 1024px)');
 
     let distance = 0;
@@ -424,7 +423,6 @@
       const scrollable = section.offsetHeight - innerHeight;
       const p = Math.max(0, Math.min(1, -rect.top / scrollable));
       track.style.transform = `translate3d(${-p * distance}px, 0, 0)`;
-      if (bar) bar.style.width = (p * 100) + '%';
     }
 
     addEventListener('scroll', render, { passive: true });
