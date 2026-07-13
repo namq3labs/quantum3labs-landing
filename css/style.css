@@ -217,7 +217,7 @@ canvas { display: block; }
   background: var(--paper);
 }
 
-/* 3D stone brand mark — fixed, centered, scroll-driven zoom */
+/* 3D brand mark — fixed, centered, scroll-driven zoom */
 .logo3d {
   position: fixed;
   inset: 0;
@@ -227,6 +227,16 @@ canvas { display: block; }
   z-index: 40;
   opacity: 0;
   will-change: transform, opacity;
+}
+/* brand-blue backdrop the mark dissolves into → bridges to the we-are section */
+.logo3d-bg {
+  position: fixed;
+  inset: 0;
+  background: var(--brand);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 39;
+  will-change: opacity;
 }
 /* scroll spacer between hero and we-are that the zoom plays across */
 .logo-warp {

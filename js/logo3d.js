@@ -10,6 +10,7 @@
   const canvas = document.getElementById('logo3d');
   const warp = document.getElementById('logo-warp');
   const hero = document.getElementById('hero');
+  const warpBg = document.getElementById('logo3d-bg');
   if (!canvas || !warp || !hero) return;
 
   // No Three.js (blocked / offline) → collapse the warp so no blank gap.
@@ -44,14 +45,14 @@
   camera.position.set(0, 0, 320);
 
   // ── lights: sculpt the stone ──
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x353b4d, 0.75));
-  const key = new THREE.DirectionalLight(0xffffff, 1.2);
+  scene.add(new THREE.HemisphereLight(0xcdd3ff, 0x1a1f4a, 0.5));
+  const key = new THREE.DirectionalLight(0xffffff, 0.6);
   key.position.set(140, 200, 240);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0xd4dbff, 0.45);
+  const fill = new THREE.DirectionalLight(0x9aa4ff, 0.22);
   fill.position.set(-200, -40, 140);
   scene.add(fill);
-  const rim = new THREE.DirectionalLight(0x4d58ff, 0.9);   // brand rim light
+  const rim = new THREE.DirectionalLight(0xc7ccff, 0.5);   // light-blue rim for edge definition
   rim.position.set(-80, 140, -220);
   scene.add(rim);
 
@@ -80,11 +81,11 @@
   const bump = makeStoneTexture();
 
   const material = new THREE.MeshStandardMaterial({
-    color: 0x9c988f,
-    roughness: 1.0,
+    color: 0x4d58ff,          // brand blue — matches the we-are section
+    roughness: 0.92,
     metalness: 0.0,
     bumpMap: bump,
-    bumpScale: 0.7,
+    bumpScale: 0.3,
     side: THREE.DoubleSide,   // safety: render both faces regardless of winding
   });
 
@@ -147,17 +148,25 @@
         canvas.style.opacity = '0';
         renderer.clear();                 // drop the last frame (preserveDrawingBuffer)
       }
+      if (warpBg && warpBg.style.display !== 'none') {
+        warpBg.style.display = 'none';    // reveal the (blue) we-are section underneath
+        warpBg.style.opacity = '0';
+      }
       requestAnimationFrame(frame);
       return;
     }
     if (canvas.style.display === 'none') canvas.style.display = '';
+    if (warpBg && warpBg.style.display === 'none') warpBg.style.display = '';
 
     const ease = p * p;                                 // zoom accelerates toward the end
     group.rotation.y = BASE_TILT_Y + p * TAU * 2.2;     // still at rest, spins as you scroll
     group.rotation.x = BASE_TILT_X + p * 0.35;
     group.scale.setScalar(baseScale * (1 + ease * 15));
 
-    canvas.style.opacity = (p < 0.82 ? 1 : clamp(1 - (p - 0.82) / 0.18, 0, 1)).toFixed(3);
+    // the mark's blue swells to fill the screen and becomes the we-are backdrop
+    if (warpBg) warpBg.style.opacity = clamp((p - 0.68) / 0.22, 0, 1).toFixed(3);
+    // then dissolve the shaded mark into that flat blue right as we-are locks in
+    canvas.style.opacity = (p < 0.9 ? 1 : clamp(1 - (p - 0.9) / 0.1, 0, 1)).toFixed(3);
 
     renderer.render(scene, camera);
     requestAnimationFrame(frame);
