@@ -558,6 +558,7 @@ canvas { display: block; }
 .other-projects { padding-top: 0; }
 /* compact rows for the other-projects list */
 .other-projects .services_row { padding: 14px 0; }
+.other-projects .services_row:hover { padding-left: 14px; padding-right: 0; }
 .other-projects .services_title { font-size: clamp(17px, 1.5vw, 22px); }
 
 /* ─── careers ──────────────────────────────────────────────── */

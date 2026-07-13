@@ -53,18 +53,6 @@
       solution: 'We engineered a data pipeline that indexes, enriches and serves chain activity in near real time, then designed a visualization layer where every chart is a question answered: flows, positions, anomalies. A design system keeps the whole surface coherent as new datasets come online.',
     },
     {
-      title: 'Polypay', date: '2025', tag: 'PAYMENTS',
-      logo: 'public/featured-project/Polypay.png',
-      thumb: 'public/featured-project/thumbnail/Polypay.jpg',
-      blurb: 'One checkout for every chain.',
-      statement: 'A CHECKOUT LAYER THAT LETS ANY BUSINESS ACCEPT ANY ASSET ON ANY CHAIN.',
-      dev: ['SDK & INTEGRATIONS', 'SMART CONTRACTS', 'INFRA'],
-      design: ['PRODUCT DESIGN', 'BRAND', 'WEBSITE'],
-      url: 'https://github.com/quantum3labs',
-      challenge: 'Every chain has its own wallets, tokens and quirks — and every business that wants to accept crypto inherits all of them at once. Checkout flows fragment, conversion drops, and integrating one more network means one more quarter of engineering.',
-      solution: 'Polypay collapses that complexity into a single checkout layer: one SDK, any asset, any chain. Q3labs delivered the contracts, the integrations and a checkout experience tuned like a payments product should be — fast, forgettable in the best way, and on-brand for every merchant.',
-    },
-    {
       title: 'Pact Network', date: '2025', tag: 'PROTOCOL',
       logo: 'public/featured-project/Pact.png',
       thumb: 'public/featured-project/thumbnail/Pact.jpg',
@@ -82,7 +70,7 @@
   const OTHER_PROJECTS = [
     'Brove', 'Solder', 'Scaffold-Stark', 'Scaffold-Stylus', 'scaffold-iCP',
     'Aztec q3x', 'ICP q3x', 'The Marquis', 'Arbuilder', 'iCP coder',
-    'stacks-builder',
+    'stacks-builder', 'Polypay',
   ];
 
   // handles verbatim from quantum3labs.com — "open-source contributions"
