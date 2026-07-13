@@ -946,7 +946,18 @@ canvas { display: block; }
   flex-wrap: wrap;
 }
 .manifesto_row .container { padding: 0; }
-.manifesto_title { flex: 1; text-align: left; }
+.manifesto_title {
+  flex: 1;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.4s var(--ease-expo);
+}
+.manifesto_title:hover { color: var(--brand); }
 .manifesto_meta { font-size: 12px; }
 
 /* ─── CTA ──────────────────────────────────────────────────── */
@@ -1190,6 +1201,120 @@ canvas { display: block; }
 @media (max-width: 560px) {
   .qrmodal_grid { grid-template-columns: 1fr; }
 }
+
+/* ─── manifesto reader modal ───────────────────────────────── */
+.mfmodal {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(24px, 6vh, 72px) 24px;
+  background: rgba(1, 8, 40, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-expo);
+}
+.mfmodal.is-open { opacity: 1; pointer-events: auto; }
+.mfmodal_box {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  transform: translateY(14px);
+  transition: transform 0.4s var(--ease-expo);
+}
+.mfmodal.is-open .mfmodal_box { transform: translateY(0); }
+.mfmodal_close {
+  position: absolute;
+  top: 16px; right: 16px;
+  z-index: 2;
+  font-size: 16px;
+  color: var(--dim);
+  padding: 6px 10px;
+  border: 1px solid var(--hairline);
+  background: var(--paper);
+  transition: color 0.4s var(--ease-expo), border-color 0.4s var(--ease-expo);
+}
+.mfmodal_close:hover { color: var(--brand); border-color: var(--brand); }
+.mfmodal_inner {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(40px, 5vw, 68px) clamp(24px, 4vw, 60px) clamp(36px, 4vw, 56px);
+}
+.mfmodal_title {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-top: 20px;
+}
+.mfmodal_sub {
+  font-family: var(--grotesk);
+  font-weight: 500;
+  font-size: clamp(15px, 1.6vw, 19px);
+  line-height: 1.4;
+  color: var(--brand);
+  margin-top: 14px;
+}
+.mfmodal_meta {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 16px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--hairline);
+}
+.mfmodal_body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3vw, 40px);
+  margin-top: 32px;
+}
+.mfmodal_section { display: flex; flex-direction: column; gap: 12px; }
+.mfmodal_head-3 {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.mfmodal_text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.mfmodal_list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.mfmodal_list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.mfmodal_list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 6px; height: 6px;
+  background: var(--brand);
+}
+.mfmodal_list strong { font-weight: 600; }
+.mfmodal_closing {
+  font-family: var(--grotesk);
+  font-weight: 600;
+  font-size: clamp(17px, 2vw, 22px);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-top: 8px;
+  padding-top: 28px;
+  border-top: 1px solid var(--hairline);
+}
+.mfmodal_source { margin-top: 32px; align-self: flex-start; }
 
 /* ─── footer ───────────────────────────────────────────────── */
 

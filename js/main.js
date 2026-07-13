@@ -709,9 +709,103 @@
     fill('[data-marquee="oss"]', oss);
   }
 
+  /* ─── manifesto reader modal ───────────────────────────── */
+
+  const MANIFESTO = {
+    title: 'Quantum3Labs Manifesto',
+    subtitle: 'Architecting the Infrastructure Layer of Decentralized Systems',
+    source: 'https://www.quantum3labs.com/blogmanifesto',
+    sections: [
+      { h: 'The Foundation Problem', p: [
+        "Today's blockchain ecosystem operates on fragmented infrastructure, disconnected protocols, isolated networks, and incompatible toolchains that prevent web3 from reaching institutional scale. The missing piece is production-grade infrastructure that enables seamless blockchain adoption at enterprise scale." ] },
+      { h: 'Our Mission, Vision & Values', p: [
+        "We architect the critical infrastructure that powers decentralized networks. Our vision is a world where blockchain technology operates with the same reliability and scale as today's internet infrastructure. We value engineering excellence, institutional-grade security, and building the foundational systems that enable the entire ecosystem to thrive." ] },
+      { h: 'Core Infrastructure', p: [
+        "Quantum3Labs engineers protocol-layer infrastructure that powers the next generation of decentralized networks. From consensus mechanisms and cross-chain bridges to developer frameworks and institutional-grade security primitives, our engineering drives the core systems that foundational networks depend on, Ethereum, Starknet and beyond." ] },
+      { h: 'Engineering Excellence', p: [
+        "We operate at the intersection of cryptographic research and production deployment. Our infrastructure engineering transforms theoretical breakthroughs into production-ready systems that scale to billions of users. Every system we architect is designed for institutional-grade reliability, regulatory compliance, and seamless interoperability across the entire Web3 stack." ] },
+      { h: 'Our Engineering Philosophy', list: [
+        "Infrastructure-First: We engineer foundational systems that power entire ecosystems.",
+        "Production-Ready: Our infrastructure handles real economic activity from day one.",
+        "Standards-Driven: We architect the systems that become industry standards.",
+        "Institution-Grade: Our systems meet the security and compliance requirements of global enterprises.",
+        "Interoperable: We build bridges that connect the entire Web3 ecosystem." ] },
+      { h: 'Market Leadership', p: [
+        "Quantum3Labs engineers the infrastructure that enables Web3 at institutional scale. Our infrastructure contributions power the networks where trillions of dollars in assets will be settled. When institutions need blockchain infrastructure that can handle regulatory scrutiny and mission-critical applications, they deploy the foundational systems we've architected." ] },
+      { h: 'The Path Forward', p: [
+        "The blockchain infrastructure decisions made today determine which systems will power the next decade of global finance. We're engineering the infrastructure standards that will define how decentralized systems interoperate, scale, and serve institutional use cases." ] },
+    ],
+    closing: 'Quantum3Labs: Infrastructure Engineering. Enterprise Scale.',
+  };
+
+  let mfModal = null;
+
+  function buildManifestoModal() {
+    const meta = document.querySelector('.manifesto_meta')?.textContent.trim() || '';
+    const sections = MANIFESTO.sections.map(s => {
+      const body = s.list
+        ? `<ul class="mfmodal_list">${s.list.map(li => {
+            const idx = li.indexOf(': ');
+            return idx > -1
+              ? `<li><strong>${li.slice(0, idx + 1)}</strong>${li.slice(idx + 1)}</li>`
+              : `<li>${li}</li>`;
+          }).join('')}</ul>`
+        : (s.p || []).map(t => `<p class="mfmodal_text">${t}</p>`).join('');
+      return `<section class="mfmodal_section">
+          <h3 class="mfmodal_head-3">${s.h}</h3>
+          ${body}
+        </section>`;
+    }).join('');
+
+    mfModal = document.createElement('div');
+    mfModal.className = 'mfmodal';
+    mfModal.innerHTML = `
+      <div class="mfmodal_box" data-lenis-prevent>
+        <button class="mfmodal_close" aria-label="Close">✕</button>
+        <div class="mfmodal_inner">
+          <p class="eyebrow"><span class="square"></span>OUR CONTENTS</p>
+          <h2 class="mfmodal_title">${MANIFESTO.title}</h2>
+          <p class="mfmodal_sub">${MANIFESTO.subtitle}</p>
+          <p class="mfmodal_meta dim">${meta}</p>
+          <div class="mfmodal_body">
+            ${sections}
+            <p class="mfmodal_closing">${MANIFESTO.closing}</p>
+          </div>
+          <a class="text-link mfmodal_source" href="${MANIFESTO.source}" target="_blank" rel="noopener">READ ON QUANTUM3LABS.COM <span class="text-link_arrow">↳</span></a>
+        </div>
+      </div>`;
+    document.body.appendChild(mfModal);
+
+    mfModal.querySelector('.mfmodal_close').addEventListener('click', closeManifesto);
+    mfModal.addEventListener('click', e => { if (e.target === mfModal) closeManifesto(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape') closeManifesto(); });
+  }
+
+  function openManifesto() {
+    if (!mfModal) buildManifestoModal();
+    mfModal.classList.add('is-open');
+    mfModal.querySelector('.mfmodal_box').scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
+  }
+
+  function closeManifesto() {
+    if (!mfModal) return;
+    mfModal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (lenis) lenis.start();
+  }
+
+  function initManifesto() {
+    document.querySelectorAll('[data-open-manifesto]').forEach(el =>
+      el.addEventListener('click', e => { e.preventDefault(); openManifesto(); })
+    );
+  }
+
   buildWorkCards();
   buildOtherProjects();
   initHeroMarquee();
+  initManifesto();
   initImageTrail();
   initQuoteReveal();
   initGlobePin();
