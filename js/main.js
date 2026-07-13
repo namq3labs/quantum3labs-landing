@@ -20,49 +20,57 @@
       title: 'Stormbit', date: '2025', tag: 'DEFI',
       logo: 'public/featured-project/Stormbit.png',
       thumb: 'public/featured-project/thumbnail/Stormbit.jpg',
-      blurb: 'Decentralized lending infrastructure.',
-      statement: 'A LENDING PROTOCOL THAT TURNS IDLE LIQUIDITY INTO OPPORTUNITY FOR BUILDERS AND FUNDS.',
-      dev: ['PROTOCOL DESIGN', 'SMART CONTRACTS', 'SECURITY AUDIT'],
-      design: ['PRODUCT DESIGN', 'WEB DESIGN', 'BRAND'],
+      blurb: 'Liquidation-free crypto lending.',
+      industry: 'DeFi · Lending · Derivatives',
+      statement: 'Borrow USDC against BTC or ETH — without the risk of liquidation.',
+      dev: ['BACKEND', 'FRONTEND', 'SMART CONTRACTS', 'DEVOPS'],
+      design: ['BRANDING', 'UX STRATEGY', 'UI DESIGN'],
       url: 'https://github.com/Quantum3-Labs',
-      challenge: 'Lending on-chain still feels like a spreadsheet with extra steps. Liquidity sits idle in isolated pools, terms are rigid, and both borrowers and funds struggle to find each other at the right moment. Stormbit needed rails flexible enough for real credit relationships without giving up the guarantees of the chain.',
-      solution: 'We designed and audited a lending protocol built around flexible agreement terms, with smart contracts that let funds define their own strategies while keeping every position transparent. On top of it we shipped a product surface that reads like a trading desk, not a wallet — clear risk, clear yield, one click to act.',
+      overview: 'Stormbit is a decentralized lending protocol that enables users to borrow USDC against BTC or ETH collateral without the risk of liquidation. Instead of paying traditional interest, borrowers cap a portion of their upside, while lenders earn that capped upside as a premium through embedded options strategies.',
+      challenge: 'Traditional crypto lending platforms expose borrowers to liquidations during periods of high market volatility, creating uncertainty and forcing users to closely monitor their positions.',
+      solution: 'Stormbit automatically hedges every loan at origination by combining call and put options. Borrowers exchange part of their upside for borrowing costs that can approach 0%, while protective puts eliminate the need for liquidations and margin calls. Once funded, loans remain active until the selected expiry date.',
     },
     {
       title: 'Qash', date: '2025', tag: 'FINTECH',
       logo: 'public/featured-project/Qash.png',
       thumb: 'public/featured-project/thumbnail/Qash.jpg',
-      blurb: 'Payments that move at market speed.',
-      statement: 'A PAYMENTS STACK THAT MAKES MOVING MONEY FEEL LIKE MOVING DATA.',
-      dev: ['FULLSTACK BUILD', 'INFRASTRUCTURE', 'CMS SETUP'],
-      design: ['CREATIVE DEVELOPMENT', 'WEBSITE DESIGN', 'MOTION'],
+      blurb: 'Private business banking, on-chain.',
+      industry: 'Payments · Financial Infrastructure · Privacy',
+      statement: 'A self-custodial business account with on-chain privacy by default.',
+      dev: ['BACKEND', 'FRONTEND', 'SMART CONTRACTS', 'DEVOPS'],
+      design: ['BRANDING', 'UX STRATEGY', 'UI DESIGN'],
       url: 'https://github.com/Quantum3-Labs',
-      challenge: 'Moving money across borders still takes days while the market moves in milliseconds. Qash set out to make payments feel instant for businesses that operate across currencies and rails, without drowning teams in compliance overhead or clunky banking portals.',
-      solution: 'Q3labs built the full stack — from settlement infrastructure to the customer-facing product — around one idea: a payment should feel like sending a message. Real-time rails, automated compliance checks, and an interface with the calm precision of a well-run terminal.',
+      overview: 'Qash is a self-custodial business account that enables companies in emerging markets to manage payments, payroll, and treasury operations with on-chain financial privacy by default. Built on Miden, it replaces fragmented workflows with a single platform for custody, invoicing, and payouts.',
+      challenge: 'Crypto companies lack financial privacy and operational efficiency. Traditional on-chain payments expose salaries, treasury balances, and business relationships, while existing workflows require multiple disconnected tools for custody, accounting, and payroll.',
+      solution: 'Qash combines embedded wallets, multi-owner accounts, payroll, invoicing, and bill payments into one seamless platform. Users can sign up with email and instantly access self-custodial accounts without seed phrases or browser extensions. Every transaction settles privately on Miden, allowing companies to operate securely and efficiently.',
     },
     {
       title: 'Prism', date: '2025', tag: 'ANALYTICS',
       logo: 'public/featured-project/Prism.png',
       thumb: 'public/featured-project/thumbnail/Prism.jpg',
-      blurb: 'Seeing on-chain data in full spectrum.',
-      statement: 'AN ANALYTICS SURFACE THAT SPLITS RAW ON-CHAIN NOISE INTO SIGNALS TEAMS CAN ACT ON.',
-      dev: ['DATA PIPELINE', 'API DESIGN', 'DASHBOARDS'],
-      design: ['DATA VISUALIZATION', 'UI/UX', 'DESIGN SYSTEM'],
+      blurb: 'Scan-to-pay for foreigners in Vietnam.',
+      industry: 'Wallet · QR Payments · Fintech',
+      statement: 'Pay any Vietnamese QR code — without a local bank account.',
+      dev: ['BACKEND', 'FRONTEND', 'SMART CONTRACTS', 'DEVOPS'],
+      design: ['BRANDING', 'UX STRATEGY', 'UI DESIGN'],
       url: 'https://github.com/Quantum3-Labs',
-      challenge: 'On-chain data is abundant and almost unreadable. Teams either build their own fragile indexing pipelines or squint at generic explorers that answer none of their real questions. Prism needed to turn that raw noise into something an analyst can act on before the moment passes.',
-      solution: 'We engineered a data pipeline that indexes, enriches and serves chain activity in near real time, then designed a visualization layer where every chart is a question answered: flows, positions, anomalies. A design system keeps the whole surface coherent as new datasets come online.',
+      overview: "Prism is a mobile wallet that enables foreigners in Vietnam to pay any merchant by scanning local bank QR codes, without needing a Vietnamese bank account. Users can top up from crypto or bank accounts in more than 70 countries, hold their balance in USD, and spend seamlessly in Vietnam.",
+      challenge: "QR codes have become the standard payment method in Vietnam, but accessing the system typically requires a local bank account — something many foreigners cannot easily obtain. As a result, expats and travelers face significant friction when making everyday purchases.",
+      solution: "Prism bridges the gap between global users and Vietnam's QR payment infrastructure. The app allows foreigners to fund their wallet from crypto or international bank accounts and instantly pay any merchant that accepts Vietnamese bank QR codes, eliminating the need for a local bank account.",
     },
     {
       title: 'Pact Network', date: '2025', tag: 'PROTOCOL',
       logo: 'public/featured-project/Pact.png',
       thumb: 'public/featured-project/thumbnail/Pact.jpg',
-      blurb: 'Agreements that enforce themselves.',
-      statement: 'A COORDINATION NETWORK WHERE COMMITMENTS ARE CODE AND TRUST IS THE DEFAULT.',
-      dev: ['PROTOCOL DESIGN', 'NODE INFRASTRUCTURE', 'AUDITS'],
-      design: ['BRAND & IDENTITY', 'WEBSITE DESIGN', 'DOCS'],
+      blurb: 'Chargebacks for agent payments.',
+      industry: 'AI Agents · Agentic Payments · Infrastructure',
+      statement: 'A risk layer that refunds AI agents when paid API calls fail.',
+      dev: ['BACKEND', 'DEVOPS'],
+      design: ['BRANDING'],
       url: 'https://github.com/pactnetwork',
-      challenge: 'Coordination between organizations still runs on PDFs and promises. Agreements are slow to draft, hard to verify and expensive to enforce — especially across borders. Pact Network needed a way to make commitments as reliable as the code that executes them.',
-      solution: 'We designed the protocol where agreements live as verifiable on-chain pacts, ran the node infrastructure to keep the network honest, and shaped a brand and documentation system that makes a deeply technical idea legible to the organizations it serves.',
+      overview: 'Pact is a risk layer for agent payments that automatically refunds AI agents when paid API calls fail. Built for protocols such as x402 and Multi-Payment Protocol (MPP), Pact brings chargeback-like protections to autonomous transactions.',
+      challenge: 'As agent payments become more common, there is no recourse mechanism when a paid API request fails. Whether due to server errors, timeouts, or invalid responses, agents bear the full cost of failed interactions, with no equivalent to traditional payment chargebacks.',
+      solution: 'Pact sits beneath the payment layer, monitoring transactions between agents and service providers. When a failure is detected, the protocol automatically settles refunds on-chain through a coverage pool, returning funds to the agent without disputes or manual intervention.',
     },
   ];
 
@@ -160,6 +168,7 @@
           <a class="text-link pmodal_visit" target="_blank" rel="noopener">VISIT SITE <span class="text-link_arrow">↳</span></a>
           <button class="pmodal_close" aria-label="Close">✕</button>
         </div>
+        <p class="pmodal_industry mono-block dim" data-text="industry"></p>
         <p class="pmodal_statement headline"></p>
         <div class="pmodal_cols">
           <div>
@@ -173,6 +182,10 @@
         </div>
         <div class="pmodal_media ph"></div>
         <div class="pmodal_story">
+          <div class="pmodal_block">
+            <h4 class="pmodal_block-title">Overview</h4>
+            <p class="pmodal_block-text" data-text="overview"></p>
+          </div>
           <div class="pmodal_block">
             <h4 class="pmodal_block-title">Challenge</h4>
             <p class="pmodal_block-text" data-text="challenge"></p>
@@ -200,9 +213,11 @@
     );
     modal.querySelector('.pmodal_title').textContent = p.title;
     modal.querySelector('.pmodal_visit').href = p.url;
+    modal.querySelector('[data-text="industry"]').textContent = p.industry || '';
     modal.querySelector('.pmodal_statement').textContent = p.statement;
     modal.querySelector('[data-list="dev"]').innerHTML = p.dev.map(t => `<li>${t}</li>`).join('');
     modal.querySelector('[data-list="design"]').innerHTML = p.design.map(t => `<li>${t}</li>`).join('');
+    modal.querySelector('[data-text="overview"]').textContent = p.overview;
     modal.querySelector('[data-text="challenge"]').textContent = p.challenge;
     modal.querySelector('[data-text="solution"]').textContent = p.solution;
     const media = modal.querySelector('.pmodal_media');
