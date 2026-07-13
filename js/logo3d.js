@@ -10,7 +10,6 @@
   const canvas = document.getElementById('logo3d');
   const warp = document.getElementById('logo-warp');
   const hero = document.getElementById('hero');
-  const warpBg = document.getElementById('logo3d-bg');
   if (!canvas || !warp || !hero) return;
 
   // No Three.js (blocked / offline) → collapse the warp so no blank gap.
@@ -162,25 +161,26 @@
         canvas.style.opacity = '0';
         renderer.clear();                 // drop the last frame (preserveDrawingBuffer)
       }
-      if (warpBg && warpBg.style.display !== 'none') {
-        warpBg.style.display = 'none';    // reveal the (blue) we-are section underneath
-        warpBg.style.opacity = '0';
-      }
       requestAnimationFrame(frame);
       return;
     }
     if (canvas.style.display === 'none') canvas.style.display = '';
-    if (warpBg && warpBg.style.display === 'none') warpBg.style.display = '';
 
     const ease = p * p;                                 // zoom accelerates toward the end
     group.rotation.y = BASE_TILT_Y + p * TAU * 2.2;     // still at rest, spins as you scroll
     group.rotation.x = BASE_TILT_X + p * 0.35;
     group.scale.setScalar(baseScale * (1 + ease * 15));
 
-    // the mark's blue swells to fill the screen and becomes the we-are backdrop
-    if (warpBg) warpBg.style.opacity = clamp((p - 0.68) / 0.22, 0, 1).toFixed(3);
-    // then dissolve the shaded mark into that flat blue right as we-are locks in
-    canvas.style.opacity = (p < 0.9 ? 1 : clamp(1 - (p - 0.9) / 0.1, 0, 1)).toFixed(3);
+    // warp background lerps white → brand blue, so the blue that fills the screen
+    // flows straight into the (identically blue) we-are section rising underneath —
+    // no opaque backdrop to snap away, the section just emerges on continuous blue
+    const bm = clamp((p - 0.4) / 0.22, 0, 1);
+    const R = Math.round(255 + (77 - 255) * bm);
+    const G = Math.round(255 + (88 - 255) * bm);
+    warp.style.backgroundColor = 'rgb(' + R + ',' + G + ',255)';
+
+    // dissolve the mark into that blue while the we-are content rises into place
+    canvas.style.opacity = (p < 0.72 ? 1 : clamp(1 - (p - 0.72) / 0.2, 0, 1)).toFixed(3);
 
     renderer.render(scene, camera);
     requestAnimationFrame(frame);

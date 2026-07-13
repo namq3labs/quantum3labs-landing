@@ -231,16 +231,6 @@ canvas { display: block; }
   opacity: 0;
   will-change: transform, opacity;
 }
-/* brand-blue backdrop the mark dissolves into → bridges to the we-are section */
-.logo3d-bg {
-  position: fixed;
-  inset: 0;
-  background: var(--brand);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 39;
-  will-change: opacity;
-}
 /* scroll spacer between hero and we-are that the zoom plays across */
 .logo-warp {
   position: relative;
