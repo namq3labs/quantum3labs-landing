@@ -571,10 +571,10 @@
         const spread = 0.35 + 0.65 * satProgress;
         const L = lineProgress, S = scaleProgress, H = scrollProgress;
         const N = sats.length;
-        const fullScale = Math.min(1, (vw * 0.92) / (N > 0 ? CARD_W * 1 : CARD_W)); // cap
+        const fullScale = 1;
         const fullGap = CARD_W * 1.06;
         const compactGap = Math.min((vw * 0.86) / (N - 1), 96);
-        const compactScale = 0.42;
+        const compactScale = 0.34;   // still small when lined up
         // horizontal-scroll offset (full row): card 0 near left → card N-1 near right
         const half = (N - 1) / 2;
         const offset0 = -vw / 2 + PAD + CARD_W / 2 + half * fullGap;
@@ -591,8 +591,8 @@
           const x2 = x * Math.cos(s.node) + z1 * Math.sin(s.node);
           const z2 = -x * Math.sin(s.node) + z1 * Math.cos(s.node);
           const depth = (z2 / (s.R * globeR) + 1) / 2;             // 0 back → 1 front
-          const oScale = (0.55 + 0.55 * depth) * (0.5 + 0.5 * satProgress);
-          const oOpacity = (0.35 + 0.65 * depth) * satProgress;
+          const oScale = (0.18 + 0.14 * depth) * (0.45 + 0.55 * satProgress); // small icons
+          const oOpacity = (0.4 + 0.6 * depth) * satProgress;
 
           const compactX = (i - half) * compactGap;
           const fullX = (i - half) * fullGap + scrollOff;
