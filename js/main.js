@@ -691,8 +691,27 @@
     trigger.addEventListener('click', open);
   }
 
+  /* ─── hero — two vertical text marquees ────────────────── */
+
+  function initHeroMarquee() {
+    const projects = [...WORK.map(w => w.title), ...OTHER_PROJECTS.map(p => p.title)];
+    const oss = LABS.map(l => l.title);
+
+    function fill(sel, names) {
+      const track = document.querySelector(`${sel} .hero_mtrack`);
+      if (!track) return;
+      const one = names
+        .map(n => `<span class="hero_mitem">${n}</span>`)
+        .join('');
+      track.innerHTML = one + one;   // duplicate for a seamless -50% loop
+    }
+    fill('[data-marquee="projects"]', projects);
+    fill('[data-marquee="oss"]', oss);
+  }
+
   buildWorkCards();
   buildOtherProjects();
+  initHeroMarquee();
   initImageTrail();
   initQuoteReveal();
   initGlobePin();

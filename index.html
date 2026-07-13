@@ -60,35 +60,52 @@
 
   <main>
 
-    <!-- ═══ HERO — full-bleed image slot (placeholder) ═══ -->
+    <!-- ═══ HERO — left copy + dual vertical marquees ═══ -->
     <section class="hero" id="hero">
-      <div class="hero_media ph" aria-hidden="true"></div>
+      <div class="hero_inner">
+        <div class="hero_left">
+          <div class="hero_logo-wrap">
+            <span class="hero_bracket is-tl"></span>
+            <span class="hero_bracket is-tr"></span>
+            <span class="hero_bracket is-bl"></span>
+            <span class="hero_bracket is-br"></span>
+            <h1 class="hero_logo">Quantum3</h1>
+          </div>
 
-      <div class="hero_logo-wrap">
-        <span class="hero_bracket is-tl"></span>
-        <span class="hero_bracket is-tr"></span>
-        <span class="hero_bracket is-bl"></span>
-        <span class="hero_bracket is-br"></span>
-        <h1 class="hero_logo">Quantum3</h1>
-      </div>
+          <div class="hero_left-bottom">
+            <div class="hero_mission">
+              <p class="eyebrow"><span class="square"></span>QUANTUM3LABS</p>
+              <p class="hero_mission-text">
+                WE CRAFT TECHNOLOGY FOR A WORLD THAT NEEDS MORE
+                PURPOSE, NOT MORE NOISE.
+              </p>
+            </div>
 
-      <div class="hero_bottom">
-        <div class="hero_mission">
-          <p class="eyebrow"><span class="square"></span>QUANTUM3LABS</p>
-          <p class="hero_mission-text">
-            WE CRAFT TECHNOLOGY FOR A WORLD THAT NEEDS MORE
-            PURPOSE, NOT MORE NOISE.
-          </p>
+            <button class="hero_next" data-open-prism aria-label="Get the Prism app">
+              <span class="hero_next-thumb"><img src="public/featured-project/Prism.png" alt="Prism" loading="lazy" /></span>
+              <span class="hero_next-meta">
+                <span class="eyebrow"><span class="square"></span>GET THE APP</span>
+                <span class="hero_next-title">PRISM<br/>MOBILE WALLET</span>
+                <span class="hero_next-date">iOS &amp; ANDROID — SCAN TO INSTALL</span>
+              </span>
+            </button>
+          </div>
         </div>
 
-        <button class="hero_next" data-open-prism aria-label="Get the Prism app">
-          <span class="hero_next-thumb"><img src="public/featured-project/Prism.png" alt="Prism" loading="lazy" /></span>
-          <span class="hero_next-meta">
-            <span class="eyebrow"><span class="square"></span>GET THE APP</span>
-            <span class="hero_next-title">PRISM<br/>MOBILE WALLET</span>
-            <span class="hero_next-date">iOS &amp; ANDROID — SCAN TO INSTALL</span>
-          </span>
-        </button>
+        <div class="hero_marquees" aria-hidden="true">
+          <div class="hero_mcol" data-marquee="projects">
+            <span class="hero_mcol-head"><span class="square"></span>PROJECTS</span>
+            <div class="hero_mcol-viewport">
+              <div class="hero_mtrack"></div>
+            </div>
+          </div>
+          <div class="hero_mcol" data-marquee="oss">
+            <span class="hero_mcol-head"><span class="square"></span>OPEN SOURCE</span>
+            <div class="hero_mcol-viewport">
+              <div class="hero_mtrack"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
