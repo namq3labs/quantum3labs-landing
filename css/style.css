@@ -279,50 +279,99 @@ canvas { display: block; }
 .hero_next-title { font-size: 13px; text-transform: uppercase; line-height: 1.35; }
 .hero_next-date { font-size: 12px; color: var(--dim); text-transform: uppercase; }
 
-/* ─── WE ARE — fullscreen video section ────────────────────── */
+/* ─── WE ARE — brand-blue statement section ────────────────── */
 
 .weare {
-  position: relative;
-  overflow: hidden;
-  min-height: 100vh;
-  background: #010828; /* shows while the video loads / if it fails */
-  margin-bottom: 60px;
-}
-.weare_bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.weare_content {
-  position: relative;
-  z-index: 10;
-  max-width: 1831px;
-  margin: 0 auto;
-  padding: 96px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 48px;
-  flex-wrap: wrap;
-}
-.weare_intro,
-.weare_side p {
-  font-family: var(--mono);
-  font-size: 13px;
-  text-transform: uppercase;
+  background: var(--brand);
   color: #EFF4FF;
-  opacity: 0.9;
-  line-height: 1.7;
-  text-shadow: 0 1px 12px rgba(1, 8, 40, 0.55);
+  padding: clamp(90px, 12vw, 150px) var(--pad);
 }
-.weare_intro { max-width: 400px; }
-.weare_side {
+.weare_inner {
+  max-width: 1040px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 360px;
+  align-items: center;
+  text-align: center;
+}
+
+/* headline with orbiting pills */
+.weare_headwrap { position: relative; display: inline-block; }
+.weare_head {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(44px, 8vw, 104px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  color: #F3D9C9;                 /* warm cream, brand-tinted */
+}
+.weare_head em {
+  font-style: italic;
+  font-weight: 400;
+  color: #FFE9DC;
+}
+.weare_pill {
+  position: absolute;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #F3D9C9;
+  border: 1px solid rgba(243, 217, 201, 0.5);
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: var(--brand);
+}
+.weare_pill.is-tl { top: -6px;  left: -8%; }
+.weare_pill.is-tr { top: 4px;   right: -10%; }
+.weare_pill.is-ml { top: 44%;   left: -14%; }
+.weare_pill.is-mr { top: 40%;   right: -12%; }
+.weare_pill.is-bc { bottom: -6px; left: 42%; }
+
+.weare_lead {
+  max-width: 620px;
+  margin: clamp(36px, 5vw, 56px) auto 0;
+  font-family: var(--grotesk);
+  font-weight: 400;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.6;
+  color: rgba(243, 217, 201, 0.85);
+}
+
+/* three feature columns */
+.weare_features {
+  margin-top: clamp(60px, 9vw, 110px);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(28px, 4vw, 60px);
+}
+.weare_feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.weare_ico { color: #F3D9C9; }
+.weare_feature-title {
+  font-family: var(--grotesk);
+  font-weight: 600;
+  font-size: 16px;
+  color: #FFE9DC;
+}
+.weare_feature-text {
+  font-family: var(--grotesk);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(243, 217, 201, 0.72);
+}
+
+@media (max-width: 760px) {
+  .weare_pill { display: none; }
+  .weare_features { grid-template-columns: 1fr; }
 }
 
 /* ─── QUOTE — scroll-to-reveal ─────────────────────────────── */
