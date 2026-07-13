@@ -242,15 +242,23 @@ canvas { display: block; }
 .hero_left-bottom {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  max-width: 400px;
+  gap: 34px;
+  max-width: 500px;
 }
-.hero_mission { display: flex; flex-direction: column; gap: 14px; }
-.hero_mission-text {
-  font-size: 12px;
-  text-align: justify;
-  text-transform: uppercase;
+.hero_mission { display: flex; flex-direction: column; gap: 20px; }
+.hero_title {
+  font-family: var(--grotesk);
+  font-weight: 500;
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.hero_desc {
+  font-size: 13px;
   line-height: 1.65;
+  color: var(--dim);
+  max-width: 380px;
 }
 
 .hero_next {
