@@ -328,7 +328,6 @@ canvas { display: block; }
   animation-duration: 34s;
   animation-direction: reverse;
 }
-.hero_mcol:hover .hero_mtrack { animation-play-state: paused; }
 .hero_mitem {
   display: flex;
   align-items: center;
