@@ -1,0 +1,167 @@
+/* ═══════════════════════════════════════════════════════════
+   logo3d.js — 3D stone Quantum3 mark, centered in the hero.
+   Scroll past the hero and the mark spins + zooms to fullscreen,
+   dissolving into the "we are" section.
+   Extrudes the brand SVG path with Three.js; procedural stone
+   material; scroll-driven via a #logo-warp spacer section.
+   ═══════════════════════════════════════════════════════════ */
+
+(function () {
+  const canvas = document.getElementById('logo3d');
+  const warp = document.getElementById('logo-warp');
+  const hero = document.getElementById('hero');
+  if (!canvas || !warp || !hero) return;
+
+  // No Three.js (blocked / offline) → collapse the warp so no blank gap.
+  if (typeof THREE === 'undefined') { warp.style.height = '0px'; return; }
+
+  const BRAND_PATH =
+    'M26.8951 28.1044C25.197 29.0553 23.4989 29.9977 21.8008 30.9954C21.738 31.0509 21.6601 31.0866 21.577 31.098C21.4939 31.1093 21.4093 31.0958 21.3339 31.0591C21.181 30.9699 21.2192 30.8213 21.2235 30.6812C21.2235 28.9492 21.2235 27.2214 21.2235 25.4893C21.2099 25.3386 21.2434 25.1874 21.3195 25.0566C21.3955 24.9258 21.5103 24.8218 21.648 24.7591C22.6212 24.2736 23.5678 23.7365 24.4838 23.1502C24.7673 22.9387 24.9934 22.6598 25.1417 22.3388C25.29 22.0178 25.3557 21.6648 25.3329 21.312C25.3329 20.0808 25.282 18.8497 25.2904 17.6228C25.2904 15.9672 25.3838 14.3158 25.3881 12.6644C25.3881 11.7347 25.1419 10.9663 24.1824 10.4526C22.6414 9.6545 21.1428 8.77998 19.6782 7.85876C18.6127 7.18377 17.4962 6.58519 16.4433 5.91444C16.1226 5.72256 15.7558 5.62124 15.382 5.62124C15.0083 5.62124 14.6415 5.72256 14.3207 5.91444C13.3486 6.36868 12.4953 7.04792 11.5655 7.58282C10.5255 8.18565 9.48962 8.79696 8.43255 9.37856C7.64683 9.75563 6.89295 10.1957 6.17832 10.6946C5.93086 10.8699 5.72605 11.0988 5.57907 11.3641C5.43209 11.6294 5.34671 11.9243 5.32927 12.2271C5.24437 13.679 5.41418 15.1181 5.39295 16.5658C5.37172 18.0134 5.35474 19.4101 5.34201 20.8322C5.34201 21.1124 5.34201 21.3926 5.36748 21.6813C5.39783 22.0414 5.52144 22.3873 5.72615 22.6851C5.93086 22.9828 6.2096 23.2221 6.53492 23.3794C7.83397 24.1605 9.20094 24.8143 10.5085 25.5827C11.0816 25.9223 11.6335 26.2959 12.2066 26.6398C12.542 26.8435 12.6311 26.7841 12.6311 26.385C12.6311 24.6317 12.6311 22.8742 12.6311 21.1209C12.6373 20.9717 12.6086 20.823 12.5475 20.6867C12.4863 20.5504 12.3943 20.4302 12.2787 20.3356C11.4663 19.57 10.9747 18.5246 10.9033 17.4106C10.832 16.7278 10.9185 16.0378 11.1561 15.3938C11.3937 14.7498 11.7759 14.1689 12.2735 13.696C12.771 13.223 13.3705 12.8707 14.0258 12.6661C14.681 12.4614 15.3745 12.41 16.0528 12.5158C16.7448 12.6027 17.4056 12.8553 17.9791 13.2522C18.5526 13.6491 19.0219 14.1785 19.3471 14.7955C19.6486 15.3353 19.8335 15.9323 19.8898 16.5481C19.9461 17.1638 19.8726 17.7845 19.674 18.37C19.3929 19.1821 18.9023 19.9056 18.2518 20.4672C18.1802 20.5493 18.1281 20.6466 18.0994 20.7517C18.0707 20.8568 18.0662 20.9671 18.0863 21.0742C18.0863 22.2544 18.0863 23.4303 18.0863 24.6105C18.0863 27.6728 18.0933 30.7336 18.1075 33.793C18.1075 34.4213 18.0863 35.0666 18.0565 35.6736C18.0353 36.0982 17.8655 36.1788 17.5089 35.9751C16.3797 35.334 15.2589 34.7015 14.1382 34.035C13.2594 33.5256 12.3637 33.0458 11.5061 32.5067C9.80801 31.4199 8.06321 30.418 6.2887 29.4077C5.38871 28.894 4.45475 28.4482 3.55051 27.9261C2.81229 27.4886 2.10326 27.0036 1.42789 26.4742C1.07377 26.1951 0.778785 25.8482 0.560125 25.4539C0.341464 25.0596 0.203511 24.6257 0.154311 24.1775C0.00224638 22.9583 -0.037543 21.7276 0.0354439 20.5011C0.0524249 18.6842 0.0948774 16.8629 0.0736512 15.0417C0.0736512 13.3012 -0.0537064 11.5564 0.213744 9.82007C0.288395 9.30795 0.468876 8.81698 0.743693 8.37845C1.01851 7.93991 1.38164 7.56341 1.80996 7.27292C2.95131 6.49335 4.13938 5.78448 5.36748 5.15029C6.96369 4.30124 8.51321 3.32908 10.0755 2.39937C11.2132 1.72862 12.3467 1.04938 13.5269 0.45929C14.0543 0.172929 14.6423 0.0159076 15.2423 0.00114676C15.8423 -0.0136141 16.4373 0.114307 16.9782 0.374385C18.2711 0.971576 19.5209 1.65814 20.7183 2.42909C21.9721 3.22436 23.2499 3.97294 24.5518 4.67482C25.5069 5.20123 26.4664 5.71916 27.4131 6.25406C28.0454 6.62164 28.655 7.02709 29.2385 7.4682C29.6068 7.73886 29.9148 8.0832 30.1428 8.47933C30.3709 8.87545 30.514 9.3147 30.563 9.76912C30.7265 11.3769 30.7691 12.9946 30.6904 14.6087C30.6649 16.171 30.7329 17.7332 30.7541 19.2785C30.7753 20.8238 30.9239 22.3563 30.6904 23.8846C30.6033 24.7716 30.2118 25.6011 29.5824 26.2322C28.769 26.9668 27.8661 27.5959 26.8951 28.1044Z';
+
+  const SVG =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="31" height="37" viewBox="0 0 31 37">' +
+    '<path d="' + BRAND_PATH + '" fill="#4D58FF"/></svg>';
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const TAU = Math.PI * 2;
+  const BASE_FRAC = 0.3;   // logo height ≈ 30% of viewport at rest
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, preserveDrawingBuffer: true });
+  } catch (e) {
+    warp.style.height = '0px';
+    return;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
+  if ('outputEncoding' in renderer) renderer.outputEncoding = THREE.sRGBEncoding;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    45, window.innerWidth / window.innerHeight, 0.1, 4000
+  );
+  camera.position.set(0, 0, 320);
+
+  // ── lights: sculpt the stone ──
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x353b4d, 0.75));
+  const key = new THREE.DirectionalLight(0xffffff, 1.2);
+  key.position.set(140, 200, 240);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xd4dbff, 0.45);
+  fill.position.set(-200, -40, 140);
+  scene.add(fill);
+  const rim = new THREE.DirectionalLight(0x4d58ff, 0.9);   // brand rim light
+  rim.position.set(-80, 140, -220);
+  scene.add(rim);
+
+  // ── procedural stone bump texture ──
+  function makeStoneTexture() {
+    const c = document.createElement('canvas');
+    c.width = c.height = 256;
+    const g = c.getContext('2d');
+    const img = g.createImageData(256, 256);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const v = 140 + ((Math.random() * 115) | 0);
+      img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+      img.data[i + 3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+    // soften with a few speckles for a grainier grain
+    for (let k = 0; k < 1400; k++) {
+      g.fillStyle = 'rgba(90,90,90,' + (Math.random() * 0.25).toFixed(3) + ')';
+      g.fillRect((Math.random() * 256) | 0, (Math.random() * 256) | 0, 2, 2);
+    }
+    const t = new THREE.CanvasTexture(c);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    t.repeat.set(2.5, 2.5);
+    return t;
+  }
+  const bump = makeStoneTexture();
+
+  const material = new THREE.MeshStandardMaterial({
+    color: 0x9c988f,
+    roughness: 1.0,
+    metalness: 0.0,
+    bumpMap: bump,
+    bumpScale: 0.7,
+  });
+
+  // ── extrude the brand mark into 3D ──
+  const loader = new THREE.SVGLoader();
+  const parsed = loader.parse(SVG);
+  const shapes = [];
+  parsed.paths.forEach(path => {
+    const s = THREE.SVGLoader.createShapes
+      ? THREE.SVGLoader.createShapes(path)
+      : path.toShapes(true);
+    s.forEach(sh => shapes.push(sh));
+  });
+
+  const geometry = new THREE.ExtrudeGeometry(shapes, {
+    depth: 9,
+    bevelEnabled: true,
+    bevelThickness: 1.4,
+    bevelSize: 0.9,
+    bevelSegments: 4,
+    curveSegments: 44,
+  });
+  geometry.applyMatrix4(new THREE.Matrix4().makeScale(1, -1, 1)); // SVG y-down → y-up
+  geometry.computeVertexNormals();
+  geometry.center();
+
+  const group = new THREE.Group();
+  const mesh = new THREE.Mesh(geometry, material);
+  group.add(mesh);
+  scene.add(group);
+
+  const size = new THREE.Vector3();
+  new THREE.Box3().setFromObject(mesh).getSize(size);
+
+  function visibleHeight() {
+    return 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+  }
+  let baseScale = (BASE_FRAC * visibleHeight()) / size.y;
+
+  window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight, false);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    baseScale = (BASE_FRAC * visibleHeight()) / size.y;
+  });
+
+  // ── scroll-driven render loop ──
+  let idle = 0;
+  function frame() {
+    const vh = window.innerHeight;
+    const wr = warp.getBoundingClientRect();
+    const active = wr.bottom > 0;                 // hero + warp region on screen
+    const denom = Math.max(1, warp.offsetHeight); // full warp height = transition span
+    const p = clamp(-wr.top / denom, 0, 1);       // 0 at hero end, 1 as we-are fills
+
+    if (!active || p >= 1) {
+      if (canvas.style.display !== 'none') {
+        canvas.style.display = 'none';
+        canvas.style.opacity = '0';
+        renderer.clear();                 // drop the last frame (preserveDrawingBuffer)
+      }
+      requestAnimationFrame(frame);
+      return;
+    }
+    if (canvas.style.display === 'none') canvas.style.display = '';
+
+    idle += reduce ? 0 : 0.0032;
+    const ease = p * p;                            // zoom accelerates toward the end
+    group.rotation.y = idle + p * TAU * 2.2;       // idle drift → several spins
+    group.rotation.x = (reduce ? 0 : Math.sin(idle * 0.6) * 0.1) + p * 0.35;
+    group.scale.setScalar(baseScale * (1 + ease * 15));
+    group.position.y = reduce ? 0 : (1 - p) * Math.sin(idle * 0.9) * 3;
+
+    canvas.style.opacity = (p < 0.82 ? 1 : clamp(1 - (p - 0.82) / 0.18, 0, 1)).toFixed(3);
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();

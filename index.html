@@ -60,6 +60,9 @@
 
   <main>
 
+    <!-- 3D stone brand mark — centered in hero, zooms on scroll -->
+    <canvas id="logo3d" class="logo3d" aria-hidden="true"></canvas>
+
     <!-- ═══ HERO — left copy + dual vertical marquees ═══ -->
     <section class="hero" id="hero">
       <div class="hero_inner">
@@ -98,6 +101,9 @@
         </div>
       </div>
     </section>
+
+    <!-- scroll spacer that drives the 3D logo spin + zoom transition -->
+    <div class="logo-warp" id="logo-warp" aria-hidden="true"></div>
 
     <!-- ═══ WHO WE ARE — fullscreen video section ═══ -->
     <section class="weare" id="about">
@@ -459,5 +465,8 @@
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
   <script src="js/globe.js"></script>
   <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/SVGLoader.js"></script>
+  <script src="js/logo3d.js"></script>
 </body>
 </html>

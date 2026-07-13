@@ -208,6 +208,25 @@ canvas { display: block; }
   overflow: hidden;
   background: var(--paper);
 }
+
+/* 3D stone brand mark — fixed, centered, scroll-driven zoom */
+.logo3d {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+/* scroll spacer between hero and we-are that the zoom plays across */
+.logo-warp {
+  position: relative;
+  height: 180vh;
+  pointer-events: none;
+  background: var(--paper);
+}
 .hero_inner { display: flex; height: 100%; }
 
 /* ── left column: title + description + app card ── */
