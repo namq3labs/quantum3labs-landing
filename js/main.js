@@ -695,7 +695,7 @@
 
   function initHeroMarquee() {
     const projects = [...WORK.map(w => w.title), ...OTHER_PROJECTS.map(p => p.title)];
-    const oss = LABS.map(l => l.title);
+    const oss = LABS.map(l => l.title.replace(/^@/, ''));
 
     function fill(sel, names) {
       const track = document.querySelector(`${sel} .hero_mtrack`);
