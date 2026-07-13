@@ -142,6 +142,9 @@ canvas { display: block; }
   align-items: center;
   gap: 9px;
   color: var(--brand);
+  /* the nav uses mix-blend-mode:difference; pre-invert the brand-blue mark
+     so the blend renders it back to true #4D58FF on light sections */
+  filter: invert(1);
   transition: opacity 0.5s var(--ease-expo);
 }
 .nav_logo:hover { opacity: 0.65; }
