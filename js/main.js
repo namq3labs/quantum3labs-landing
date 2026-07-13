@@ -433,11 +433,69 @@
     addEventListener('load', measure);
   }
 
+  /* ─── globe: pinned orbit-in + text reveal ─────────────── */
+
+  function initGlobePin() {
+    const section = document.querySelector('[data-globe-pin]');
+    if (!section) return;
+    const orbit = section.querySelector('[data-globe-orbit]');
+    const text = section.querySelector('[data-globe-text]');
+    const desktop = matchMedia('(min-width: 1024px)');
+    const easeOut = t => 1 - Math.pow(1 - t, 3);
+    let vw = innerWidth, vh = innerHeight;
+
+    function measure() {
+      if (!desktop.matches) {
+        section.style.height = '';
+        orbit.style.transform = ''; orbit.style.opacity = '';
+        text.style.transform = ''; text.style.opacity = '';
+        return;
+      }
+      vw = innerWidth; vh = innerHeight;
+      section.style.height = Math.round(vh * 2.4) + 'px'; // ~1.4vh of scroll room
+      render();
+    }
+
+    function render() {
+      if (!desktop.matches) return;
+      const rect = section.getBoundingClientRect();
+      const scrollable = section.offsetHeight - vh;
+      const p = Math.max(0, Math.min(1, -rect.top / scrollable));
+
+      const SPLIT = 0.5;
+      const q = easeOut(Math.max(0, Math.min(1, p / SPLIT)));                 // globe orbits in
+      const r = easeOut(Math.max(0, Math.min(1, (p - SPLIT) / (1 - SPLIT)))); // text scrolls up
+
+      // orbital path (quadratic bezier): rises from below, arcs right into center
+      const p0 = { x: vw * 0.05, y: vh * 0.46 };
+      const p1 = { x: vw * 0.28, y: vh * 0.06 };
+      const t = q, mt = 1 - t;
+      const ox = mt * mt * p0.x + 2 * mt * t * p1.x;
+      const oy = mt * mt * p0.y + 2 * mt * t * p1.y;
+      const scale = 0.74 + 0.26 * q;
+      orbit.style.transform = `translate3d(${ox.toFixed(1)}px, ${oy.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+      orbit.style.opacity = (0.55 + 0.45 * q).toFixed(3);
+
+      // text rises up into place during phase 2
+      const ty = (1 - r) * vh * 0.26;
+      text.style.transform = `translate3d(0, ${ty.toFixed(1)}px, 0)`;
+      text.style.opacity = r.toFixed(3);
+    }
+
+    addEventListener('scroll', render, { passive: true });
+    addEventListener('resize', measure);
+    desktop.addEventListener('change', measure);
+    measure();
+    requestAnimationFrame(measure);
+    addEventListener('load', measure);
+  }
+
   buildWorkCards();
   buildLabsCards();
   buildOtherProjects();
   initImageTrail();
   initQuoteReveal();
+  initGlobePin();
   initLabsPin();
 
   // footer Work links open the project detail modal

@@ -513,7 +513,50 @@ canvas { display: block; }
 
 /* ─── globe ────────────────────────────────────────────────── */
 
-.globe { padding-top: clamp(60px, 8vw, 120px); }
+/* ─── globe: pinned orbit-in + text reveal ─────────────────── */
+.globe-pin { position: relative; }
+.globe-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.globe-text { position: relative; z-index: 2; width: 100%; }
+.globe_center-spacer { min-height: 1px; }
+.globe-orbit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.globe-orbit .globe_center { width: min(520px, 42vw); }
+/* prevent a flash of final-state before JS drives the scroll (desktop) */
+@media (min-width: 1024px) {
+  .globe-text { opacity: 0; }
+}
+/* below the pin threshold: static stacked layout, globe in flow */
+@media (max-width: 1023px) {
+  .globe-sticky {
+    position: static;
+    height: auto;
+    display: block;
+    padding: clamp(80px, 12vw, 120px) 0;
+  }
+  .globe-orbit {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important;
+    margin-top: 44px;
+  }
+  .globe-orbit .globe_center { width: min(520px, 78vw); margin: 0 auto; }
+}
+
 .globe_grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr 1fr;

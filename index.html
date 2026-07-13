@@ -207,39 +207,45 @@
       </div>
     </section>
 
-    <!-- ═══ GLOBAL — from Asia to Latin America ═══ -->
-    <section class="section globe" id="globe">
-      <div class="container globe_grid">
-        <div class="globe_left">
-          <h2 class="headline globe_headline">FROM ASIA TO LATIN AMERICA</h2>
-          <div class="globe_filter">
-            <button class="globe_filter-btn is-active" data-filter="all">ALL</button>
-            <span>/</span>
-            <button class="globe_filter-btn" data-filter="live">HQ</button>
+    <!-- ═══ GLOBAL — orbit-in globe, then text reveals ═══ -->
+    <section class="globe-pin" id="globe" data-globe-pin>
+      <div class="globe-sticky">
+        <div class="container globe_grid globe-text" data-globe-text>
+          <div class="globe_left">
+            <h2 class="headline globe_headline">FROM ASIA TO LATIN AMERICA</h2>
+            <div class="globe_filter">
+              <button class="globe_filter-btn is-active" data-filter="all">ALL</button>
+              <span>/</span>
+              <button class="globe_filter-btn" data-filter="live">HQ</button>
+            </div>
+            <div class="globe_coords mono-block">
+              <p><span class="dim">LAT:</span> <span id="globe-lat">1.2841&deg; N</span></p>
+              <p><span class="dim">LON:</span> <span id="globe-lon">103.8493&deg; E</span></p>
+            </div>
           </div>
-          <div class="globe_coords mono-block">
-            <p><span class="dim">LAT:</span> <span id="globe-lat">1.2841&deg; N</span></p>
-            <p><span class="dim">LON:</span> <span id="globe-lon">103.8493&deg; E</span></p>
+
+          <div class="globe_center-spacer" aria-hidden="true"></div>
+
+          <div class="globe_right">
+            <div class="globe_time mono-block">
+              <p><span class="dim">LOCAL TIME:</span> <span id="local-time">00:00:00</span> <span class="dim">SGT</span></p>
+              <p><span class="dim">TIME ZONE:</span> <span id="time-zone">GMT+8 (UTC+8)</span></p>
+            </div>
+            <p class="mono-block">
+              SEAMLESS TECHNOLOGY INTEGRATION ACROSS INTERNATIONAL
+              MARKETS AND PLATFORMS. INNOVATION MEANS RESPONSIBILITY —
+              EVERY SYSTEM WE DESIGN AIMS TO DELIVER LASTING VALUE FOR
+              PEOPLE AND THE PLANET.
+            </p>
           </div>
         </div>
 
-        <div class="globe_center">
-          <span class="hero_bracket is-tr"></span>
-          <span class="hero_bracket is-bl"></span>
-          <canvas id="globe-canvas" width="900" height="900"></canvas>
-        </div>
-
-        <div class="globe_right">
-          <div class="globe_time mono-block">
-            <p><span class="dim">LOCAL TIME:</span> <span id="local-time">00:00:00</span> <span class="dim">SGT</span></p>
-            <p><span class="dim">TIME ZONE:</span> <span id="time-zone">GMT+8 (UTC+8)</span></p>
+        <div class="globe-orbit" data-globe-orbit>
+          <div class="globe_center">
+            <span class="hero_bracket is-tr"></span>
+            <span class="hero_bracket is-bl"></span>
+            <canvas id="globe-canvas" width="900" height="900"></canvas>
           </div>
-          <p class="mono-block">
-            SEAMLESS TECHNOLOGY INTEGRATION ACROSS INTERNATIONAL
-            MARKETS AND PLATFORMS. INNOVATION MEANS RESPONSIBILITY —
-            EVERY SYSTEM WE DESIGN AIMS TO DELIVER LASTING VALUE FOR
-            PEOPLE AND THE PLANET.
-          </p>
         </div>
       </div>
     </section>
