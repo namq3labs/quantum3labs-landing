@@ -256,12 +256,23 @@ canvas { display: block; }
   gap: 14px;
   align-items: flex-start;
 }
+.hero_next {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
 .hero_next-thumb {
+  display: block;
   width: 96px; height: 76px;
   background: var(--ph-deep);
   border: 1px solid rgba(17, 18, 20, 0.15);
+  overflow: hidden;
+  flex-shrink: 0;
   transition: transform 0.6s var(--ease-expo), border-color 0.6s var(--ease-expo);
 }
+.hero_next-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero_next:hover .hero_next-thumb { transform: scale(1.05); border-color: var(--brand); }
 .hero_next-meta { display: flex; flex-direction: column; gap: 6px; }
 .hero_next-title { font-size: 13px; text-transform: uppercase; line-height: 1.35; }
@@ -969,6 +980,85 @@ canvas { display: block; }
   .pmodal_side { border-right: none; border-bottom: 1px solid var(--hairline); padding-top: 70px; }
   .pmodal_main { padding-top: 28px; }
   .pmodal_cols { grid-template-columns: 1fr; }
+}
+
+/* ─── Prism app QR modal ───────────────────────────────────── */
+
+.qrmodal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(1, 8, 40, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-expo);
+}
+.qrmodal.is-open { opacity: 1; pointer-events: auto; }
+.qrmodal_box {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  padding: clamp(28px, 4vw, 48px);
+  transform: translateY(12px);
+  transition: transform 0.4s var(--ease-expo);
+}
+.qrmodal.is-open .qrmodal_box { transform: translateY(0); }
+.qrmodal_close {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-size: 16px;
+  color: var(--dim);
+  padding: 6px 10px;
+  border: 1px solid var(--hairline);
+  transition: color 0.4s var(--ease-expo), border-color 0.4s var(--ease-expo);
+}
+.qrmodal_close:hover { color: var(--brand); border-color: var(--brand); }
+.qrmodal_head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.qrmodal_title {
+  font-family: var(--grotesk);
+  font-weight: 700;
+  font-size: clamp(22px, 3vw, 32px);
+  letter-spacing: -0.02em;
+}
+.qrmodal_sub { font-size: 12px; }
+.qrmodal_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.qrmodal_store {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 16px;
+  border: 1px solid var(--hairline);
+  transition: border-color 0.4s var(--ease-expo), background 0.4s var(--ease-expo);
+}
+.qrmodal_store:hover { border-color: var(--brand); background: rgba(77, 88, 255, 0.04); }
+.qrmodal_qr {
+  width: 180px; height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+}
+.qrmodal_qr img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+.qrmodal_store-meta { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.qrmodal_store-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.qrmodal_store-sub { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; }
+
+@media (max-width: 560px) {
+  .qrmodal_grid { grid-template-columns: 1fr; }
 }
 
 /* ─── footer ───────────────────────────────────────────────── */

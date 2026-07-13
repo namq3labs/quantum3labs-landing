@@ -629,11 +629,74 @@
     addEventListener('load', measure);
   }
 
+  /* ─── Prism app — QR download modal ────────────────────── */
+
+  function initPrismModal() {
+    const trigger = document.querySelector('[data-open-prism]');
+    if (!trigger) return;
+
+    const STORES = [
+      { label: 'App Store', sub: 'iOS', url: 'https://apps.apple.com/us/app/prism-pay/id6768889220' },
+      { label: 'Google Play', sub: 'Android', url: 'https://play.google.com/store/apps/details?id=quantum3labs.prismapp' },
+    ];
+
+    function qrDataUrl(url) {
+      if (typeof qrcode === 'undefined') return '';
+      const qr = qrcode(0, 'M');
+      qr.addData(url);
+      qr.make();
+      return qr.createDataURL(6, 2);
+    }
+
+    let modal = null;
+    function build() {
+      modal = document.createElement('div');
+      modal.className = 'qrmodal';
+      modal.innerHTML = `
+        <div class="qrmodal_box">
+          <button class="qrmodal_close" aria-label="Close">✕</button>
+          <div class="qrmodal_head">
+            <p class="eyebrow"><span class="square"></span>GET THE APP</p>
+            <h3 class="qrmodal_title">Prism — Mobile Wallet</h3>
+            <p class="qrmodal_sub mono-block dim">SCAN A CODE TO INSTALL PRISM ON YOUR PHONE.</p>
+          </div>
+          <div class="qrmodal_grid">
+            ${STORES.map(s => `
+              <a class="qrmodal_store" href="${s.url}" target="_blank" rel="noopener">
+                <span class="qrmodal_qr"><img src="${qrDataUrl(s.url)}" alt="${s.label} QR code" width="180" height="180" /></span>
+                <span class="qrmodal_store-meta">
+                  <span class="qrmodal_store-label">${s.label}</span>
+                  <span class="qrmodal_store-sub">${s.sub}</span>
+                </span>
+              </a>`).join('')}
+          </div>
+        </div>`;
+      document.body.appendChild(modal);
+      modal.querySelector('.qrmodal_close').addEventListener('click', close);
+      modal.addEventListener('click', e => { if (e.target === modal) close(); });
+      addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    }
+    function open() {
+      if (!modal) build();
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      if (lenis) lenis.stop();
+    }
+    function close() {
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
+    }
+    trigger.addEventListener('click', open);
+  }
+
   buildWorkCards();
   buildOtherProjects();
   initImageTrail();
   initQuoteReveal();
   initGlobePin();
+  initPrismModal();
 
   // footer Work links open the project detail modal
   document.querySelectorAll('[data-open-project]').forEach(link =>
