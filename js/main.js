@@ -24,7 +24,7 @@
       statement: 'A LENDING PROTOCOL THAT TURNS IDLE LIQUIDITY INTO OPPORTUNITY FOR BUILDERS AND FUNDS.',
       dev: ['PROTOCOL DESIGN', 'SMART CONTRACTS', 'SECURITY AUDIT'],
       design: ['PRODUCT DESIGN', 'WEB DESIGN', 'BRAND'],
-      url: 'https://github.com/quantum3labs',
+      url: 'https://github.com/Quantum3-Labs',
       challenge: 'Lending on-chain still feels like a spreadsheet with extra steps. Liquidity sits idle in isolated pools, terms are rigid, and both borrowers and funds struggle to find each other at the right moment. Stormbit needed rails flexible enough for real credit relationships without giving up the guarantees of the chain.',
       solution: 'We designed and audited a lending protocol built around flexible agreement terms, with smart contracts that let funds define their own strategies while keeping every position transparent. On top of it we shipped a product surface that reads like a trading desk, not a wallet — clear risk, clear yield, one click to act.',
     },
@@ -36,7 +36,7 @@
       statement: 'A PAYMENTS STACK THAT MAKES MOVING MONEY FEEL LIKE MOVING DATA.',
       dev: ['FULLSTACK BUILD', 'INFRASTRUCTURE', 'CMS SETUP'],
       design: ['CREATIVE DEVELOPMENT', 'WEBSITE DESIGN', 'MOTION'],
-      url: 'https://github.com/quantum3labs',
+      url: 'https://github.com/Quantum3-Labs',
       challenge: 'Moving money across borders still takes days while the market moves in milliseconds. Qash set out to make payments feel instant for businesses that operate across currencies and rails, without drowning teams in compliance overhead or clunky banking portals.',
       solution: 'Q3labs built the full stack — from settlement infrastructure to the customer-facing product — around one idea: a payment should feel like sending a message. Real-time rails, automated compliance checks, and an interface with the calm precision of a well-run terminal.',
     },
@@ -48,7 +48,7 @@
       statement: 'AN ANALYTICS SURFACE THAT SPLITS RAW ON-CHAIN NOISE INTO SIGNALS TEAMS CAN ACT ON.',
       dev: ['DATA PIPELINE', 'API DESIGN', 'DASHBOARDS'],
       design: ['DATA VISUALIZATION', 'UI/UX', 'DESIGN SYSTEM'],
-      url: 'https://github.com/quantum3labs',
+      url: 'https://github.com/Quantum3-Labs',
       challenge: 'On-chain data is abundant and almost unreadable. Teams either build their own fragile indexing pipelines or squint at generic explorers that answer none of their real questions. Prism needed to turn that raw noise into something an analyst can act on before the moment passes.',
       solution: 'We engineered a data pipeline that indexes, enriches and serves chain activity in near real time, then designed a visualization layer where every chart is a question answered: flows, positions, anomalies. A design system keeps the whole surface coherent as new datasets come online.',
     },
@@ -60,7 +60,7 @@
       statement: 'A COORDINATION NETWORK WHERE COMMITMENTS ARE CODE AND TRUST IS THE DEFAULT.',
       dev: ['PROTOCOL DESIGN', 'NODE INFRASTRUCTURE', 'AUDITS'],
       design: ['BRAND & IDENTITY', 'WEBSITE DESIGN', 'DOCS'],
-      url: 'https://github.com/quantum3labs',
+      url: 'https://github.com/pactnetwork',
       challenge: 'Coordination between organizations still runs on PDFs and promises. Agreements are slow to draft, hard to verify and expensive to enforce — especially across borders. Pact Network needed a way to make commitments as reliable as the code that executes them.',
       solution: 'We designed the protocol where agreements live as verifiable on-chain pacts, ran the node infrastructure to keep the network honest, and shaped a brand and documentation system that makes a deeply technical idea legible to the organizations it serves.',
     },
@@ -68,30 +68,39 @@
 
   // other projects — list rows (titles verbatim from quantum3labs.com)
   const OTHER_PROJECTS = [
-    'Brove', 'Solder', 'Scaffold-Stark', 'Scaffold-Stylus', 'scaffold-iCP',
-    'Aztec q3x', 'ICP q3x', 'The Marquis', 'Arbuilder', 'iCP coder',
-    'stacks-builder', 'Polypay',
+    { title: 'Brove',          link: 'https://brove.io/' },
+    { title: 'Solder',         link: 'https://solder.build/' },
+    { title: 'Scaffold-Stark', link: 'https://scaffoldstark.com/' },
+    { title: 'Scaffold-Stylus',link: 'https://www.scaffoldstylus.com/' },
+    { title: 'scaffold-iCP',   link: 'https://github.com/Quantum3-Labs/scaffold-icp' },
+    { title: 'Aztec q3x',      link: 'https://github.com/Quantum3-Labs/aztec-cross-chain-multisig' },
+    { title: 'ICP q3x',        link: 'https://github.com/Quantum3-Labs/q3x-icp-app' },
+    { title: 'The Marquis',    link: 'https://x.com/TheMarquisOnX' },
+    { title: 'Arbuilder',      link: 'https://arbuilder.app/' },
+    { title: 'iCP coder',      link: 'https://github.com/Quantum3-Labs/icp-coder' },
+    { title: 'stacks-builder', link: 'https://github.com/Quantum3-Labs/stacks-builder' },
+    { title: 'Polypay',        link: 'https://github.com/Poly-pay' },
   ];
 
   // handles verbatim from quantum3labs.com — "open-source contributions"
   const OSS_DIR = 'public/open-source contributions/';
   const LABS = [
-    { title: '@Scaffold-Stark',  tag: 'OPEN SOURCE', img: 'Scaffold-stark.png' },
-    { title: '@buidlguidl',      tag: 'OPEN SOURCE', img: 'BuidlGuidl.png' },
-    { title: '@themarquis',      tag: 'OPEN SOURCE', img: 'The marquis.png' },
-    { title: '@uniswap',         tag: 'OPEN SOURCE', img: 'Uniswap.png' },
-    { title: '@foundry',         tag: 'OPEN SOURCE', img: 'Foundry.png' },
-    { title: '@polypay',         tag: 'OPEN SOURCE', img: 'Polypay.png' },
-    { title: '@humanprotocol',   tag: 'OPEN SOURCE', img: 'Human protocol.png' },
-    { title: '@dojo',            tag: 'OPEN SOURCE', img: 'Dojo.png' },
-    { title: '@Futaba Labs',     tag: 'OPEN SOURCE', img: 'Futaba labs.png' },
-    { title: '@Scaffold-eth',    tag: 'OPEN SOURCE', img: 'Scaffold ETH.png' },
-    { title: '@WTFAcademy',      tag: 'OPEN SOURCE', img: 'WTFACADEMY.png' },
-    { title: '@scaffold-stylus', tag: 'OPEN SOURCE', img: 'Scaffold Stylus.png' },
-    { title: '@solder',          tag: 'OPEN SOURCE', img: 'Solder.png' },
-    { title: '@pact-network',    tag: 'OPEN SOURCE', img: 'Pact network.png' },
-    { title: '@arbuilder',       tag: 'OPEN SOURCE', img: 'Arbuilder.png' },
-    { title: '@Openzeppelin',    tag: 'OPEN SOURCE', img: 'Openzeppelin.png' },
+    { title: '@Scaffold-Stark',  tag: 'OPEN SOURCE', img: 'Scaffold-stark.png', link: 'https://github.com/Scaffold-Stark/scaffold-stark-2' },
+    { title: '@buidlguidl',      tag: 'OPEN SOURCE', img: 'BuidlGuidl.png', link: 'https://github.com/BuidlGuidl' },
+    { title: '@themarquis',      tag: 'OPEN SOURCE', img: 'The marquis.png', link: 'https://github.com/The-Marquis-Gaming' },
+    { title: '@uniswap',         tag: 'OPEN SOURCE', img: 'Uniswap.png', link: 'https://github.com/Uniswap' },
+    { title: '@foundry',         tag: 'OPEN SOURCE', img: 'Foundry.png', link: 'https://github.com/foundry-rs' },
+    { title: '@polypay',         tag: 'OPEN SOURCE', img: 'Polypay.png', link: 'https://github.com/Poly-pay' },
+    { title: '@humanprotocol',   tag: 'OPEN SOURCE', img: 'Human protocol.png', link: 'https://github.com/humanprotocol' },
+    { title: '@dojo',            tag: 'OPEN SOURCE', img: 'Dojo.png', link: 'https://github.com/dojoengine' },
+    { title: '@Futaba Labs',     tag: 'OPEN SOURCE', img: 'Futaba labs.png', link: 'https://github.com/Futaba-Labs' },
+    { title: '@Scaffold-eth',    tag: 'OPEN SOURCE', img: 'Scaffold ETH.png', link: 'https://github.com/scaffold-eth' },
+    { title: '@WTFAcademy',      tag: 'OPEN SOURCE', img: 'WTFACADEMY.png', link: 'https://github.com/WTFAcademy' },
+    { title: '@scaffold-stylus', tag: 'OPEN SOURCE', img: 'Scaffold Stylus.png', link: 'https://github.com/Arb-Stylus' },
+    { title: '@solder',          tag: 'OPEN SOURCE', img: 'Solder.png', link: 'https://github.com/pactnetwork/solder' },
+    { title: '@pact-network',    tag: 'OPEN SOURCE', img: 'Pact network.png', link: 'https://github.com/pactnetwork' },
+    { title: '@arbuilder',       tag: 'OPEN SOURCE', img: 'Arbuilder.png', link: 'https://github.com/Quantum3-Labs/ARBuilder' },
+    { title: '@Openzeppelin',    tag: 'OPEN SOURCE', img: 'Openzeppelin.png', link: 'https://github.com/OpenZeppelin' },
   ];
 
   /* ─── build carousels ──────────────────────────────────── */
@@ -226,7 +235,9 @@
     const track = document.querySelector('#labs-carousel [data-carousel-track]');
     LABS.forEach(item => {
       const card = document.createElement('a');
-      card.href = '#footer';
+      card.href = item.link || '#';
+      card.target = '_blank';
+      card.rel = 'noopener';
       card.className = 'card';
       const media = item.img
         ? `<img class="product_img" src="${encodeURI(OSS_DIR + item.img)}" alt="${item.title}" loading="lazy" draggable="false" />`
@@ -297,12 +308,12 @@
 
   function buildOtherProjects() {
     const list = document.getElementById('other-projects-list');
-    OTHER_PROJECTS.forEach((title, i) => {
+    OTHER_PROJECTS.forEach((item, i) => {
       const row = document.createElement('li');
       row.className = 'services_row';
       row.innerHTML = `
         <span class="services_index">[${String(i + 1).padStart(2, '0')}]</span>
-        <h3 class="services_title is-project">${title}</h3>
+        <a class="services_title is-project" href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
         <p class="services_desc mono-block">2025</p>
         <span class="services_arrow">↳</span>`;
       list.appendChild(row);
