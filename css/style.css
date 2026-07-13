@@ -265,7 +265,8 @@ canvas { display: block; }
 }
 .hero_next-thumb {
   display: block;
-  width: 96px; height: 76px;
+  width: 76px; height: 76px;
+  border-radius: 12px;
   background: var(--ph-deep);
   border: 1px solid rgba(17, 18, 20, 0.15);
   overflow: hidden;
