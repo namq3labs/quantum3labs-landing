@@ -65,8 +65,8 @@
       blurb: 'Chargebacks for agent payments.',
       industry: 'AI Agents · Agentic Payments · Infrastructure',
       statement: 'A risk layer that refunds AI agents when paid API calls fail.',
-      dev: ['BACKEND', 'DEVOPS'],
-      design: ['BRANDING'],
+      dev: ['BACKEND', 'DEVOPS', 'BRANDING'],
+      design: [],
       url: 'https://github.com/pactnetwork',
       overview: 'Pact is a risk layer for agent payments that automatically refunds AI agents when paid API calls fail. Built for protocols such as x402 and Multi-Payment Protocol (MPP), Pact brings chargeback-like protections to autonomous transactions.',
       challenge: 'As agent payments become more common, there is no recourse mechanism when a paid API request fails. Whether due to server errors, timeouts, or invalid responses, agents bear the full cost of failed interactions, with no equivalent to traditional payment chargebacks.',
@@ -175,7 +175,7 @@
             <p class="footer_col-head">[DEVELOPMENT]</p>
             <ul class="pmodal_tags" data-list="dev"></ul>
           </div>
-          <div>
+          <div data-col="design">
             <p class="footer_col-head">[BRANDING &amp; DESIGN]</p>
             <ul class="pmodal_tags" data-list="design"></ul>
           </div>
@@ -217,6 +217,7 @@
     modal.querySelector('.pmodal_statement').textContent = p.statement;
     modal.querySelector('[data-list="dev"]').innerHTML = p.dev.map(t => `<li>${t}</li>`).join('');
     modal.querySelector('[data-list="design"]').innerHTML = p.design.map(t => `<li>${t}</li>`).join('');
+    modal.querySelector('[data-col="design"]').style.display = p.design.length ? '' : 'none';
     modal.querySelector('[data-text="overview"]').textContent = p.overview;
     modal.querySelector('[data-text="challenge"]').textContent = p.challenge;
     modal.querySelector('[data-text="solution"]').textContent = p.solution;
