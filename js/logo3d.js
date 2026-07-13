@@ -45,48 +45,62 @@
   camera.position.set(0, 0, 320);
 
   // ── lights: sculpt the stone ──
-  scene.add(new THREE.HemisphereLight(0xcdd3ff, 0x1a1f4a, 0.5));
-  const key = new THREE.DirectionalLight(0xffffff, 0.6);
+  scene.add(new THREE.HemisphereLight(0xdfe4ff, 0x232a5e, 0.5));
+  const key = new THREE.DirectionalLight(0xffffff, 0.85);
   key.position.set(140, 200, 240);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0x9aa4ff, 0.22);
+  const fill = new THREE.DirectionalLight(0xaebbff, 0.35);
   fill.position.set(-200, -40, 140);
   scene.add(fill);
-  const rim = new THREE.DirectionalLight(0xc7ccff, 0.5);   // light-blue rim for edge definition
+  const rim = new THREE.DirectionalLight(0xffffff, 0.75);   // rim → glassy edge glints
   rim.position.set(-80, 140, -220);
   scene.add(rim);
 
-  // ── procedural stone bump texture ──
-  function makeStoneTexture() {
+  // ── environment map so the glass has something to reflect (procedural) ──
+  function makeEnvTexture() {
     const c = document.createElement('canvas');
-    c.width = c.height = 256;
+    c.width = 512; c.height = 256;
     const g = c.getContext('2d');
-    const img = g.createImageData(256, 256);
-    for (let i = 0; i < img.data.length; i += 4) {
-      const v = 140 + ((Math.random() * 115) | 0);
-      img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
-      img.data[i + 3] = 255;
-    }
-    g.putImageData(img, 0, 0);
-    // soften with a few speckles for a grainier grain
-    for (let k = 0; k < 1400; k++) {
-      g.fillStyle = 'rgba(90,90,90,' + (Math.random() * 0.25).toFixed(3) + ')';
-      g.fillRect((Math.random() * 256) | 0, (Math.random() * 256) | 0, 2, 2);
-    }
-    const t = new THREE.CanvasTexture(c);
-    t.wrapS = t.wrapT = THREE.RepeatWrapping;
-    t.repeat.set(2.5, 2.5);
-    return t;
+    const grad = g.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0.00, '#ffffff');
+    grad.addColorStop(0.42, '#dfe6ff');
+    grad.addColorStop(0.55, '#7f8bcf');
+    grad.addColorStop(1.00, '#232a5e');
+    g.fillStyle = grad; g.fillRect(0, 0, 512, 256);
+    // soft bright blobs = highlights the bevels can catch
+    g.fillStyle = 'rgba(255,255,255,0.95)';
+    g.beginPath(); g.ellipse(140, 66, 66, 34, 0, 0, Math.PI * 2); g.fill();
+    g.fillStyle = 'rgba(190,205,255,0.75)';
+    g.beginPath(); g.ellipse(384, 120, 84, 42, 0, 0, Math.PI * 2); g.fill();
+    const tex = new THREE.Texture(c);
+    tex.mapping = THREE.EquirectangularReflectionMapping;
+    tex.needsUpdate = true;
+    return tex;
   }
-  const bump = makeStoneTexture();
+  let envMap = makeEnvTexture();
+  if (THREE.PMREMGenerator) {
+    try {
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      envMap = pmrem.fromEquirectangular(envMap).texture;
+      pmrem.dispose();
+    } catch (e) { /* keep the raw equirect texture */ }
+  }
+  scene.environment = envMap;
 
-  const material = new THREE.MeshStandardMaterial({
-    color: 0x4d58ff,          // brand blue — matches the we-are section
-    roughness: 0.92,
+  const material = new THREE.MeshPhysicalMaterial({
+    color: 0x4d58ff,          // brand-blue tinted glass — visible on white, still see-through
     metalness: 0.0,
-    bumpMap: bump,
-    bumpScale: 0.3,
-    side: THREE.DoubleSide,   // safety: render both faces regardless of winding
+    roughness: 0.16,
+    transparent: true,
+    opacity: 0.62,            // see-through — page / blue backdrop shows behind it
+    clearcoat: 0.6,
+    clearcoatRoughness: 0.18,
+    envMap: envMap,
+    envMapIntensity: 0.55,
+    ior: 1.45,
+    reflectivity: 0.4,
+    side: THREE.DoubleSide,
+    depthWrite: false,        // let the back faces show through → layered glass
   });
 
   // ── extrude the brand mark into 3D ──
