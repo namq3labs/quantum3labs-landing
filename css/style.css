@@ -536,6 +536,30 @@ canvas { display: block; }
   will-change: transform, opacity;
 }
 .globe-orbit .globe_center { width: min(520px, 42vw); }
+/* open-source logos orbiting the globe in 3D (phase 3) */
+.globe-satellites {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.globe-sat {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46px;
+  height: 46px;
+  border-radius: 9px;
+  overflow: hidden;
+  opacity: 0;
+  background: var(--paper);
+  box-shadow: 0 6px 22px rgba(1, 8, 40, 0.14);
+  will-change: transform, opacity;
+}
+.globe-sat img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* prevent a flash of final-state before JS drives the scroll (desktop) */
 @media (min-width: 1024px) {
   .globe-text { opacity: 0; }
@@ -555,6 +579,7 @@ canvas { display: block; }
     margin-top: 44px;
   }
   .globe-orbit .globe_center { width: min(520px, 78vw); margin: 0 auto; }
+  .globe-satellites { display: none; }
 }
 
 .globe_grid {

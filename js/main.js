@@ -467,9 +467,31 @@
     if (!section) return;
     const orbit = section.querySelector('[data-globe-orbit]');
     const text = section.querySelector('[data-globe-text]');
+    const satLayer = section.querySelector('[data-globe-satellites]');
+    const canvas = document.getElementById('globe-canvas');
     const desktop = matchMedia('(min-width: 1024px)');
     const easeOut = t => 1 - Math.pow(1 - t, 3);
+    const easeIn = t => t * t;
+    const clamp01 = t => Math.max(0, Math.min(1, t));
     let vw = innerWidth, vh = innerHeight;
+    let globeR = 240;
+    let satProgress = 0; // phase-3 reveal, read by the orbit loop
+
+    // ── build the orbiting open-source satellites ──
+    const sats = LABS.map((item, i) => {
+      const el = document.createElement('div');
+      el.className = 'globe-sat';
+      el.innerHTML = `<img src="${encodeURI(OSS_DIR + item.img)}" alt="" loading="lazy" draggable="false" />`;
+      satLayer.appendChild(el);
+      return {
+        el,
+        R: 0.98 + (i % 4) * 0.17,                          // ring, ×globeR
+        incl: ((i * 41) % 90 - 45) * Math.PI / 180,        // orbit tilt
+        node: (i * 57) * Math.PI / 180,                    // plane orientation
+        phase: (i * 47) * Math.PI / 180,                   // start angle
+        speed: (0.5 + (i % 5) * 0.13) * (i % 2 ? -1 : 1),  // rad/s, alternating dir
+      };
+    });
 
     function measure() {
       if (!desktop.matches) {
@@ -479,35 +501,75 @@
         return;
       }
       vw = innerWidth; vh = innerHeight;
-      section.style.height = Math.round(vh * 2.4) + 'px'; // ~1.4vh of scroll room
+      globeR = (canvas.getBoundingClientRect().width || 480) / 2;
+      section.style.height = Math.round(vh * 3.4) + 'px'; // room for three phases
       render();
     }
+
+    // phase boundaries (fractions of total scroll)
+    const P1 = 0.26;   // globe orbits in
+    const P2 = 0.44;   // text reveals
+    const P3 = 0.60;   // text scrolls up & out; then satellites orbit
 
     function render() {
       if (!desktop.matches) return;
       const rect = section.getBoundingClientRect();
       const scrollable = section.offsetHeight - vh;
-      const p = Math.max(0, Math.min(1, -rect.top / scrollable));
+      const p = clamp01(-rect.top / scrollable);
 
-      const SPLIT = 0.5;
-      const q = easeOut(Math.max(0, Math.min(1, p / SPLIT)));                 // globe orbits in
-      const r = easeOut(Math.max(0, Math.min(1, (p - SPLIT) / (1 - SPLIT)))); // text scrolls up
+      const q = easeOut(clamp01(p / P1));                       // globe in
+      const rin = easeOut(clamp01((p - P1) / (P2 - P1)));       // text rise-in
+      const rout = easeIn(clamp01((p - P2) / (P3 - P2)));       // text rise-out
+      satProgress = easeOut(clamp01((p - P3) / (1 - P3)));      // satellites appear
 
-      // orbital path (quadratic bezier): rises from below, arcs right into center
+      // globe: quadratic-bezier orbit-in, then holds centre
       const p0 = { x: vw * 0.05, y: vh * 0.46 };
       const p1 = { x: vw * 0.28, y: vh * 0.06 };
       const t = q, mt = 1 - t;
       const ox = mt * mt * p0.x + 2 * mt * t * p1.x;
       const oy = mt * mt * p0.y + 2 * mt * t * p1.y;
-      const scale = 0.74 + 0.26 * q;
-      orbit.style.transform = `translate3d(${ox.toFixed(1)}px, ${oy.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+      orbit.style.transform = `translate3d(${ox.toFixed(1)}px, ${oy.toFixed(1)}px, 0) scale(${(0.74 + 0.26 * q).toFixed(3)})`;
       orbit.style.opacity = (0.55 + 0.45 * q).toFixed(3);
 
-      // text rises up into place during phase 2
-      const ty = (1 - r) * vh * 0.26;
+      // text: rises into place (phase 2), then scrolls up and out (phase 3a)
+      const ty = (1 - rin) * vh * 0.26 - rout * vh * 0.34;
       text.style.transform = `translate3d(0, ${ty.toFixed(1)}px, 0)`;
-      text.style.opacity = r.toFixed(3);
+      text.style.opacity = (rin * (1 - rout)).toFixed(3);
     }
+
+    // ── continuous 3D orbit of the satellites ──
+    let satsHidden = false;
+    function orbitFrame(now) {
+      if (desktop.matches && satProgress > 0.001) {
+        satsHidden = false;
+        const time = now * 0.001;
+        const spread = 0.35 + 0.65 * satProgress;
+        for (const s of sats) {
+          const th = s.phase + time * s.speed;
+          // circle in the orbit's own plane
+          let x = Math.cos(th) * s.R * globeR;
+          let z = Math.sin(th) * s.R * globeR;
+          let y = 0;
+          // tilt around X
+          const y1 = y * Math.cos(s.incl) - z * Math.sin(s.incl);
+          const z1 = y * Math.sin(s.incl) + z * Math.cos(s.incl);
+          // orient plane around Y
+          const x2 = x * Math.cos(s.node) + z1 * Math.sin(s.node);
+          const z2 = -x * Math.sin(s.node) + z1 * Math.cos(s.node);
+          const depth = (z2 / (s.R * globeR) + 1) / 2;        // 0 back → 1 front
+          const sc = (0.55 + 0.55 * depth) * (0.5 + 0.5 * satProgress);
+          s.el.style.transform =
+            `translate3d(calc(-50% + ${(x2 * spread).toFixed(1)}px), calc(-50% + ${(y1 * spread).toFixed(1)}px), 0) scale(${sc.toFixed(3)})`;
+          s.el.style.opacity = ((0.35 + 0.65 * depth) * satProgress).toFixed(3);
+          s.el.style.zIndex = depth > 0.5 ? 6 : 2;
+        }
+      } else if (!satsHidden) {
+        satsHidden = true;
+        for (const s of sats) s.el.style.opacity = '0';
+      }
+      requestAnimationFrame(orbitFrame);
+    }
+    requestAnimationFrame(orbitFrame);
 
     addEventListener('scroll', render, { passive: true });
     addEventListener('resize', measure);
