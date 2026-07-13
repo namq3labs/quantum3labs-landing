@@ -468,6 +468,7 @@
     const orbit = section.querySelector('[data-globe-orbit]');
     const text = section.querySelector('[data-globe-text]');
     const satLayer = section.querySelector('[data-globe-satellites]');
+    const ossHead = section.querySelector('[data-globe-osshead]');
     const canvas = document.getElementById('globe-canvas');
     const desktop = matchMedia('(min-width: 1024px)');
     const easeOut = t => 1 - Math.pow(1 - t, 3);
@@ -476,17 +477,28 @@
     const clamp01 = t => Math.max(0, Math.min(1, t));
     let vw = innerWidth, vh = innerHeight;
     let globeR = 240;
-    let satProgress = 0;  // phase-3 reveal, read by the orbit loop
-    let lineProgress = 0; // phase-4 line-up, read by the orbit loop
+    let satProgress = 0;    // reveal + orbit
+    let lineProgress = 0;   // orbit → compact row
+    let scaleProgress = 0;  // compact → full cards + names
+    let scrollProgress = 0; // horizontal scroll of the full row
 
-    // ── build the orbiting open-source satellites ──
+    // ── build the orbiting open-source cards (full-size, sharp, clickable) ──
     const sats = LABS.map((item, i) => {
-      const el = document.createElement('div');
+      const el = document.createElement('a');
       el.className = 'globe-sat';
-      el.innerHTML = `<img src="${encodeURI(OSS_DIR + item.img)}" alt="" loading="lazy" draggable="false" />`;
+      el.href = item.link || '#';
+      el.target = '_blank';
+      el.rel = 'noopener';
+      el.innerHTML = `
+        <span class="globe-sat_frame"><img src="${encodeURI(OSS_DIR + item.img)}" alt="${item.title}" loading="lazy" draggable="false" /></span>
+        <span class="globe-sat_meta">
+          <span class="globe-sat_title">${item.title}</span>
+          <span class="globe-sat_tag">${item.tag}</span>
+        </span>`;
       satLayer.appendChild(el);
       return {
         el,
+        meta: el.querySelector('.globe-sat_meta'),
         R: 0.98 + (i % 4) * 0.17,                          // ring, ×globeR
         incl: ((i * 41) % 90 - 45) * Math.PI / 180,        // orbit tilt
         node: (i * 57) * Math.PI / 180,                    // plane orientation
@@ -504,16 +516,18 @@
       }
       vw = innerWidth; vh = innerHeight;
       globeR = (canvas.getBoundingClientRect().width || 480) / 2;
-      section.style.height = Math.round(vh * 4.2) + 'px'; // room for four phases
+      section.style.height = Math.round(vh * 7.4) + 'px'; // globe + text + orbit + line-up + h-scroll
       render();
     }
 
     // phase boundaries (fractions of total scroll)
-    const P1 = 0.18;      // globe orbits in
-    const P2 = 0.30;      // text reveals
-    const P3 = 0.42;      // text scrolls up & out
-    const SAT_IN = 0.56;  // satellites faded in & orbiting
-    const LINE = 0.68;    // satellites start lining up
+    const P1 = 0.09;       // globe orbits in
+    const P2 = 0.15;       // text reveals
+    const P3 = 0.21;       // text scrolls up & out
+    const SAT_IN = 0.30;   // cards faded in & orbiting
+    const HOLD = 0.38;     // orbit holds a beat
+    const COMPACT = 0.45;  // cards form a small row
+    const FULL = 0.55;     // cards scale up to full size + names
 
     function render() {
       if (!desktop.matches) return;
@@ -521,71 +535,87 @@
       const scrollable = section.offsetHeight - vh;
       const p = clamp01(-rect.top / scrollable);
 
-      const q = easeOut(clamp01(p / P1));                          // globe in
-      const rin = easeOut(clamp01((p - P1) / (P2 - P1)));          // text rise-in
-      const rout = easeIn(clamp01((p - P2) / (P3 - P2)));          // text rise-out
-      satProgress = easeOut(clamp01((p - P3) / (SAT_IN - P3)));    // satellites appear
-      lineProgress = easeInOut(clamp01((p - LINE) / (1 - LINE)));  // satellites line up
+      const q = easeOut(clamp01(p / P1));                                // globe in
+      const rin = easeOut(clamp01((p - P1) / (P2 - P1)));                // text rise-in
+      const rout = easeIn(clamp01((p - P2) / (P3 - P2)));                // text rise-out
+      satProgress = easeOut(clamp01((p - P3) / (SAT_IN - P3)));          // cards appear
+      lineProgress = easeInOut(clamp01((p - HOLD) / (COMPACT - HOLD)));  // orbit → compact row
+      scaleProgress = easeInOut(clamp01((p - COMPACT) / (FULL - COMPACT))); // compact → full cards
+      scrollProgress = clamp01((p - FULL) / (1 - FULL));                // horizontal scroll
 
-      // globe: quadratic-bezier orbit-in, holds centre, then fades as icons line up
+      // globe: bezier orbit-in, holds centre, then fades as the cards line up
       const p0 = { x: vw * 0.05, y: vh * 0.46 };
       const p1 = { x: vw * 0.28, y: vh * 0.06 };
       const t = q, mt = 1 - t;
       const ox = mt * mt * p0.x + 2 * mt * t * p1.x;
       const oy = mt * mt * p0.y + 2 * mt * t * p1.y;
       orbit.style.transform = `translate3d(${ox.toFixed(1)}px, ${oy.toFixed(1)}px, 0) scale(${(0.74 + 0.26 * q).toFixed(3)})`;
-      orbit.style.opacity = ((0.55 + 0.45 * q) * (1 - 0.75 * lineProgress)).toFixed(3);
+      orbit.style.opacity = ((0.55 + 0.45 * q) * (1 - 0.9 * lineProgress)).toFixed(3);
 
-      // text: rises into place (phase 2), then scrolls up and out (phase 3a)
+      // text: rises into place (phase 2), then scrolls up and out (phase 3)
       const ty = (1 - rin) * vh * 0.26 - rout * vh * 0.34;
       text.style.transform = `translate3d(0, ${ty.toFixed(1)}px, 0)`;
       text.style.opacity = (rin * (1 - rout)).toFixed(3);
+
+      // open-source heading fades in as the cards scale up
+      if (ossHead) ossHead.style.opacity = scaleProgress.toFixed(3);
     }
 
-    // ── continuous 3D orbit of the satellites ──
+    // ── continuous orbit → row → full cards → horizontal scroll ──
     let satsHidden = false;
+    const CARD_W = 240, PAD = 40;
     function orbitFrame(now) {
       if (desktop.matches && satProgress > 0.001) {
         satsHidden = false;
         const time = now * 0.001;
         const spread = 0.35 + 0.65 * satProgress;
-        const L = lineProgress;
-        // horizontal-row target: evenly spaced across the viewport, scaled up
+        const L = lineProgress, S = scaleProgress, H = scrollProgress;
         const N = sats.length;
-        const gap = Math.min((vw * 0.86) / (N - 1), 104);
-        const rowScale = 1.55;
+        const fullScale = Math.min(1, (vw * 0.92) / (N > 0 ? CARD_W * 1 : CARD_W)); // cap
+        const fullGap = CARD_W * 1.06;
+        const compactGap = Math.min((vw * 0.86) / (N - 1), 96);
+        const compactScale = 0.42;
+        // horizontal-scroll offset (full row): card 0 near left → card N-1 near right
+        const half = (N - 1) / 2;
+        const offset0 = -vw / 2 + PAD + CARD_W / 2 + half * fullGap;
+        const offset1 = vw / 2 - PAD - CARD_W / 2 - half * fullGap;
+        const scrollOff = offset0 + (offset1 - offset0) * H;
+
         for (let i = 0; i < N; i++) {
           const s = sats[i];
           const th = s.phase + time * s.speed;
-          // circle in the orbit's own plane
-          let x = Math.cos(th) * s.R * globeR;
-          let z = Math.sin(th) * s.R * globeR;
-          let y = 0;
-          // tilt around X
-          const y1 = y * Math.cos(s.incl) - z * Math.sin(s.incl);
-          const z1 = y * Math.sin(s.incl) + z * Math.cos(s.incl);
-          // orient plane around Y
+          const x = Math.cos(th) * s.R * globeR;
+          const z = Math.sin(th) * s.R * globeR;
+          const y1 = -z * Math.sin(s.incl);
+          const z1 = z * Math.cos(s.incl);
           const x2 = x * Math.cos(s.node) + z1 * Math.sin(s.node);
           const z2 = -x * Math.sin(s.node) + z1 * Math.cos(s.node);
-          const depth = (z2 / (s.R * globeR) + 1) / 2;        // 0 back → 1 front
+          const depth = (z2 / (s.R * globeR) + 1) / 2;             // 0 back → 1 front
           const oScale = (0.55 + 0.55 * depth) * (0.5 + 0.5 * satProgress);
           const oOpacity = (0.35 + 0.65 * depth) * satProgress;
 
-          // phase 4: lerp orbit → horizontal row
-          const rowX = (i - (N - 1) / 2) * gap;
-          const px = (x2 * spread) * (1 - L) + rowX * L;
-          const py = (y1 * spread) * (1 - L);
-          const sc = oScale * (1 - L) + rowScale * L;
-          const op = oOpacity * (1 - L) + L;
+          const compactX = (i - half) * compactGap;
+          const fullX = (i - half) * fullGap + scrollOff;
+
+          // chain: orbit --L--> compact --S--> full(+scroll)
+          let px = (x2 * spread) * (1 - L) + compactX * L;
+          px = px * (1 - S) + fullX * S;
+          let py = (y1 * spread) * (1 - L);
+          py = py * (1 - S);
+          let sc = oScale * (1 - L) + compactScale * L;
+          sc = sc * (1 - S) + fullScale * S;
+          const op = (oOpacity * (1 - L) + L);
 
           s.el.style.transform =
             `translate3d(calc(-50% + ${px.toFixed(1)}px), calc(-50% + ${py.toFixed(1)}px), 0) scale(${sc.toFixed(3)})`;
           s.el.style.opacity = op.toFixed(3);
-          s.el.style.zIndex = L > 0.5 ? 5 : (depth > 0.5 ? 6 : 2);
+          s.el.style.zIndex = S > 0.4 ? 5 : (L > 0.5 ? 5 : (depth > 0.5 ? 6 : 2));
+          s.el.style.pointerEvents = S > 0.5 ? 'auto' : 'none';
+          if (s.meta) s.meta.style.opacity = S.toFixed(3);
         }
       } else if (!satsHidden) {
         satsHidden = true;
-        for (const s of sats) s.el.style.opacity = '0';
+        for (const s of sats) { s.el.style.opacity = '0'; s.el.style.pointerEvents = 'none'; }
       }
       requestAnimationFrame(orbitFrame);
     }
@@ -600,12 +630,10 @@
   }
 
   buildWorkCards();
-  buildLabsCards();
   buildOtherProjects();
   initImageTrail();
   initQuoteReveal();
   initGlobePin();
-  initLabsPin();
 
   // footer Work links open the project detail modal
   document.querySelectorAll('[data-open-project]').forEach(link =>

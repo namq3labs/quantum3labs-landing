@@ -541,25 +541,49 @@ canvas { display: block; }
   position: absolute;
   inset: 0;
   z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   pointer-events: none;
 }
+/* full-size open-source card; scaled DOWN during orbit (always sharp) */
 .globe-sat {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 42px;
-  height: 56px;              /* 3:4 — matches the 538×718 logo tiles */
-  border-radius: 7px;
-  overflow: hidden;
+  width: 240px;
+  transform-origin: center center;
   opacity: 0;
-  background: var(--paper);
-  box-shadow: 0 6px 22px rgba(1, 8, 40, 0.14);
+  text-decoration: none;
+  color: inherit;
   will-change: transform, opacity;
 }
-.globe-sat img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.globe-sat_frame {
+  display: block;
+  position: relative;
+  aspect-ratio: 3 / 4;       /* 538×718 tiles */
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ph);
+  box-shadow: 0 10px 34px rgba(1, 8, 40, 0.16);
+}
+.globe-sat_frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.globe-sat_meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 14px;
+  opacity: 0;                /* revealed when the cards scale up */
+}
+.globe-sat_title { font-size: 14px; color: var(--ink); }
+.globe-sat_tag { font-size: 12px; color: var(--dim); letter-spacing: 0.05em; }
+/* open-source heading — fades in as the cards scale up (phase 5) */
+.globe-oss-head {
+  position: absolute;
+  top: clamp(80px, 12vh, 120px);
+  left: 0; right: 0;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+}
+.globe-oss-head .text-link { pointer-events: auto; }
 /* prevent a flash of final-state before JS drives the scroll (desktop) */
 @media (min-width: 1024px) {
   .globe-text { opacity: 0; }
