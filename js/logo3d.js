@@ -22,7 +22,6 @@
     '<svg xmlns="http://www.w3.org/2000/svg" width="31" height="37" viewBox="0 0 31 37">' +
     '<path d="' + BRAND_PATH + '" fill="#4D58FF"/></svg>';
 
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const TAU = Math.PI * 2;
   const BASE_FRAC = 0.3;   // logo height ≈ 30% of viewport at rest
@@ -86,6 +85,7 @@
     metalness: 0.0,
     bumpMap: bump,
     bumpScale: 0.7,
+    side: THREE.DoubleSide,   // safety: render both faces regardless of winding
   });
 
   // ── extrude the brand mark into 3D ──
@@ -102,13 +102,14 @@
   const geometry = new THREE.ExtrudeGeometry(shapes, {
     depth: 9,
     bevelEnabled: true,
-    bevelThickness: 1.4,
-    bevelSize: 0.9,
-    bevelSegments: 4,
+    bevelThickness: 0.6,
+    bevelSize: 0.35,
+    bevelSegments: 3,
     curveSegments: 44,
   });
-  geometry.applyMatrix4(new THREE.Matrix4().makeScale(1, -1, 1)); // SVG y-down → y-up
-  geometry.computeVertexNormals();
+  // SVG y is down: flip with a ROTATION (rigid → keeps winding + normals correct).
+  // A negative scale would mirror the mesh and invert every normal.
+  geometry.applyMatrix4(new THREE.Matrix4().makeRotationX(Math.PI));
   geometry.center();
 
   const group = new THREE.Group();
@@ -131,10 +132,10 @@
     baseScale = (BASE_FRAC * visibleHeight()) / size.y;
   });
 
-  // ── scroll-driven render loop ──
-  let idle = 0;
+  // ── scroll-driven render loop (no idle spin — rotates only while scrolling) ──
+  const BASE_TILT_Y = -0.42;   // fixed 3/4 view at rest so it still reads as 3D
+  const BASE_TILT_X = 0.12;
   function frame() {
-    const vh = window.innerHeight;
     const wr = warp.getBoundingClientRect();
     const active = wr.bottom > 0;                 // hero + warp region on screen
     const denom = Math.max(1, warp.offsetHeight); // full warp height = transition span
@@ -151,12 +152,10 @@
     }
     if (canvas.style.display === 'none') canvas.style.display = '';
 
-    idle += reduce ? 0 : 0.0032;
-    const ease = p * p;                            // zoom accelerates toward the end
-    group.rotation.y = idle + p * TAU * 2.2;       // idle drift → several spins
-    group.rotation.x = (reduce ? 0 : Math.sin(idle * 0.6) * 0.1) + p * 0.35;
+    const ease = p * p;                                 // zoom accelerates toward the end
+    group.rotation.y = BASE_TILT_Y + p * TAU * 2.2;     // still at rest, spins as you scroll
+    group.rotation.x = BASE_TILT_X + p * 0.35;
     group.scale.setScalar(baseScale * (1 + ease * 15));
-    group.position.y = reduce ? 0 : (1 - p) * Math.sin(idle * 0.9) * 3;
 
     canvas.style.opacity = (p < 0.82 ? 1 : clamp(1 - (p - 0.82) / 0.18, 0, 1)).toFixed(3);
 
