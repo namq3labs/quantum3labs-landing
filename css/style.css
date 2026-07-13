@@ -658,15 +658,23 @@ canvas { display: block; }
   position: relative;
   transition: background 0.6s var(--ease-expo);
 }
-/* logo image slot — replace with partner mark */
-.partners_logo::after {
+/* empty slot placeholder mark (only when no logo image present) */
+.partners_logo:not(:has(img))::after {
   content: '';
   position: absolute;
   inset: 30% 32%;
   background: var(--ph);
   transition: background 0.6s var(--ease-expo);
 }
-.partners_logo:hover::after { background: var(--ph-deep); }
+.partners_logo:not(:has(img)):hover::after { background: var(--ph-deep); }
+.partners_logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 /* ─── hiring process ───────────────────────────────────────── */
 
