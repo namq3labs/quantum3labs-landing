@@ -19,6 +19,7 @@
     {
       title: 'Stormbit', date: '2025', tag: 'DEFI',
       logo: 'public/featured-project/Stormbit.png',
+      thumb: 'public/featured-project/thumbnail/Stormbit.jpg',
       blurb: 'Decentralized lending infrastructure.',
       statement: 'A LENDING PROTOCOL THAT TURNS IDLE LIQUIDITY INTO OPPORTUNITY FOR BUILDERS AND FUNDS.',
       dev: ['PROTOCOL DESIGN', 'SMART CONTRACTS', 'SECURITY AUDIT'],
@@ -30,6 +31,7 @@
     {
       title: 'Qash', date: '2025', tag: 'FINTECH',
       logo: 'public/featured-project/Qash.png',
+      thumb: 'public/featured-project/thumbnail/Qash.jpg',
       blurb: 'Payments that move at market speed.',
       statement: 'A PAYMENTS STACK THAT MAKES MOVING MONEY FEEL LIKE MOVING DATA.',
       dev: ['FULLSTACK BUILD', 'INFRASTRUCTURE', 'CMS SETUP'],
@@ -41,6 +43,7 @@
     {
       title: 'Prism', date: '2025', tag: 'ANALYTICS',
       logo: 'public/featured-project/Prism.png',
+      thumb: 'public/featured-project/thumbnail/Prism.jpg',
       blurb: 'Seeing on-chain data in full spectrum.',
       statement: 'AN ANALYTICS SURFACE THAT SPLITS RAW ON-CHAIN NOISE INTO SIGNALS TEAMS CAN ACT ON.',
       dev: ['DATA PIPELINE', 'API DESIGN', 'DASHBOARDS'],
@@ -52,6 +55,7 @@
     {
       title: 'Polypay', date: '2025', tag: 'PAYMENTS',
       logo: 'public/featured-project/Polypay.png',
+      thumb: 'public/featured-project/thumbnail/Polypay.jpg',
       blurb: 'One checkout for every chain.',
       statement: 'A CHECKOUT LAYER THAT LETS ANY BUSINESS ACCEPT ANY ASSET ON ANY CHAIN.',
       dev: ['SDK & INTEGRATIONS', 'SMART CONTRACTS', 'INFRA'],
@@ -63,6 +67,7 @@
     {
       title: 'Pact Network', date: '2025', tag: 'PROTOCOL',
       logo: 'public/featured-project/Pact.png',
+      thumb: 'public/featured-project/thumbnail/Pact.jpg',
       blurb: 'Agreements that enforce themselves.',
       statement: 'A COORDINATION NETWORK WHERE COMMITMENTS ARE CODE AND TRUST IS THE DEFAULT.',
       dev: ['PROTOCOL DESIGN', 'NODE INFRASTRUCTURE', 'AUDITS'],
@@ -109,8 +114,11 @@
       const card = document.createElement('a');
       card.href = '#';
       card.className = 'card';
+      const media = item.thumb
+        ? `<img class="card_img" src="${encodeURI(item.thumb)}" alt="${item.title}" loading="lazy" draggable="false" />`
+        : '<div class="ph"></div>';
       card.innerHTML = `
-        <div class="card_media"><div class="ph"></div></div>
+        <div class="card_media">${media}</div>
         <div class="card_meta">
           <span class="card_index">[${String(i + 1).padStart(2, '0')}]</span>
           <span>
@@ -200,6 +208,14 @@
     modal.querySelector('[data-list="design"]').innerHTML = p.design.map(t => `<li>${t}</li>`).join('');
     modal.querySelector('[data-text="challenge"]').textContent = p.challenge;
     modal.querySelector('[data-text="solution"]').textContent = p.solution;
+    const media = modal.querySelector('.pmodal_media');
+    if (p.thumb) {
+      media.classList.remove('ph');
+      media.style.backgroundImage = `url("${encodeURI(p.thumb)}")`;
+    } else {
+      media.classList.add('ph');
+      media.style.backgroundImage = '';
+    }
     modal.querySelector('.pmodal_main').scrollTop = 0;
   }
 

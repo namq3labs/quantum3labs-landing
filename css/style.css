@@ -403,6 +403,13 @@ canvas { display: block; }
 .card:hover .card_media { transform: scale(0.98); }
 /* image slot — swap the .ph fill for the real artwork */
 .card_media .ph { position: absolute; inset: 0; }
+.card_img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .card_media::after {
   content: '';
   position: absolute; inset: 0;
@@ -789,6 +796,8 @@ canvas { display: block; }
 .pmodal_media {
   min-height: 420px;
   flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
 }
 .pmodal_story {
   display: flex;
