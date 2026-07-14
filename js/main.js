@@ -392,11 +392,12 @@
 
   /* ─── quote: scroll-to-reveal words ────────────────────── */
 
-  function initQuoteReveal() {
-    const block = document.querySelector('[data-quote-reveal]');
-    if (!block) return;
+  function initMissionPin() {
+    const pin = document.querySelector('[data-mission-pin]');
+    if (!pin) return;
+    const block = pin.querySelector('[data-quote-reveal]');
 
-    // wrap every word in a span
+    // wrap every word in a span (for the reveal)
     block.querySelectorAll('p').forEach(p => {
       p.innerHTML = p.textContent.trim().split(/\s+/)
         .map(w => `<span class="word">${w}</span>`)
@@ -404,15 +405,42 @@
     });
     const words = [...block.querySelectorAll('.word')];
 
+    // per-figure timing — staggered rise from below → up and off the top
+    const figs = [...pin.querySelectorAll('.quote-fig')].map((el, i) => {
+      el.addEventListener('error', () => { el.dataset.broken = '1'; });
+      return {
+        el,
+        start: 0.16 + i * 0.09,
+        span: 0.4,
+        drift: (i % 2 ? 1 : -1) * (18 + i * 7),   // gentle horizontal arc
+        rot: (i % 2 ? -1 : 1) * (5 + i * 1.5),
+      };
+    });
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
     function update() {
-      const r = block.getBoundingClientRect();
+      const rect = pin.getBoundingClientRect();
       const vh = innerHeight;
-      // progress 0 → 1 while the block travels from 85% to 35% of the viewport
-      const progress = Math.max(0, Math.min(1,
-        (vh * 0.85 - r.top) / (r.height + vh * 0.5)
-      ));
-      const lit = Math.floor(progress * words.length);
+      // 0 as the pin locks, 1 as it's about to release
+      const p = clamp(-rect.top / (pin.offsetHeight - vh), 0, 1);
+
+      // 1) reveal the words first, while the quote is settling into the pin
+      const rp = clamp((p - 0.02) / 0.15, 0, 1);
+      const lit = Math.round(rp * words.length);
       words.forEach((w, i) => w.classList.toggle('is-on', i < lit));
+
+      // 2) then the figures slide up across the pinned quote and off the top
+      figs.forEach(f => {
+        const lp = clamp((p - f.start) / f.span, 0, 1);
+        const y = (0.82 - 1.64 * lp) * vh;             // below → above
+        const x = Math.sin(lp * Math.PI) * f.drift;    // slight arc
+        const rot = f.rot * Math.sin(lp * Math.PI);
+        const broken = f.el.dataset.broken || (f.el.complete && f.el.naturalWidth === 0);
+        const op = broken ? 0 : clamp(lp / 0.06, 0, 1) * clamp((1 - lp) / 0.06, 0, 1);
+        f.el.style.transform =
+          `translate(-50%,-50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
+        f.el.style.opacity = op.toFixed(3);
+      });
     }
     addEventListener('scroll', update, { passive: true });
     addEventListener('resize', update, { passive: true });
@@ -807,7 +835,7 @@
   initHeroMarquee();
   initManifesto();
   initImageTrail();
-  initQuoteReveal();
+  initMissionPin();
   initGlobePin();
   initPrismModal();
 
