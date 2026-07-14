@@ -392,9 +392,16 @@ canvas { display: block; }
 /* ─── WE ARE — brand-blue statement section ────────────────── */
 
 .weare {
-  background: var(--brand);
+  /* solid brand blue, then fade to white across the empty space below the
+     features so the section blends into the white mission — no hard cut */
+  background: linear-gradient(
+    to bottom,
+    var(--brand) 0%,
+    var(--brand) calc(100% - 26vh),
+    var(--paper) 100%
+  );
   color: #EFF4FF;
-  padding: clamp(90px, 12vw, 150px) var(--pad);
+  padding: clamp(90px, 12vw, 150px) var(--pad) 30vh;
 }
 .weare_inner {
   max-width: 1040px;
