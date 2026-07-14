@@ -405,18 +405,22 @@
     });
     const words = [...block.querySelectorAll('.word')];
 
-    // per-figure timing — staggered rise from below → up and off the top.
-    // velK = how much this figure tilts per unit of scroll velocity (alternating)
+    // scattered layout — x position and rise timing are deliberately NOT correlated
+    // (non-monotonic) so the figures drift up at random spots, not along one diagonal.
+    // left = horizontal %, start/span = when/how long it rises, drift = arc, slide =
+    // horizontal travel while rising, velK = tilt per unit of scroll velocity.
+    const LAYOUT = [
+      { left: 21, start: 0.17, span: 0.44, drift:  32, slide:  44, rot:  8, velK:  0.060 },
+      { left: 73, start: 0.36, span: 0.40, drift: -26, slide: -58, rot: -6, velK: -0.075 },
+      { left: 44, start: 0.54, span: 0.42, drift:  22, slide:  30, rot:  7, velK:  0.085 },
+      { left: 87, start: 0.26, span: 0.46, drift: -40, slide: -32, rot: -9, velK: -0.060 },
+      { left:  9, start: 0.45, span: 0.38, drift:  28, slide:  62, rot:  6, velK:  0.095 },
+    ];
     const figs = [...pin.querySelectorAll('.quote-fig')].map((el, i) => {
       el.addEventListener('error', () => { el.dataset.broken = '1'; });
-      return {
-        el,
-        start: 0.16 + i * 0.09,
-        span: 0.4,
-        drift: (i % 2 ? 1 : -1) * (18 + i * 7),   // gentle horizontal arc
-        rot: (i % 2 ? -1 : 1) * (4 + i * 1.2),    // small base arc tilt
-        velK: (i % 2 ? 1 : -1) * (0.05 + i * 0.014),
-      };
+      const cfg = LAYOUT[i] || LAYOUT[LAYOUT.length - 1];
+      el.style.left = cfg.left + '%';
+      return Object.assign({ el }, cfg);
     });
     const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -443,8 +447,8 @@
         const v = clamp(vel, -70, 70);                 // clamp → keeps the tilt subtle
         figs.forEach(f => {
           const lp = clamp((p - f.start) / f.span, 0, 1);
-          const ty = (0.82 - 1.64 * lp) * vh;          // below → above
-          const tx = Math.sin(lp * Math.PI) * f.drift; // slight arc
+          const ty = (0.82 - 1.64 * lp) * vh;                          // below → above
+          const tx = Math.sin(lp * Math.PI) * f.drift + (lp - 0.5) * f.slide;  // arc + sideways travel
           const rot = f.rot * Math.sin(lp * Math.PI) + v * f.velK;  // scroll-driven tilt
           const broken = f.el.dataset.broken || (f.el.complete && f.el.naturalWidth === 0);
           const op = broken ? 0 : clamp(lp / 0.06, 0, 1) * clamp((1 - lp) / 0.06, 0, 1);

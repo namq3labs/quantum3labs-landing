@@ -515,11 +515,12 @@ canvas { display: block; }
   will-change: transform, opacity;
   filter: drop-shadow(0 22px 42px rgba(20, 24, 60, 0.20));
 }
-.quote-fig.is-1 { left: 13%; width: clamp(88px, 9vw, 150px); }
-.quote-fig.is-2 { left: 33%; width: clamp(120px, 13vw, 210px); }
-.quote-fig.is-3 { left: 51%; width: clamp(96px, 10vw, 165px); }
-.quote-fig.is-4 { left: 70%; width: clamp(128px, 14vw, 220px); }
-.quote-fig.is-5 { left: 88%; width: clamp(92px, 10vw, 158px); }
+/* horizontal position (left) is set from JS for a scattered layout; sizes vary here */
+.quote-fig.is-1 { width: clamp(88px, 9vw, 150px); }
+.quote-fig.is-2 { width: clamp(120px, 13vw, 210px); }
+.quote-fig.is-3 { width: clamp(96px, 10vw, 165px); }
+.quote-fig.is-4 { width: clamp(128px, 14vw, 220px); }
+.quote-fig.is-5 { width: clamp(92px, 10vw, 158px); }
 .quote_text {
   max-width: 1100px;
   margin: 0 auto;
