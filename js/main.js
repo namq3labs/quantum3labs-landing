@@ -462,6 +462,37 @@
     requestAnimationFrame(render);
   }
 
+  /* ─── background colour shift: blue we-are → white mission ─── */
+
+  function initSectionBg() {
+    const weare = document.getElementById('about');
+    const mission = document.getElementById('quote');
+    if (!weare || !mission) return;
+    const B = [77, 88, 255], W = [255, 255, 255];
+    const clamp = v => Math.max(0, Math.min(1, v));
+    let padB = parseFloat(getComputedStyle(weare).paddingBottom) || 1;
+
+    function update() {
+      const r = weare.getBoundingClientRect();
+      // p ramps 0 → 1 only once the we-are CONTENT has scrolled off the top,
+      // across the empty bottom padding — so both sections change colour as one
+      // uniform background, never a gradient, and the text never washes out.
+      const p = clamp((padB - r.bottom) / padB);
+      const c = 'rgb(' +
+        Math.round(B[0] + (W[0] - B[0]) * p) + ',' +
+        Math.round(B[1] + (W[1] - B[1]) * p) + ',' +
+        Math.round(B[2] + (W[2] - B[2]) * p) + ')';
+      weare.style.backgroundColor = c;
+      mission.style.backgroundColor = c;
+    }
+    addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', () => {
+      padB = parseFloat(getComputedStyle(weare).paddingBottom) || 1;
+      update();
+    }, { passive: true });
+    update();
+  }
+
   /* ─── open-source: pin + horizontal scroll ─────────────── */
 
   function initLabsPin() {
@@ -851,6 +882,7 @@
   initManifesto();
   initImageTrail();
   initMissionPin();
+  initSectionBg();
   initGlobePin();
   initPrismModal();
 

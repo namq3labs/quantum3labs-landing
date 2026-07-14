@@ -392,16 +392,12 @@ canvas { display: block; }
 /* ─── WE ARE — brand-blue statement section ────────────────── */
 
 .weare {
-  /* solid brand blue, then fade to white across the empty space below the
-     features so the section blends into the white mission — no hard cut */
-  background: linear-gradient(
-    to bottom,
-    var(--brand) 0%,
-    var(--brand) calc(100% - 26vh),
-    var(--paper) 100%
-  );
+  /* solid brand blue; JS shifts this (and the mission) uniformly to white as
+     you scroll past — a whole-background colour change, not a gradient. The
+     bottom padding is the empty zone the colour shift plays across. */
+  background: var(--brand);
   color: #EFF4FF;
-  padding: clamp(90px, 12vw, 150px) var(--pad) 30vh;
+  padding: clamp(90px, 12vw, 150px) var(--pad) 25vh;
 }
 .weare_inner {
   max-width: 1040px;
