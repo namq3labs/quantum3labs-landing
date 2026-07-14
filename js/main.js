@@ -405,7 +405,8 @@
     });
     const words = [...block.querySelectorAll('.word')];
 
-    // per-figure timing — staggered rise from below → up and off the top
+    // per-figure timing — staggered rise from below → up and off the top.
+    // velK = how much this figure tilts per unit of scroll velocity (alternating)
     const figs = [...pin.querySelectorAll('.quote-fig')].map((el, i) => {
       el.addEventListener('error', () => { el.dataset.broken = '1'; });
       return {
@@ -413,38 +414,48 @@
         start: 0.16 + i * 0.09,
         span: 0.4,
         drift: (i % 2 ? 1 : -1) * (18 + i * 7),   // gentle horizontal arc
-        rot: (i % 2 ? -1 : 1) * (5 + i * 1.5),
+        rot: (i % 2 ? -1 : 1) * (4 + i * 1.2),    // small base arc tilt
+        velK: (i % 2 ? 1 : -1) * (0.05 + i * 0.014),
       };
     });
     const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
-    function update() {
+    // scroll velocity, measured per frame and eased back to 0 when scrolling stops
+    let lastY = window.scrollY || window.pageYOffset || 0;
+    let vel = 0;
+
+    function render() {
+      const y = window.scrollY || window.pageYOffset || 0;
+      vel += ((y - lastY) - vel) * 0.18;   // smooth toward this frame's scroll delta
+      lastY = y;
+
       const rect = pin.getBoundingClientRect();
       const vh = innerHeight;
-      // 0 as the pin locks, 1 as it's about to release
-      const p = clamp(-rect.top / (pin.offsetHeight - vh), 0, 1);
+      if (rect.bottom > 0 && rect.top < vh) {          // only work while the pin is on screen
+        const p = clamp(-rect.top / (pin.offsetHeight - vh), 0, 1);
 
-      // 1) reveal the words first, while the quote is settling into the pin
-      const rp = clamp((p - 0.02) / 0.15, 0, 1);
-      const lit = Math.round(rp * words.length);
-      words.forEach((w, i) => w.classList.toggle('is-on', i < lit));
+        // 1) reveal the words first, while the quote settles into the pin
+        const rp = clamp((p - 0.02) / 0.15, 0, 1);
+        const lit = Math.round(rp * words.length);
+        words.forEach((w, i) => w.classList.toggle('is-on', i < lit));
 
-      // 2) then the figures slide up across the pinned quote and off the top
-      figs.forEach(f => {
-        const lp = clamp((p - f.start) / f.span, 0, 1);
-        const y = (0.82 - 1.64 * lp) * vh;             // below → above
-        const x = Math.sin(lp * Math.PI) * f.drift;    // slight arc
-        const rot = f.rot * Math.sin(lp * Math.PI);
-        const broken = f.el.dataset.broken || (f.el.complete && f.el.naturalWidth === 0);
-        const op = broken ? 0 : clamp(lp / 0.06, 0, 1) * clamp((1 - lp) / 0.06, 0, 1);
-        f.el.style.transform =
-          `translate(-50%,-50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
-        f.el.style.opacity = op.toFixed(3);
-      });
+        // 2) figures slide up and tilt slightly with the scroll motion
+        const v = clamp(vel, -70, 70);                 // clamp → keeps the tilt subtle
+        figs.forEach(f => {
+          const lp = clamp((p - f.start) / f.span, 0, 1);
+          const ty = (0.82 - 1.64 * lp) * vh;          // below → above
+          const tx = Math.sin(lp * Math.PI) * f.drift; // slight arc
+          const rot = f.rot * Math.sin(lp * Math.PI) + v * f.velK;  // scroll-driven tilt
+          const broken = f.el.dataset.broken || (f.el.complete && f.el.naturalWidth === 0);
+          const op = broken ? 0 : clamp(lp / 0.06, 0, 1) * clamp((1 - lp) / 0.06, 0, 1);
+          f.el.style.transform =
+            `translate(-50%,-50%) translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) rotate(${rot.toFixed(2)}deg)`;
+          f.el.style.opacity = op.toFixed(3);
+        });
+      }
+      requestAnimationFrame(render);
     }
-    addEventListener('scroll', update, { passive: true });
-    addEventListener('resize', update, { passive: true });
-    update();
+    requestAnimationFrame(render);
   }
 
   /* ─── open-source: pin + horizontal scroll ─────────────── */
