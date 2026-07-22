@@ -926,7 +926,7 @@
 
   const hoverSfx = new Audio('public/sfx/hover-click.wav');
   hoverSfx.preload = 'auto';
-  hoverSfx.volume = 0.3;
+  hoverSfx.volume = 0.2;
 
   const primeSfx = () => {
     hoverSfx.muted = true;
