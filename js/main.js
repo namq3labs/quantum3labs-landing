@@ -924,7 +924,7 @@
   // Browsers block audio until the first user gesture, so we "prime" the
   // element on the first interaction; hover plays are allowed afterwards.
 
-  const hoverSfx = new Audio('public/sfx/hover-click.mp3');
+  const hoverSfx = new Audio('public/sfx/hover-click.wav');
   hoverSfx.preload = 'auto';
   hoverSfx.volume = 0.35;
 
