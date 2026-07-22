@@ -916,4 +916,45 @@
   overlay.querySelectorAll('a').forEach(a =>
     a.addEventListener('click', () => overlay.classList.remove('is-open'))
   );
+
+  /* ─── hover sfx — What we do + Other projects rows ─────── */
+  // Both sections render their rows as .services_row, so one delegated
+  // listener on document covers the static "What we do" rows and the
+  // "Other projects" rows injected by buildOtherProjects().
+  // Browsers block audio until the first user gesture, so we "prime" the
+  // element on the first interaction; hover plays are allowed afterwards.
+
+  const hoverSfx = new Audio('public/sfx/hover-click.mp3');
+  hoverSfx.preload = 'auto';
+  hoverSfx.volume = 0.35;
+
+  const primeSfx = () => {
+    hoverSfx.muted = true;
+    const p = hoverSfx.play();
+    if (p && p.then) {
+      p.then(() => {
+        hoverSfx.pause();
+        hoverSfx.currentTime = 0;
+        hoverSfx.muted = false;
+      }).catch(() => { hoverSfx.muted = false; });
+    } else {
+      hoverSfx.muted = false;
+    }
+  };
+  ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(t =>
+    window.addEventListener(t, primeSfx, { passive: true, once: true })
+  );
+
+  let sfxRow = null;
+  document.addEventListener('mouseover', e => {
+    const row = e.target.closest('.services_row');
+    if (!row) { sfxRow = null; return; }
+    if (row === sfxRow) return; // still hovering the same row
+    sfxRow = row;
+    hoverSfx.currentTime = 0;
+    hoverSfx.play().catch(() => {}); // pre-gesture rejections are harmless
+  });
+  document.addEventListener('mouseout', e => {
+    if (sfxRow && !e.relatedTarget?.closest?.('.services_row')) sfxRow = null;
+  });
 })();
